@@ -58,6 +58,10 @@
   scroll-behavior: smooth;
 }
 
+.berita-a {
+
+}
+
 .carousel-bg-caption {
   z-index: 4;
   left: 0px;
@@ -142,7 +146,7 @@ h6 {
 
 .header .btn-getstarted,
 .header .btn-getstarted:focus,
-.btn-primary2 {
+.btn-primary-orange {
   color: var(--contrast-color);
   background: var(--accent-color);
   font-size: 14px;
@@ -154,8 +158,8 @@ h6 {
 
 .header .btn-getstarted:hover,
 .header .btn-getstarted:focus:hover,
-.btn-primary2:hover,
-.btn-primary2:focus:hover {
+.btn-primary-orange:hover,
+.btn-primary-orange:focus:hover {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
