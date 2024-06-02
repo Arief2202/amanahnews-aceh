@@ -62,14 +62,14 @@
               <input type="text" class="form-control" placeholder="Cari Berita yang ingin anda baca" style="width: 50vw; border-width: 2px 2px;">
             </div>
             <div class="col">
-              <button class="btn -orange">Search</button>
+              <button class="btn btn-primary-orange">Search</button>
             </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left; margin-bottom: 5px;">Terbaru dari AMANAH</h3>
+            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left; border-bottom:2px solid #000000;">Terbaru dari AMANAH</h3>
           </div>
           <div class="col d-flex justify-content-end align-items-end mb-2">
             <div class="dropdown">
@@ -135,10 +135,28 @@
           <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
         </div><!-- End Section Title -->
         <div class="row">
-          @for($i=0; $i<10; $i++)
+          @for($i=0; $i<5; $i++)
+          <div class="col-xl-4 mb-3">
+            <a href="/berita/detail">
+              <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="100">
+                <img src="/assets/img/bg.jpg" alt="" style="width: 100%">
+                <h4 class="mt-3 mb-4" style="font-weight:600;">Pengelolaan Sampah di RDF Plant Rorotan, Jakarta Utara</h4>
+                <a href="mb-5">Baca Artikel ></a>
+              </div>
+            </a>
+          </div>
           <div class="col-xl-4 mb-3">
             <a href="/berita/detail">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="300">
+                <img src="/assets/img/bg.jpg" alt="" style="width: 100%">
+                <h4 class="mt-3 mb-4" style="font-weight:600;">Pengelolaan Sampah di RDF Plant Rorotan, Jakarta Utara</h4>
+                <a href="mb-5">Baca Artikel ></a>
+              </div>
+            </a>
+          </div>
+          <div class="col-xl-4 mb-3">
+            <a href="/berita/detail">
+              <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="500">
                 <img src="/assets/img/bg.jpg" alt="" style="width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">Pengelolaan Sampah di RDF Plant Rorotan, Jakarta Utara</h4>
                 <a href="mb-5">Baca Artikel ></a>
