@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tagname;
+use App\Models\tagname;
 
 class TagnameSeeder extends Seeder
 {
@@ -13,31 +13,31 @@ class TagnameSeeder extends Seeder
      */
     public function run(): void
     {
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Teknologi',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Aceh',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Pemuda',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Internet',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Info',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Mahasiswa',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Pelajar',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Kreativitas',
         ]);
-        Tagname::factory()->create([
+        tagname::factory()->create([
             'name' => 'Prestasi',
         ]);
     }
