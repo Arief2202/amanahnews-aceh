@@ -69,7 +69,7 @@
 
         <div class="row">
           <div class="col">
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left; border-bottom:2px solid #000000;">Terbaru dari AMANAH</h3>
+            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH</h3>
           </div>
           <div class="col d-flex justify-content-end align-items-end mb-2">
             <div class="dropdown">
