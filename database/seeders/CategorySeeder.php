@@ -13,21 +13,29 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->create([
+        category::create([
             'name' => 'Teknologi',
-            'slug' => 'teknologi'
+            'slug' => 'teknologi',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        Category::factory()->create([
+        category::create([
             'name' => 'Politik',
-            'slug' => 'politik'
+            'slug' => 'politik',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        Category::factory()->create([
+        category::create([
             'name' => 'Berita',
-            'slug' => 'berita'
+            'slug' => 'berita',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        Category::factory()->create([
+        category::create([
             'name' => 'Prestasi',
-            'slug' => 'prestasi'
+            'slug' => 'prestasi',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         
     }

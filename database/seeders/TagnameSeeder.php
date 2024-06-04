@@ -13,32 +13,50 @@ class TagnameSeeder extends Seeder
      */
     public function run(): void
     {
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Teknologi',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Aceh',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Pemuda',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Internet',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Info',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Mahasiswa',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Pelajar',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Kreativitas',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        tagname::factory()->create([
+        tagname::create([
             'name' => 'Prestasi',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 }
