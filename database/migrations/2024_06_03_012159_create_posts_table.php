@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('banner');
             $table->string('banner_source');
             $table->string('slug')->unique();
+            $table->longText('content');
             $table->integer('view_total')->default(0);
             $table->integer('view_monthly')->default(0);
             $table->integer('view_weekly')->default(0);

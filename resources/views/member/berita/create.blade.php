@@ -3,6 +3,15 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Tambahkan Berita Baru') }}
         </h2>
+        <style>
+          trix-toolbar [data-trix-attribute='quote'],
+          trix-toolbar [data-trix-attribute='code'] ,
+          trix-toolbar [data-trix-button-group='file-tools'],
+          trix-toolbar [data-trix-action='increaseNestingLevel'],
+          trix-toolbar [data-trix-action='decreaseNestingLevel']{
+            display: none;
+          }
+        </style>
     </x-slot>
 
     <div class="py-12">
@@ -38,6 +47,25 @@
   
                           </div>
 
+                          <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
+                            @error('title')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="slug" class="form-label">Slug</label>
+                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
+                            @error('slug')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="image" class="form-label">Thumbnail</label>
                             <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
@@ -62,18 +90,10 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
-                            @error('title')
-                              <div class="invalid-feedback">
-                                  {{ $message }}
-                              </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
-                            @error('slug')
+                            <label for="title" class="form-label">Content</label>
+                            <input id="x" type="hidden" name="content" class="@error('image_source') is-invalid @enderror" value="{{old('content')}}">
+                            <trix-editor class="@error('image_source') is-invalid @enderror" input="x"></trix-editor>
+                            @error('content')
                               <div class="invalid-feedback">
                                   {{ $message }}
                               </div>

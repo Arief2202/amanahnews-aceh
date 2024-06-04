@@ -7,6 +7,8 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="stylesheet" type="text/css" href="/vendor/trix-2.0.8/trix.css">
+        <script type="text/javascript" src="/vendor/trix-2.0.8/trix.umd.min.js"></script>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

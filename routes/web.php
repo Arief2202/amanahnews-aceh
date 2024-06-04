@@ -9,12 +9,6 @@ use App\Http\Controllers\TagnameController;
 Route::get('/', function () {
     return view('landing.index');
 });
-Route::get('/berita', function () {
-    return view('landing.berita');
-});
-Route::get('/berita/detail', function () {
-    return view('landing.detail-berita');
-});
 Route::get('/e-catalog', function () {
     return view('landing.e-catalog');
 });
@@ -37,6 +31,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::controller(PostController::class)->group(function () {
+    Route::get('/berita', 'berita')->name('berita');
+    Route::get('/berita/detail/{slug}', 'beritaDetail')->name('berita.detail');
+    Route::get('/berita/detail', function () {
+        return view('landing.detail-berita');
+    });
+});
+
 Route::middleware('auth')->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'edit')->name('profile.edit');
@@ -50,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/member/berita/create', 'create')->name('member.berita.create.post');
 
         Route::get('/member/berita/category', 'readCategory')->name('member.berita.category');
+        Route::get('/member/berita/detail/{id}', 'readDetail')->name('member.berita.detail');
         Route::get('/member/berita/tag', 'readTag')->name('member.berita.tag');
         Route::get('/member/berita/slug/check', 'checkSlug')->name('member.berita.slug.check');
     });
