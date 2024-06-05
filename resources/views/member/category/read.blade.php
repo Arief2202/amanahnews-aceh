@@ -26,13 +26,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for($a=0; $a<10; $a++)
+                            @foreach($categories as $category)
                             <tr>
-                                <td>{{$a+1}}</td>
-                                <td>{{fake()->sentence(rand(1,2))}}</td>
-                                <td>{{fake()->slug()}}</td>
+                                <td>{{$category->id}}</td>
+                                <td>{{$category->name}}</td>
+                                <td>{{$category->slug}}</td>
                             </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
 

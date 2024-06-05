@@ -28,7 +28,7 @@
               <div class="col" style="text-align: center;">            
                 <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
                 <p data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
-                <p data-aos="fade-up" data-aos-delay="200"><a class="btn btn-primary-orange p-3" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
+                <p data-aos="fade-up" data-aos-delay="200"><a href="/login" class="btn btn-primary-orange p-3" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
               </div>
             </div>
           </div>
@@ -44,22 +44,27 @@
           <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" style="border-radius: 30px">
   
-              @for($a=0; $a<10; $a++)
-              <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
-                <img src="/assets/img/bg.jpg" class="d-block w-100" alt="..." style="max-height: 800px;">
-                
-                <div class="carousel-caption d-none d-md-block w-100 p-3 carousel-bg-caption">
-                  <h1 class="d-flex justify-content-start" style="color: #ffffff; margin-top:50px;">Pemerintah Lakukan Tiga Langkah Besar Majukan Kebudayaan Aceh</h1>  
+              @foreach($carousel_items as $a=>$carousel_item)
+              <a href="{{route('berita.detail', ['slug' => $carousel_item->slug])}}">
+                <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
+                  <img src="/uploads/post/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 650px;">
+                  
+                  <div class="carousel-caption d-none d-md-block w-100 p-3 carousel-bg-caption">
+                    <div style="position: absolute;left:0px;bottom:0px;">
+                        <div class="d-flex justify-content-start align-items-start text-start ps-5 pe-5 pb-4">
+                          <h1 style="color: #ffffff; font-weight:600;">{{$carousel_item->title}}</h1>  
+                        </div>
+                    </div>
+                  </div>
                 </div>
-                {{-- <p>Some representative placeholder content for the first slide.</p> --}}
-              </div>
-              @endfor
+              </a>
+              @endforeach
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style="z-index: 10">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" style="z-index: 10">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
@@ -68,18 +73,18 @@
           <div class="container" style="margin-top:80px; margin-bottom:60px;">
             <h2 class="font-weight-light" style="font-weight: 700;">Berita Trending</h2>
             <div class="row mt-4">
-              @for($a=0; $a<4; $a++)
+              @foreach($trendings as $trending)
               <div class="col-md-3 mb-3">
                 <a class="myCard" href="">
-                  <img src="/assets/img/julianto-saputra-Museum Tsunami Aceh Sukaramai, Kec. Baiturrahman, Kota Banda Aceh.jpg" alt="">
+                  <img src="/uploads/post/image/{{$trending->banner}}" alt="">
   
-                  <div class="card-title">
-                    <h5 class="title">Pesawat Latih Jatuh di BSD Tangsel, 3 Orang Tewas</h5>
-                    <p class="time">5 Jam yang lalu</p>
+                  <div class="card-title ps-3 pe-3">
+                    <h5 class="title mt-5">{{$trending->title}}</h5>
+                    <p class="time">{{date('d M Y H:i:s', strtoTime($trending->updated_at ))}}</p>
                   </div>
                 </a>
               </div>
-              @endfor
+              @endforeach
             </div>
         </div>
   

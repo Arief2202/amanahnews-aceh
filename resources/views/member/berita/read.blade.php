@@ -27,6 +27,10 @@
                         <thead>
                             <tr>
                                 <th>id</th>
+                                <th>Preview</th>
+                                <th>Edit</th>
+                                <th>Publish Status</th>
+                                <th>Publish</th>
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Slug Link</th>
@@ -34,14 +38,24 @@
                                 <th>Total View</th>
                                 <th>Total View Monthly</th>
                                 <th>Total View Weekly</th>
-                                <th>Preview</th>
-                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($posts as $a=>$post)
                             <tr>
-                                <td>{{$a+1}}</td>
+                                <td>{{$post->id}}</td>
+                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">Preview</button></td>
+                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Edit</a></td>
+                                <td>
+                                    @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
+                                    @elseif($post->show == 0) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($post->show == 0) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-secondary">Publish</a>
+                                    @elseif($post->show == 1) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-secondary">Unpublish</a>
+                                    @endif
+                                </td>
                                 <td>{{$post->category->name}}</td>
                                 <td>{{$post->title}}</td>
                                 <td><a href="{{route('berita.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
@@ -49,8 +63,6 @@
                                 <td>{{$post->view_total}}</td>
                                 <td>{{$post->view_monthly}}</td>
                                 <td>{{$post->view_weekly}}</td>
-                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">Preview</button></td>
-                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-success">Edit</a></td>
                             </tr>
                             @endforeach
                         </tbody>

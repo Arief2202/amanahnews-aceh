@@ -29,8 +29,11 @@
                                 Select Category
                               </button>
                               <ul class="dropdown-menu" id="myDropdown">
-                                <div class="pe-2 ps-2"><input type="text" class="form-control" placeholder="Search.." id="myInput" onkeyup="filterFunction()"></div> 
-                                <div style="overflow-y: scroll;max-height: 300px;">
+                                <div class="pe-2 ps-2">
+                                  <input type="text" class="form-control mb-3" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                  <button class="btn btn-secondary w-100 mb-3" id="btnNew" style="display: none;" type="button" onclick="addNewCategory()">Add New Category</button>
+                                </div> 
+                                <div style="overflow-y: scroll; height: 150px;" id="dropDownItem">
                                   @foreach($categories as $i=>$category)
                                   <li><a class="dropdown-item" onclick="select('{{ $category->name }}', '{{ $category->id }}')">{{ $category->name }}</a></li>
                                   @endforeach
@@ -101,6 +104,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-end">
+                            <a href="{{route('member.berita')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </form>
@@ -130,14 +134,39 @@
               const filter = input.value.toUpperCase();
               const div = document.getElementById("myDropdown");
               const a = div.getElementsByTagName("li");
+              var count = 0;
               for (let i = 0; i < a.length; i++) {
                 txtValue = a[i].textContent || a[i].innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                   a[i].style.display = "";
+                  count += 1;
                 } else {
                   a[i].style.display = "none";
                 }
               }
+              
+              const btnNew = document.getElementById('btnNew');
+              if(count == 0){
+                btnNew.style.display = ""
+              }
+              else {
+                btnNew.style.display = "none"
+              }
+            }
+
+            function addNewCategory(){
+              const input = document.getElementById("myInput");
+              fetch("{{route('member.berita.newCategory.add')}}?name="+input.value)
+              .then(response => response.json())
+              .then(data => {
+                if(data.id > 0){
+                  const btnNew = document.getElementById('btnNew').style.display = "none";
+                  document.getElementById('dropDownItem').innerHTML += "<li><a class=\"dropdown-item\" onclick=\"select('"+data.name+"', '"+data.id+"')\">"+data.name+"</a></li>";
+                  document.getElementById("category").value = data.name;
+                  document.getElementById("category_show").value = data.name;
+                  document.getElementById("category_id").value = data.id;
+                }
+              });
             }
 
             function select(name, id){

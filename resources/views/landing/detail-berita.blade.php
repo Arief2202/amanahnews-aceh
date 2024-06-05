@@ -15,7 +15,7 @@
               <div class="container">
                 <ol>
                   <li><a href="/berita">Berita</a></li>
-                  <li class="current">Blog Details</li>
+                  <li class="current">{{$post->slug}}</li>
                 </ol>
               </div>
             </nav>

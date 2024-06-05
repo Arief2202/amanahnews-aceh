@@ -11,4 +11,11 @@ class tag extends Model
     protected $guarded = [
         'id',
     ];
+    
+    public function post(){
+        return $this->belongsTo(post::class);
+    }
+    public function tagname(){
+        return $this->belongsTo(tagname::class);
+    }
 }

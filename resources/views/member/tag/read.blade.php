@@ -12,7 +12,7 @@
                     <div class="d-flex justify-content-end mb-3">
                         <div class="row">
                             <div class="col-md-auto d-flex justify-content-center mb-3">
-                                <a href="{{route('member.berita.category.create')}}" class="btn btn-primary">Tambahkan Category Baru</a>
+                                <a href="{{route('member.berita.tag.create')}}" class="btn btn-primary">Tambahkan Tag Baru</a>
                             </div>
                         </div>
                     </div>
@@ -25,12 +25,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for($a=0; $a<10; $a++)
+                            @foreach($tags as $a=>$tag)
                             <tr>
                                 <td>{{$a+1}}</td>
-                                <td>{{fake()->sentence(rand(1,2))}}</td>
+                                <td>{{$tag->name}}</td>
                             </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
 
