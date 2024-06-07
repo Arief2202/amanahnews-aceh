@@ -27,7 +27,6 @@
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Preview</th>
                                 <th>Edit</th>
                                 <th>Publish Status</th>
                                 <th>Publish</th>
@@ -44,7 +43,6 @@
                             @foreach($posts as $a=>$post)
                             <tr>
                                 <td>{{$post->id}}</td>
-                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">Preview</button></td>
                                 <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Edit</a></td>
                                 <td>
                                     @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
@@ -72,61 +70,7 @@
             </div>
         </div>
     </div>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Preview</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ps-3">                
-                    <div class="mt-3 mb-2">
-                        <h1 style="font-weight:600">{{ "Title" }}</h1>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row mb-2">
-                            <div class="col-auto">
-                                <button class="mt-3 btn btn-secondary" style="width:70px; height:70px; border-radius:50px"></button>
-                            </div>
-                            <div class="col">
-                                <h5 class="mt-3" style="font-weight:600">{{ "Name" }}</h5>
-                                <p class=" " style="font-weight:600; color:rgba(255, 255, 255, 0.700)">{{ "Instance" }}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>{{/*date('d M Y H:i',strtoTime($post->created_at));*/ date('d M Y H:i')}} WIB - Waktu baca 1 menit</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row p-0 m-0">
-                    {{-- <div class="col-xl-8" style=""> --}}
-                        <img src="\assets\uploads\berita\pesawat.png" alt="" style="width:100%">
-                        <p class="mt-1" style="font-size:12px; color: color:rgba(255, 255, 255, 0.700)">{{ "Banner Source" }}</p>
-                        <p><b>amanahnews.id</b> - Masako, salah satu merek bumbu penyedap terkemuka di Indonesia, dengan bangga mengumumkan peluncuran varian terbaru mereka yang berukuran 250 gram. Langkah inovatif ini merupakan bagian dari komitmen Masako untuk terus memberikan kemudahan dan kepuasan kepada para konsumennya dalam memasak berbagai hidangan lezat.<br><br>
-
-                            Varian baru 250 gram ini hadir sebagai solusi bagi para ibu rumah tangga dan pecinta masak-memasak yang menginginkan kemasan bumbu yang lebih besar dan ekonomis. Dengan ukuran yang lebih besar, pengguna bisa lebih leluasa menyiapkan masakan favorit untuk keluarga tanpa khawatir kehabisan bumbu di tengah proses memasak. Ini sangat ideal untuk keluarga besar atau mereka yang sering mengadakan acara kumpul-kumpul di rumah.<br><br>
-                            
-                            Selain itu, Masako 250 gram ini tetap menjaga kualitas dan cita rasa yang selama ini telah menjadi ciri khas dari Masako. Mengandung bahan-bahan berkualitas tinggi dan diracik dengan sempurna, bumbu penyedap ini mampu memberikan rasa gurih yang kaya dan nikmat pada setiap hidangan. Pengguna tidak perlu lagi menambahkan banyak bumbu lain, karena satu sendok Masako saja sudah cukup untuk membuat masakan menjadi lebih lezat dan menggugah selera.<br><br>
-                            
-                            Inovasi ini juga sejalan dengan permintaan pasar yang terus meningkat akan kemasan bumbu penyedap yang lebih praktis dan ekonomis. Masako 250 gram hadir untuk menjawab kebutuhan tersebut, memberikan lebih banyak nilai bagi konsumen tanpa mengorbankan kualitas. Dengan harga yang kompetitif, varian baru ini diharapkan dapat menjadi pilihan utama di dapur setiap keluarga Indonesia.<br><br>
-                            
-                            Melalui peluncuran varian 250 gram ini, Masako tidak hanya sekadar menawarkan bumbu penyedap, tetapi juga memberikan solusi praktis bagi setiap orang yang mencintai kegiatan memasak. Dengan demikian, Masako terus berupaya untuk menjadi bagian tak terpisahkan dari setiap momen kebahagiaan di meja makan keluarga Indonesia.<br><br>
-                            
-                            Dalam jangka panjang, Masako berkomitmen untuk terus berinovasi dan memberikan produk-produk terbaik yang sesuai dengan kebutuhan konsumen. Dengan dukungan dan kepercayaan dari masyarakat, Masako optimis akan terus menjadi pemimpin di industri bumbu penyedap di Indonesia. Jadi, tunggu apa lagi? Segera coba Masako varian 250 gram dan rasakan kemudahan serta kelezatannya dalam setiap masakan Anda!</p>
-                    
-                </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-        </div>
-    </div>
-    
     <x-slot name="script">
         <script type="text/javascript">
             $(document).ready( function () {

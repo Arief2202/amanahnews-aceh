@@ -28,4 +28,10 @@ class Post extends Model
     public function category(){
         return $this->belongsTo(category::class);
     }
+    public function contents(){
+        return $this->hasMany(postcontent::class);
+    }
+    public function tags(){
+        return $this->hasMany(tag::class);
+    }
 }

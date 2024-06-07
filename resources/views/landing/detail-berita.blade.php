@@ -15,6 +15,7 @@
               <div class="container">
                 <ol>
                   <li><a href="/berita">Berita</a></li>
+                  <li><a href="/berita/category/{{$post->category->slug}}">{{$post->category->name}}</a></li>
                   <li class="current">{{$post->slug}}</li>
                 </ol>
               </div>
@@ -58,12 +59,25 @@
                 <div class="col-xl-8" style="">
                     <img src="/uploads/post/image/{{$post->banner}}" alt="" style="width:100%">
                     <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$post->banner_source}}</p>
-                    <p>Jakarta (ANTARA) - Kementerian Perhubungan (Kemenhub) sedang berkoordinasi dengan Komite Nasional Keselamatan Transportasi (KNKT) dan kepolisian terkait pesawat yang jatuh di Kawasan Lapangan Sunburst Bumi Serpong Damai (BSD), Kecamatan Serpong, Tangerang Selatan, Banten, pada Minggu.</p>
                     <div>
                       <?=$post->content ?>
+                      @foreach($post->contents as $content)
+                        @if($content->type=='image')
+                        <div class="row p-0 m-0">
+                            {{-- <div class="col-xl-8" style=""> --}}
+                                @if($content->href)<a href="{{$content->href}}">@endif
+                                <img src="/uploads/post/image/{{$content->content}}" alt="" style="max-width:{{$content->image_width}}px; max-height:{{$content->image_height}}px;">
+                                @if($content->href)</a>@endif
+                                <p class="mt-1" style="font-size:12px; color: color:rgba(255, 255, 255, 0.700)">{{$content->source}}</p>
+                        </div>
+                        @elseif($content->type=='text')
+                            <?=$content->content?>
+                        @endif
+
+                      @endforeach
                     </div>
                 </div>
-                <div class="col-xl-4 p-2 ps-5">
+                <div class="col-xl-4 p-3">
                     <div class="mb-5">
                       <a href="">
                         <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
@@ -100,15 +114,15 @@
 
     <section class="section" >
       <div class="container">    
-        <div class="row">
+        <div class="row p-0 m-0">
           <div class="col-auto">
               <h4>Tag</h4>
           </div>
-          @for($a=0; $a<5;$a++)
-            <div class="col-auto">
-                <button class="btn btn-primary-orange">Tag {{$a+1}}</button>
+          @foreach($post->tags as $tag)
+            <div class="col-auto p-0 m-0 me-2 mb-3">
+                <a href="/berita/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
             </div>
-            @endfor
+          @endforeach
         </div>    
         <div class="mt-3" style="border-bottom:2px solid #000000;">
 

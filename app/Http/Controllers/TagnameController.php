@@ -6,6 +6,7 @@ use App\Models\tag;
 use App\Models\tagname;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Auth;
 
 class TagnameController extends Controller
 {
@@ -60,6 +61,15 @@ class TagnameController extends Controller
         $tagname = tag::with(['tagname', 'post'])->where('post_id', $request->post_id)->get();
         return response()->json([
             'tags' => $tagname, 
+        ]);
+    }
+    public function deleteTag(Request $request){
+        $tag = tag::with(['tagname', 'post'])->where('id', $request->id)->first();
+        if($tag->post->user_id == Auth::user()->id){
+            $tag->delete();
+        }
+        return response()->json([
+            'user' => Auth::user(), 
         ]);
     }
 }

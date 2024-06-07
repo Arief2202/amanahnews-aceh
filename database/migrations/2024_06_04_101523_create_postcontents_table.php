@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('post_id');
             $table->string('type')->default('text');
-            $table->longText('content');
+            $table->longText('content')->nullable();
+            $table->text('image_width')->nullable();
+            $table->text('image_height')->nullable();
             $table->text('source')->nullable();
+            $table->text('href')->nullable();
+            $table->integer('saved')->default(0);
             $table->timestamps();
         });
     }
