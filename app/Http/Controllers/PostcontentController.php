@@ -6,7 +6,7 @@ use App\Http\Requests\UpdatepostcontentRequest;
 use App\Http\Requests\StorepostcontentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Postcontent;
+use App\Models\postcontent;
 use App\Models\category;
 use App\Models\tagname;
 use App\Models\Post;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\File;
 class PostcontentController extends Controller
 {
     public function save(Request $request){
-        $postcontent = Postcontent::where('id', $request->postcontent_id)->first();
+        $postcontent = postcontent::where('id', $request->postcontent_id)->first();
         if($postcontent->type == 'text'){
             $postcontent->content = $request->content;
         }
@@ -37,14 +37,14 @@ class PostcontentController extends Controller
         return redirect(route('member.berita.detail', ['id' => $postcontent->post_id]));
     }
     public function edit(Request $request){
-        $postcontent = Postcontent::where('id', $request->postcontent_id)->first();
+        $postcontent = postcontent::where('id', $request->postcontent_id)->first();
         $postcontent->saved=0;
         $postcontent->save();
         return redirect(route('member.berita.detail', ['id' => $postcontent->post_id]));
     }
     
     public function delete($id){
-        $postcontent = Postcontent::where('id', $id)->first();
+        $postcontent = postcontent::where('id', $id)->first();
         $post_id = $postcontent->post_id;
         $destinationPath = public_path().'\uploads\post\image';
         $imageName = $destinationPath.'\\'.$postcontent->content;

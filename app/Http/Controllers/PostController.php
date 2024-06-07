@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Postcontent;
+use App\Models\postcontent;
 use App\Models\category;
 use App\Models\tagname;
 use App\Models\Post;
@@ -103,7 +103,7 @@ class PostController extends Controller
         return view('member.berita.detail', [
             'post' => $post,
             'tags' => tagname::all(),
-            'postcontents' => Postcontent::where('post_id', $post->id)->get(),
+            'postcontents' => postcontent::where('post_id', $post->id)->get(),
             'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->get(),
             'post_id' => $id,
         ]);
@@ -224,7 +224,7 @@ class PostController extends Controller
         ]);
         $post = Post::where('id', $request->post_id)->first();
         if(Auth::user()->id == $post->user_id){
-            $postContent = Postcontent::create([
+            $postContent = postcontent::create([
                 'post_id' => $request->post_id,
                 'type' => $request->type,
             ]);
