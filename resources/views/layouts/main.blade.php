@@ -19,6 +19,7 @@
 
   @yield('style-before')
   <!-- Vendor CSS Files -->
+  <link href="/vendor/boxicons-2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link href="/vendor/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <link href="/landing/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="/landing/assets/vendor/aos/aos.css" rel="stylesheet">

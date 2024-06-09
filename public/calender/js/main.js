@@ -1,7 +1,20 @@
 (function($) {
 
 	"use strict";
-
+	var monthName = [
+		"Januari",
+		"Februari",
+		"Maret",
+		"April",
+		"Mei",
+		"Juni",
+		"Juli",
+		"Agustus",
+		"September",
+		"Oktober",
+		"November",
+		"Desember"
+	];
 	$( document ).ready(function() {
 		function c(passed_month, passed_year, calNum) {
 			var calendar = calNum == 0 ? calendars.cal1 : calendars.cal2;
@@ -30,7 +43,8 @@
 							|| passed_month != today.getMonth()
 						) 
 							&& iter_date < today) {						
-						var m = '<div class="past-date">';
+						// var m = '<div class="past-date">';
+						var m = '<div class="">';
 					} else {
 						var m = checkToday(iter_date)?'<div class="today">':"<div>";
 					}
@@ -92,53 +106,78 @@
 					}
 				}
 				if (!firstClick) {
-					firstClick = true;
+					// firstClick = false;
 					firstClicked = getClickedInfo(clicked, calendar);
 					selected[firstClicked.year] = {};
-					selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-				} else {
-					console.log('second click');
-					secondClick = true;
-					secondClicked = getClickedInfo(clicked, calendar);
-					//console.log(secondClicked);
+					document.getElementById('modal-title').innerHTML = "<b>Acara " + firstClicked.date+" "+monthName[firstClicked.month]+" "+firstClicked.year+"</b>";
 
-					// what if second clicked date is before the first clicked?
-					var firstClickDateObj = new Date(firstClicked.year, 
-												firstClicked.month, 
-												firstClicked.date);
-					var secondClickDateObj = new Date(secondClicked.year, 
-												secondClicked.month, 
-												secondClicked.date);
+					fetch("/acara/get?date="+firstClicked.year+"-"+(firstClicked.month+1)+"-"+firstClicked.date)
+					.then(response => response.json())
+					.then(data => {
+						
+						var color = ["primary", "secondary", "success", "danger", "warning", "info", "dark"];
+						var modalBody = document.getElementById('modal-body');
+						modalBody.innerHTML = null;
+	
+						for(var i=0; i<data.acara.length; i++){
+							var title = data.acara[i].title;
+							var lokasi = data.acara[i].lokasi;
+							var datetime = data.acara[i].start_acara;
+							var href = '/acara/detail/'+data.acara[i].slug;
+							modalBody.innerHTML += '<a href="'+href+'"><div class="alert alert-'+color[i%6]+'" role="alert"><h5 style="font-weight:600">'+title+'</h5><div class="row"><div class="col-auto"><i class="bx bx-map-pin" style="font-size: 50px"></i></div><div class="col"><p>'+lokasi+'</p></div></div><div class="d-flex justify-content-between mt-2"><div class="pt-2"><p>'+datetime+'</p></div><button class="btn btn-'+color[i%6]+'">Selengkapnya</button></div></div></a>';
 
-					if (firstClickDateObj > secondClickDateObj) {
-
-						var cachedClickedInfo = secondClicked;
-						secondClicked = firstClicked;
-						firstClicked = cachedClickedInfo;
-						selected = {};
-						selected[firstClicked.year] = {};
-						selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-
-					} else if (firstClickDateObj.getTime() ==
-								secondClickDateObj.getTime()) {
-						selected = {};
-						firstClicked = [];
-						secondClicked = [];
-						firstClick = false;
-						secondClick = false;
-						$(this).removeClass("selected");
-					}
+						}
+					});
 
 
-					// add between dates to [selected]
-					selected = addChosenDates(firstClicked, secondClicked, selected);
-				}
+					$("#myModal").modal('show');
+					// selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
+				} 
+				// else {
+				// 	console.log('second click');
+				// 	secondClick = true;
+				// 	secondClicked = getClickedInfo(clicked, calendar);
+				// 	//console.log(secondClicked);
+
+				// 	// what if second clicked date is before the first clicked?
+				// 	var firstClickDateObj = new Date(firstClicked.year, 
+				// 								firstClicked.month, 
+				// 								firstClicked.date);
+				// 	var secondClickDateObj = new Date(secondClicked.year, 
+				// 								secondClicked.month, 
+				// 								secondClicked.date);
+
+				// 	if (firstClickDateObj > secondClickDateObj) {
+
+				// 		var cachedClickedInfo = secondClicked;
+				// 		secondClicked = firstClicked;
+				// 		firstClicked = cachedClickedInfo;
+				// 		selected = {};
+				// 		selected[firstClicked.year] = {};
+				// 		selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
+
+				// 	} else if (firstClickDateObj.getTime() ==
+				// 				secondClickDateObj.getTime()) {
+				// 		selected = {};
+				// 		firstClicked = [];
+				// 		secondClicked = [];
+				// 		firstClick = false;
+				// 		secondClick = false;
+				// 		$(this).removeClass("selected");
+				// 	}
+
+
+				// 	// add between dates to [selected]
+				// 	selected = addChosenDates(firstClicked, secondClicked, selected);
+				// }
 				// console.log(selected);
 				selectDates(selected);
-			});			
+			}
+		);			
 
 		}
 		function selectDates(selected) {
+			console.log(selected);
 			if (!$.isEmptyObject(selected)) {
 				var dateElements1 = datesBody1.find('div');
 				var dateElements2 = datesBody2.find('div');
@@ -224,11 +263,11 @@
 		//var t=2013;
 		//var n=9;
 		var r = [];
-		var i = ["January","February","March","April","May",
-				"June","July","August","September","October",
-				"November","December"];
-		var daysArray = ["Sunday","Monday","Tuesday",
-						"Wednesday","Thursday","Friday","Saturday"];
+		var i = ["Januari","Februari","Maret","April","Mei",
+				"Juni","Juli","Agustus","September","Oktober",
+				"November","Desember"];
+		var daysArray = ["Minggu","Senin","Selasa",
+						"Rabu","Kamis","Jumat","Sabtu"];
 		var o = ["#16a085","#1abc9c","#c0392b","#27ae60",
 				"#FF6860","#f39c12","#f1c40f","#e67e22",
 				"#2ecc71","#e74c3c","#d35400","#2c3e50"];

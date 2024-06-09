@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 class PostcontentController extends Controller
 {
     public function save(Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $postcontent = postcontent::where('id', $request->postcontent_id)->first();
         if($postcontent->type == 'text'){
             $postcontent->content = $request->content;
@@ -37,6 +38,7 @@ class PostcontentController extends Controller
         return redirect(route('member.berita.detail', ['id' => $postcontent->post_id]));
     }
     public function edit(Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $postcontent = postcontent::where('id', $request->postcontent_id)->first();
         $postcontent->saved=0;
         $postcontent->save();
@@ -44,6 +46,7 @@ class PostcontentController extends Controller
     }
     
     public function delete($id){
+        if(Auth::user()->role != '1') return redirect('/');
         $postcontent = postcontent::where('id', $id)->first();
         $post_id = $postcontent->post_id;
         $destinationPath = public_path().'\uploads\post\image';

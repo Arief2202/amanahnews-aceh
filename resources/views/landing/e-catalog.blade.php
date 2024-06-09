@@ -49,7 +49,7 @@
 
                                     <h4 style="font-weight:600;">Rendang Gulai Enak</h4>
                                     <p style="color:rgb(121, 121, 121);">Warung Bang Sapri</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    <a href="{{route('landing.e-catalog.detail')}}" class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</a>
                                 </div>
                             </div>
                         </a>
@@ -62,7 +62,7 @@
 
                                     <h4 style="font-weight:600;">Rendang Gulai Enak</h4>
                                     <p style="color:rgb(121, 121, 121);">Warung Bang Sapri</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    <a href="{{route('landing.e-catalog.detail')}}" class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</a>
                                 </div>
                             </div>
                         </a>
@@ -75,7 +75,7 @@
 
                                     <h4 style="font-weight:600;">Rendang Gulai Enak</h4>
                                     <p style="color:rgb(121, 121, 121);">Warung Bang Sapri</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    <a href="{{route('landing.e-catalog.detail')}}" class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</a>
                                 </div>
                             </div>
                         </a>
@@ -88,7 +88,7 @@
 
                                     <h4 style="font-weight:600;">Rendang Gulai Enak</h4>
                                     <p style="color:rgb(121, 121, 121);">Warung Bang Sapri</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    <a href="{{route('landing.e-catalog.detail')}}" class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</a>
                                 </div>
                             </div>
                         </a>

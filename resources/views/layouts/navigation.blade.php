@@ -15,9 +15,20 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('member.berita')" :active="request()->routeIs('member.berita')">
-                        {{ __('Berita') }}
-                    </x-nav-link>
+                    @if(Auth::user()->role == '1')
+                        <x-nav-link :href="route('member.berita')" :active="request()->routeIs('member.berita')">
+                            {{ __('Berita') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('member.e-catalog')" :active="request()->routeIs('member.e-catalog')">
+                            {{ __('E-Catalog') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('member.acara')" :active="request()->routeIs('member.acara')">
+                            {{ __('Acara') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('member.video')" :active="request()->routeIs('member.video')">
+                            {{ __('Video') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

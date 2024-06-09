@@ -85,18 +85,21 @@ class PostController extends Controller
 
     public function read()
     {
+        if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.read', [
             'posts' => Post::all(),
         ]);
     }
     public function createView()
     {
+        if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.create', [
             'categories' => Category::all(),
         ]);
     }
     public function readDetail($id)
     {
+        if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         // $tagPost = tag::where('post_id', $post->id)->get();
         // foreach($tagPost <= )
@@ -110,6 +113,7 @@ class PostController extends Controller
     }
     public function create(Request $request)
     {
+        if(Auth::user()->role != '1') return redirect('/');
         $validated = $request->validate([
             'user_id' => 'required',
             'category_id' => 'required',
@@ -140,6 +144,7 @@ class PostController extends Controller
     public function updateView($id)
     {
         
+        if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.update', [
             'categories' => Category::all(),
             'post' => Post::where('id', $id)->first(),
@@ -147,6 +152,7 @@ class PostController extends Controller
     }
     public function update(Request $request)
     {
+        if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $request->id)->first();
 
         if($request->slug == $post->slug){
@@ -198,11 +204,13 @@ class PostController extends Controller
     }
 
     public function checkSlug(Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
     }
 
     public function publish($id, Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
         $post->show=1;
@@ -210,6 +218,7 @@ class PostController extends Controller
         return redirect(route('member.berita'));
     }
     public function unpublish($id, Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
         $post->show=0;
@@ -218,6 +227,7 @@ class PostController extends Controller
     }
 
     public function newSection(Request $request){
+        if(Auth::user()->role != '1') return redirect('/');
         $request->validate([
             'post_id' => 'required',
             'type' => 'required',
