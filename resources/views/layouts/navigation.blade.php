@@ -84,6 +84,20 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(Auth::user()->role == '1')
+                <x-responsive-nav-link :href="route('member.berita')" :active="request()->routeIs('member.berita')">
+                    {{ __('Berita') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.e-catalog')" :active="request()->routeIs('member.e-catalog')">
+                    {{ __('E-Catalog') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.acara')" :active="request()->routeIs('member.acara')">
+                    {{ __('Acara') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.video')" :active="request()->routeIs('member.video')">
+                    {{ __('Video') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

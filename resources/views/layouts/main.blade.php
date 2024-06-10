@@ -78,27 +78,24 @@
     <section>
       <div class="container">
 
-        <div class="card" style="height: 350px; background-color:#7E9465;">
-          <img src="/assets/img/bintik.png" alt="" style="width: 120px; position: absolute;left:150px;">
-          <div style="position:absolute; top:100px;width:100%;">
-            <div class="d-flex justify-content-center">
-
+        <div class="card row m-2 p-2 d-flex justify-content-center align-items-center" style="height: 250px; background-color:var(--main-color);">
+          {{-- <img src="/assets/img/bintik.png" alt="" style="width: 120px; position: absolute;left:150px;"> --}}
+            <div class="col-xl-12 mb-1 d-flex justify-content-center text-center">
               <h1 style="font-weight: 600; color:white">Mari Berdiskusi Bersama Kami</h1>
             </div>
-            <div class="d-flex justify-content-center">
-              <form action="">
-                <div class="row ms-5 mt-4" style="width: 800px">
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" placeholder="Masukkan alamat email anda disini">
-                    </div>
-                    <div class="col-md-4">
-                      <button class="btn btn-primary-orange">Mari Berlangganan</button>
-                    </div>
+            <div class="col-xl-12 w-100 d-flex justify-content-center">
+              <form action="" style="width:70%">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-8 mt-3 d-flex justify-content-center">
+                    <input type="text" class="form-control" placeholder="Masukkan alamat email anda disini">
                   </div>
+                  <div class="col-md-4 mt-3 d-flex justify-content-center">
+                    <button class="btn btn-primary-orange">Mari Berlangganan</button>
+                  </div>
+                </div>
               </form>
             </div>
-          </div>
-          <img src="/assets/img/bintik.png" alt="" style="width: 120px;position: absolute;right:150px;bottom:0px">
+          {{-- <img src="/assets/img/bintik.png" alt="" style="width: 120px;position: absolute;right:150px;bottom:0px"> --}}
         </div>
       </div>
     </section>

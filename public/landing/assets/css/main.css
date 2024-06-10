@@ -19,6 +19,7 @@
 
 /* Global Colors */
 :root {
+  --main-color : #8f9984;
   /* Background Color - This color is applied to the background of the entire website as well as individual sections. */
   --background-color: #ffffff;
 
@@ -30,6 +31,11 @@
 
   /* Accent Color - This is the main accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out. */
   --accent-color: #EEAF22;
+
+  /* Accent Color - This is the main accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out. */
+  --hover-color: #EEAF22;
+  /* Accent Color - This is the main accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out. */
+  --active-color: #EEAF22;
 
   /* Contrast Color - This is a color used for text when the background color is one of the heading, accent, or default colors. Its purpose is to ensure proper contrast and readability when placed over these more dominant colors. */
   --contrast-color: #ffffff;
@@ -206,10 +212,10 @@ h6 {
 /* Index Page Header on Scroll
 ------------------------------*/
 .index-page.scrolled .header {
-  --background-color: #7E9465;
+  --background-color: var(--main-color);
   --heading-color: #32353a;
-  --nav-color: #ffffff;
-  --nav-hover-color: #EEAF22;
+  --nav-color: rgba(255, 255, 255, 0.5);
+  --nav-hover-color: #ffffff;
 }
 
 /*--------------------------------------------------------------
@@ -729,14 +735,27 @@ section,
   position: relative;
 }
 
-.section-title h2 {
-  font-size: 32px;
+.section-title h1,
+.section-title h2,
+.section-title h3,
+.section-title h4,
+.section-title h5 {
+  /* font-size: 32px;z */
   font-weight: 700;
   position: relative;
 }
 
+.section-title h1:before,
+.section-title h1:after,
 .section-title h2:before,
-.section-title h2:after {
+.section-title h2:after,
+.section-title h3:before,
+.section-title h3:after,
+.section-title h4:before,
+.section-title h4:after,
+.section-title h5:before,
+.section-title h5:after
+ {
   content: "";
   width: 50px;
   height: 2px;
@@ -744,16 +763,62 @@ section,
   display: inline-block;
 }
 
-.section-title h2:before {
+.section-title h1:before,
+.section-title h2:before,
+.section-title h3:before,
+.section-title h4:before,
+.section-title h5:before
+{
   margin: 0 15px 10px 0;
 }
 
-.section-title h2:after {
+.section-title h1:after,
+.section-title h2:after,
+.section-title h3:after,
+.section-title h4:after,
+.section-title h5:after
+{
   margin: 0 0 10px 15px;
 }
 
 .section-title p {
   margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .section-title h1:before,
+  .section-title h2:before,
+  .section-title h3:before,
+  .section-title h4:before,
+  .section-title h5:before
+  {
+    margin:0px
+  }
+  
+  .section-title h1:after,
+  .section-title h2:after,
+  .section-title h3:after,
+  .section-title h4:after,
+  .section-title h5:after
+  {
+    margin:0px;
+  }
+  .section-title h1:before,
+  .section-title h1:after,
+  .section-title h2:before,
+  .section-title h2:after,
+  .section-title h3:before,
+  .section-title h3:after,
+  .section-title h4:before,
+  .section-title h4:after,
+  .section-title h5:before,
+  .section-title h5:after
+  {
+    content: "";
+    width: 0px;
+    height: 0px;
+    background: transparent;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1268,8 +1333,17 @@ section,
   grid-row: 1;
   grid-column: 1/span 8;
   margin-top: 20%;
-  width: 100%;
   z-index: 2;
+}
+
+.stack-front{
+  max-height: 450px;
+}
+
+@media (max-width: 992px) {
+  .stack-front{
+    width:100%;
+  }
 }
 
 /*--------------------------------------------------------------

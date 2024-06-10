@@ -51,6 +51,8 @@ class AcaraController extends Controller
             'slug' => $request->slug,
             'penyelenggara' => $request->penyelenggara,
             'deskripsi' => $request->deskripsi,
+            'start_daftar' => $request->start_daftar,
+            'end_daftar' => $request->end_daftar,
             'start_acara' => $request->start_acara,
             'lokasi' => $request->lokasi,
             'nama_pj' => $request->nama_pj,
@@ -83,7 +85,9 @@ class AcaraController extends Controller
 
     public function acara()
     {
-        return view('landing.acara');
+        return view('landing.acara', [
+            'acaras' => Acara::all(),
+        ]);
     }
 
     public function acaraDetail($slug)

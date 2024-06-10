@@ -36,9 +36,9 @@
                         <h5 style="font-weight:600; font-size:17px; color:#EEAF22;">Deskripsi</h5>
                         <p class="mb-4" style="color:rgb(121, 121, 121);">{{$acara->deskripsi}}</p>
                         @if($acara->start_daftar && $acara->end_daftar)
+                            <h5 style="font-weight:600; font-size:17px; color:#EEAF22;">Jadwal Pendaftaran</h5>
+                            <p class="mb-4" style="color:rgb(121, 121, 121);font-weight:600;"><i class='bx bx-calendar'></i> {{date('d M', strtoTime($acara->start_daftar))}} - {{date('d M Y', strtoTime($acara->end_daftar))}}</p>
                         @endif
-                        <h5 style="font-weight:600; font-size:17px; color:#EEAF22;">Jadwal Pendaftaran</h5>
-                        <p class="mb-4" style="color:rgb(121, 121, 121);font-weight:600;"><i class='bx bx-calendar'></i> {{date('d M', strtoTime($acara->created_at))}} - {{date('d M Y', strtoTime($acara->created_at))}}</p>
                         <h5 style="font-weight:600; font-size:17px; color:#EEAF22;">Jadwal Kegiatan</h5>
                         <p class="mb-4" style="color:rgb(121, 121, 121);font-weight:600;"><i class='bx bx-calendar'></i> {{date('d M Y', strtoTime($acara->created_at))}} - Pukul {{date('H:i', strtoTime($acara->created_at))}} WIB</p>
 

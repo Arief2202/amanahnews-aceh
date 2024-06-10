@@ -60,46 +60,20 @@
             </div><!-- End Section Title -->
             <div class="">
                 <div class="row p-3">
-                @for($a=0; $a<3; $a++)
+                @foreach($acaras as $acara)
                     <div class="col-md-4 p-2">
-                        <a href="">
+                        <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                             <div class="shadow" style="border-radius: 15px">
-                                <img src="/assets/uploads/acara/acara1.png" alt="" style="width: 100%;">
+                                <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
                                 <div class="p-3">
-
-                                    <h4 style="font-weight:600;">Bazar Kecamatan</h4>
-                                    <p style="color:rgb(121, 121, 121);">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur nemo molestiae accusantium neque quidem voluptatibus inventore numquam reprehenderit ad maiores?</p>
+                                    <h4 style="font-weight:600;">{{$acara->title}}</h4>
+                                    <p style="color:rgb(121, 121, 121);">{{$acara->deskripsi}}</p>
                                     <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4 p-2">
-                        <a href="">
-                            <div class="shadow" style="border-radius: 15px">
-                                <img src="/assets/uploads/acara/acara2.png" alt="" style="width: 100%;">
-                                <div class="p-3">
-
-                                    <h4 style="font-weight:600;">Business Matching 12</h4>
-                                    <p style="color:rgb(121, 121, 121);">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque voluptate officiis earum fugiat facere dicta voluptatum assumenda et, sed hic doloribus inventore a molestias, totam quas voluptatibus aspernatur nostrum voluptas?</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 p-2">
-                        <a href="">
-                            <div class="shadow" style="border-radius: 15px">
-                                <img src="assets/uploads/acara/acara3.png" alt="" style="width: 100%;">
-                                <div class="p-3">
-                                    <h4 style="font-weight:600;">Pagelaran Kesenian Budaya Betawi</h4>
-                                    <p style="color:rgb(121, 121, 121);">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, minus.</p>
-                                    <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endfor
+                    @endforeach
                 </div>
                 <div class="d-flex justify-content-center">
 

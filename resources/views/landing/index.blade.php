@@ -13,7 +13,7 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section">
 
-        <div style="background-color:#a4c084; width:100%; height:100%;position: absolute; z-index: 1; top:0px;"></div>
+        <div style="background-color:var(--main-color); width:100%; height:100%;position: absolute; z-index: 1; top:0px;"></div>
         <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 30%;">
         <img src="/assets/img/bercak.png" alt="" data-aos="fade-in">
   
@@ -134,25 +134,9 @@
               </p>
               <a href="#" class="read-more"><span>Selengkapnya</span><i class="bi bi-arrow-right"></i></a>
             </div>
-  
-            {{-- <div class="row gy-4 align-items-center features-item">
-              <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                <h1>Mengapa Harus Ikut Amanah ?</h1>
-                <p>
-                  Dalam misinya, amanah akan terus mengembangkan dan memberdayakan masyarakat muda Aceh sebagai gerakan untuk membantu meningkatkan stabilitas ekonomi di sekitar Aceh melalui anak muda. Ayo bergabung bersama kami
-                </p>
-                <a href="#" class="btn btn-get-started">Selengkapnya</a>
-              </div>
-              <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
-                <div class="image-stack">
-                  <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front">
-                  <img src="assets/img/mengapa-amanah.png" alt="" class="stack-back">
-                </div>
-              </div>
-            </div> --}}
             
             <div class="col-lg-7 order-1 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
-                <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front" style="height: 450px">
+                <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front">
             </div>
   
           </div>
@@ -164,7 +148,7 @@
       <section id="services" class="services section">
   
         <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
+        <div class="container section-title" data-aos="fade-up" style="width:100vw;">
           <h2>Apa saja Layanan di Amanah?</h2>
           <p>Kami terus hadir untuk membantu masyarakat Aceh terutama kawula muda seluruh Aceh dalam menggerakkan perekonomian Daerah. </p>
         </div><!-- End Section Title -->

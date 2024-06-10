@@ -43,7 +43,7 @@
                                 <td>{{$acara->id}}</td>
                                 <td><a href="{{route('member.acara.delete', ['id' => $acara->id])}}" class="btn btn-danger">Delete</a></td>
                                 <td>{{$acara->title}}</td>
-                                <td>{{$acara->slug}}</td>
+                                <td><a href="{{route('acara.detail', ['id' => $acara->slug])}}" class="">{{$acara->slug}}</a></td>
                                 <td>{{$acara->penyelenggara}}</td>
                                 <td>{{$acara->deskripsi}}</td>
                                 <td>{{$acara->start_daftar}}</td>
