@@ -13,6 +13,6 @@ class AcaraSeeder extends Seeder
      */
     public function run(): void
     {
-        // Acara::factory(50)->create();
+        Acara::factory(500)->create();
     }
 }

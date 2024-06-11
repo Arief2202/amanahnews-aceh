@@ -6,6 +6,7 @@
 
 @section('script')
 <script src="/landing/assets/js/navbarScroll.js"></script>
+<script src="/landing/assets/js/autoPreloader.js"></script>
 @endsection
 
 @section('main')

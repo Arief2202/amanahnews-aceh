@@ -19,9 +19,14 @@ return new class extends Migration
             $table->string('slug');
             $table->string('penyelenggara');
             $table->text('deskripsi');
-            $table->timestamp('start_daftar')->nullable();
-            $table->timestamp('end_daftar')->nullable();
-            $table->timestamp('start_acara')->nullable();
+            $table->timestamp('start_daftar_date')->nullable();
+            $table->timestamp('end_daftar_date')->nullable();
+            $table->timestamp('start_daftar_time')->nullable();
+            $table->timestamp('end_daftar_time')->nullable();
+            $table->timestamp('start_acara_date')->useCurrent();
+            $table->timestamp('end_acara_date')->nullable();
+            $table->timestamp('start_acara_time')->useCurrent();
+            $table->timestamp('end_acara_time')->nullable();
             $table->string('lokasi');
             $table->string('nama_pj');
             $table->string('nomor_pj');

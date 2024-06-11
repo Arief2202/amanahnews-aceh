@@ -15,12 +15,13 @@
 
 @section('script')
 <script src="/landing/assets/js/navbarDisScroll.js"></script>
+<script src="/landing/assets/js/disPreloader.js"></script>
 <script src="/calender/js/popper.js"></script>
 <script src="/calender/js/main.js"></script>
 @endsection
 
 @section('main')
-    <section class="ftco-section mt-5">
+    <section class="ftco-section mt-5 mb-0 pb-0">
         <div class="container">
 
                 <div class="calendar-section">
@@ -78,19 +79,60 @@
                 <div class="d-flex justify-content-center">
 
                     <nav aria-label="...">
+                        
+                        <?php $per5 = (int)($acaras->currentPage()/3);?>
                         <ul class="pagination">
-                          <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
+                          <li class="page-item @if($acaras->currentPage() <= 1) disabled @endif">
+                            <a href="{{route('acara', ['page'=>$acaras->currentPage()-1])}}" class="page-link">Prev</a>
                           </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          @if($acaras->currentPage() < 3)
+                            @for($a=1; $a<=3; $a++)
+                                @if($a == $acaras->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+1])}}">{{$per5*3+1}}</a></li>
+                            {{-- @if($per5*5+10 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+10])}}">{{$per5*3+10}}</a></li>@endif
+                            @if($per5*5+20 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+20])}}">{{$per5*3+20}}</a></li>
+                            @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$acaras->lastPage()])}}">{{$acaras->lastPage()}}</a></li> @endif --}}
 
-                          <li class="page-item active" aria-current="page">
-                            <span class="page-link">2</span>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          
-                          <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                          @elseif($acaras->currentPage() > $acaras->lastPage()-3)                      
+                            {{-- @if($per5*5-20 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-20])}}">{{$per5*5-20}}</a></li>
+                            @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>1])}}">1</a></li> @endif
+                            @if($per5*5-10 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-10])}}">{{$per5*5-10}}</a></li>@endif --}}
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                            @for($a=$acaras->lastPage()-3; $a<=$acaras->lastPage(); $a++)
+                                @if($a == $acaras->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                          @else                 
+                            {{-- @if($per5*5-20 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-20])}}">{{$per5*5-20}}</a></li>
+                            @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>1])}}">1</a></li> @endif
+                            @if($per5*5-5 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-5])}}">{{$per5*5-5}}</a></li>@endif
+                            <li class="page-item"><a class="page-link">...</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-1])}}">{{$per5*5-1}}</a></li> --}}
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                            @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                                @if($a == $acaras->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+3])}}">{{$per5*3+3}}</a></li>
+                            {{-- <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5+5])}}">{{$per5*5+5}}</a></li>
+                            <li class="page-item"><a class="page-link">...</a></li>
+                            @if($per5*5+10 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5+10])}}">{{$per5*5+10}}</a></li>@endif
+                            @if($per5*5+20 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5+20])}}">{{$per5*5+20}}</a></li>
+                            @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$acaras->lastPage()])}}">{{$acaras->lastPage()}}</a></li> @endif --}}
+                          @endif
+                          <li class="page-item @if($acaras->currentPage() >= $acaras->lastPage() ) disabled @endif">
+                            <a class="page-link" href="{{route('acara', ['page'=>$acaras->currentPage()+1])}}">Next</a>
                           </li>
                         </ul>
                       </nav>

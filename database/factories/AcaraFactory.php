@@ -16,21 +16,6 @@ class AcaraFactory extends Factory
      */
     public function definition(): array
     {
-        // $table->string('poster');
-        // $table->string('title');
-        // $table->string('slug');
-        // $table->string('penyelenggara');
-        // $table->string('deskripsi');
-        // $table->timestamp('start_daftar')->nullable();
-        // $table->timestamp('end_daftar')->nullable();
-        // $table->timestamp('start_acara')->nullable();
-        // $table->string('lokasi');
-        // $table->string('nama_pj');
-        // $table->string('nomor_pj');
-        // $table->string('hubungi_kami');
-        // $table->string('sosial_media');
-        // $table->string('peta');
-        // $table->timestamps();
         return [
             'user_id' => 1,
             'poster' => "acara1.png",
@@ -38,7 +23,14 @@ class AcaraFactory extends Factory
             'slug' => fake()->slug(),
             'penyelenggara' => fake()->name(),
             'deskripsi' => fake()->sentence(30),
-            'start_acara' => date('Y-m-').rand(1, 30).date(' H:i:s'),
+            'start_daftar_date' => rand(0, 1) == 1 ? date('Y-m-').rand(1, 15)." 00:00:00" : null,
+            'end_daftar_date' =>(date('Y-m-').rand(15, 30)." 00:00:00"),
+            'start_daftar_time' => date('Y-m-d ').rand(8, 12).date(':i:s'),
+            'end_daftar_time' =>(date('Y-m-d ').rand(12, 18).date(':i:s')),
+            'start_acara_date' => date('Y').'-'.rand(4, 8).'-'.rand(1, 15)." 00:00:00",
+            'end_acara_date' =>rand(0, 5) == 1 ? (date('Y-m-').rand(15, 30)." 00:00:00"): null,
+            'start_acara_time' => date('Y-m-d ').rand(8, 12).date(':i:s'),
+            'end_acara_time' =>rand(0, 5) == 1 ? (date('Y-m-d ').rand(12, 18).date(':i:s')): null,
             'lokasi' => fake()->sentence(3),
             'nama_pj' => fake()->name(),
             'nomor_pj' => fake()->phoneNumber(),

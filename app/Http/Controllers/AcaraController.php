@@ -86,7 +86,7 @@ class AcaraController extends Controller
     public function acara()
     {
         return view('landing.acara', [
-            'acaras' => Acara::all(),
+            'acaras' => Acara::paginate(9),
         ]);
     }
 
@@ -106,7 +106,46 @@ class AcaraController extends Controller
      */
     public function acaraget(Request $request)
     {
-        $acaras = Acara::where('start_acara', '>=' ,$request->date." 00:00:00")->where('start_acara', '<=' ,$request->date." 23:59:59")->get();
+        if($request->eventCount){
+            $eventCounts = [];
+            for($a=0; $a<32; $a++){        
+                if($request->date){
+                    $acaras1 = Acara::where('start_acara_date', '<=' , $request->date."-".($a+1)." 00:00:00")->where('end_acara_date', '>=' ,$request->date."-".($a+1)." 00:00:00")->get();
+                    $acaras2 = Acara::where('start_acara_date', '=' , $request->date."-".($a+1)." 00:00:00")->where('end_acara_date', '=' , null)->get();
+                }
+                else{
+                    $acaras1 = Acara::where('start_acara_date', '<=' , date('Y-m-').($a+1)." 00:00:00")->where('end_acara_date', '>=' ,date('Y-m-').($a+1)." 00:00:00")->get();
+                    $acaras2 = Acara::where('start_acara_date', '=' , date('Y-m-').($a+1)." 00:00:00")->where('end_acara_date', '=' , null)->get();
+                }
+                // dd($acaras1 );
+                $acaras = [];
+                $arr = 0;
+                foreach($acaras1 as $acara1){
+                    $acaras[$arr++] = $acara1; 
+                }
+                foreach($acaras2 as $acara2){
+                    $acaras[$arr++] = $acara2; 
+                }
+                $acaras = collect($acaras);
+
+                $eventCounts[$a] = $acaras->count();
+            }
+            return response()->json(['date' => $request->date, 'eventCount' => $eventCounts]);
+        }
+        
+        $acaras1 = Acara::where('start_acara_date', '<=' , $request->date." 00:00:00")->where('end_acara_date', '>=' ,$request->date." 00:00:00")->get();
+        $acaras2 = Acara::where('start_acara_date', '=' , $request->date." 00:00:00")->where('end_acara_date', '=' , null)->get();
+        
+        $acaras = [];
+        $arr = 0;
+        foreach($acaras1 as $acara1){
+            $acaras[$arr++] = $acara1; 
+        }
+        foreach($acaras2 as $acara2){
+            $acaras[$arr++] = $acara2; 
+        }
+        $acaras = collect($acaras);
+        // dd($acaras);
         return response()->json(['acara' => $acaras]);
     }
 

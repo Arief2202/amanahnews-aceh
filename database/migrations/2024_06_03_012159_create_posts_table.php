@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('view_monthly')->default(0);
             $table->integer('view_weekly')->default(0);
             $table->integer('show')->default(0);
+            $table->timestamp('last_reset_monthly')->useCurrent();
+            $table->timestamp('last_reset_weekly')->useCurrent();
             $table->timestamps();
         });
     }

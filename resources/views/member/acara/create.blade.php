@@ -63,11 +63,14 @@
                               </div>
                             @enderror
                         </div>
-                        <div class="row">
+                        <div class="row mb-4 mt-4">
+                          {{-- <div class="col-xl-12 d-flex justify-content-center">
+                              <h2>Pendaftaran</h2>
+                          </div> --}}
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="start_daftar" class="form-label">Start Pendaftaran</label>
-                                <input type="datetime-local" class="form-control @error('start_daftar') is-invalid @enderror" id="start_daftar" name="start_daftar" value="{{ old('start_daftar') }}">
+                                <label for="start_daftar" class="form-label">Tanggal Start Pendaftaran</label>
+                                <input type="date" class="form-control @error('start_daftar') is-invalid @enderror" id="start_daftar" name="start_daftar" value="{{ old('start_daftar') }}">
                                 @error('start_daftar')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -77,8 +80,79 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">End Pendaftaran</label>
-                                <input type="datetime-local" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                <label for="end_daftar" class="form-label">Tanggal End Pendaftaran</label>
+                                <input type="date" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                @error('end_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="end_daftar" class="form-label">Jam Start Pendaftaran</label>
+                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                @error('end_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="end_daftar" class="form-label">Jam End Pendaftaran</label>
+                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                @error('end_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-4">
+                          {{-- <div class="col-xl-12 d-flex justify-content-center">
+                              <h2>Acara</h2>
+                          </div> --}}
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="start_daftar" class="form-label">Tanggal Start Acara</label>
+                                <input type="date" class="form-control @error('start_daftar') is-invalid @enderror" id="start_daftar" name="start_daftar" value="{{ old('start_daftar') }}">
+                                @error('start_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="end_daftar" class="form-label">Tanggal End Acara</label>
+                                <input type="date" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                @error('end_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="end_daftar" class="form-label">Jam Start Acara</label>
+                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
+                                @error('end_daftar')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                @enderror
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="mb-3">
+                                <label for="end_daftar" class="form-label">Jam End Acara</label>
+                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
                                 @error('end_daftar')
                                   <div class="invalid-feedback">
                                       {{ $message }}
