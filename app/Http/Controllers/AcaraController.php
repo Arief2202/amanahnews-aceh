@@ -31,7 +31,14 @@ class AcaraController extends Controller
             'slug' => 'required|unique:acaras|max:255',
             'penyelenggara' => 'required',
             'deskripsi' => 'required',
-            'start_acara' => 'required',
+            'start_daftar_date' => 'required',
+            'end_daftar_date' => 'required',
+            'start_daftar_time' => 'required',
+            'end_daftar_time' => 'required',
+            'start_acara_date' => 'required',
+            'end_acara_date' => 'required',
+            'start_acara_time' => 'required',
+            'end_acara_time' => 'required',
             'lokasi' => 'required',
             'nama_pj' => 'required',
             'nomor_pj' => 'required',
@@ -39,6 +46,7 @@ class AcaraController extends Controller
             'sosial_media' => 'required',
             'peta' => 'required',
         ]);
+        
         $destinationPath = 'uploads/acara/image';
         $imageName = $request->slug.'.'.$request->image->extension();
         $request->image->move(public_path($destinationPath), $imageName);
@@ -51,9 +59,14 @@ class AcaraController extends Controller
             'slug' => $request->slug,
             'penyelenggara' => $request->penyelenggara,
             'deskripsi' => $request->deskripsi,
-            'start_daftar' => $request->start_daftar,
-            'end_daftar' => $request->end_daftar,
-            'start_acara' => $request->start_acara,
+            'start_daftar_date' => $request->start_daftar_date." 00:00:00",
+            'end_daftar_date' => $request->end_daftar_date." 00:00:00",
+            'start_daftar_time' => date('Y-m-d ').$request->start_daftar_time.':00',
+            'end_daftar_time' => date('Y-m-d ').$request->end_daftar_time.':00',
+            'start_acara_date' => $request->start_acara_date." 00:00:00",
+            'end_acara_date' => $request->end_acara_date." 00:00:00",
+            'start_acara_time' => $request->start_acara_date.' '.$request->start_acara_time.':00',
+            'end_acara_time' => $request->start_acara_date.' '.$request->end_acara_time.':00',
             'lokasi' => $request->lokasi,
             'nama_pj' => $request->nama_pj,
             'nomor_pj' => $request->nomor_pj,

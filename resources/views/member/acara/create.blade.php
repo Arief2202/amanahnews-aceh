@@ -69,9 +69,9 @@
                           </div> --}}
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="start_daftar" class="form-label">Tanggal Start Pendaftaran</label>
-                                <input type="date" class="form-control @error('start_daftar') is-invalid @enderror" id="start_daftar" name="start_daftar" value="{{ old('start_daftar') }}">
-                                @error('start_daftar')
+                                <label for="start_daftar_date" class="form-label">Tanggal Start Pendaftaran</label>
+                                <input type="date" class="form-control @error('start_daftar_date') is-invalid @enderror" id="start_daftar_date" name="start_daftar_date" value="{{ old('start_daftar_date') }}">
+                                @error('start_daftar_date')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -80,9 +80,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Tanggal End Pendaftaran</label>
-                                <input type="date" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="end_daftar_date" class="form-label">Tanggal End Pendaftaran</label>
+                                <input type="date" class="form-control @error('end_daftar_date') is-invalid @enderror" id="end_daftar_date" name="end_daftar_date" value="{{ old('end_daftar_date') }}">
+                                @error('end_daftar_date')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -91,9 +91,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Jam Start Pendaftaran</label>
-                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="start_daftar_time" class="form-label">Jam Start Pendaftaran</label>
+                                <input type="time" class="form-control @error('start_daftar_time') is-invalid @enderror" id="start_daftar_time" name="start_daftar_time" value="{{ old('start_daftar_time') }}">
+                                @error('start_daftar_time')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -102,9 +102,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Jam End Pendaftaran</label>
-                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="end_daftar_time" class="form-label">Jam End Pendaftaran</label>
+                                <input type="time" class="form-control @error('end_daftar_time') is-invalid @enderror" id="end_daftar_time" name="end_daftar_time" value="{{ old('end_daftar_time') }}">
+                                @error('end_daftar_time')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -118,9 +118,9 @@
                           </div> --}}
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="start_daftar" class="form-label">Tanggal Start Acara</label>
-                                <input type="date" class="form-control @error('start_daftar') is-invalid @enderror" id="start_daftar" name="start_daftar" value="{{ old('start_daftar') }}">
-                                @error('start_daftar')
+                                <label for="start_acara_date" class="form-label">Tanggal Start Acara</label>
+                                <input type="date" class="form-control @error('start_acara_date') is-invalid @enderror" id="start_acara_date" name="start_acara_date" value="{{ old('start_acara_date') }}">
+                                @error('start_acara_date')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -129,9 +129,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Tanggal End Acara</label>
-                                <input type="date" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="end_acara_date" class="form-label">Tanggal End Acara</label>
+                                <input type="date" class="form-control @error('end_acara_date') is-invalid @enderror" id="end_acara_date" name="end_acara_date" value="{{ old('end_acara_date') }}">
+                                @error('end_acara_date')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -140,9 +140,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Jam Start Acara</label>
-                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="start_acara_time" class="form-label">Jam Start Acara</label>
+                                <input type="time" class="form-control @error('start_acara_time') is-invalid @enderror" id="start_acara_time" name="start_acara_time" value="{{ old('start_acara_time') }}">
+                                @error('start_acara_time')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -151,9 +151,9 @@
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
-                                <label for="end_daftar" class="form-label">Jam End Acara</label>
-                                <input type="time" class="form-control @error('end_daftar') is-invalid @enderror" id="end_daftar" name="end_daftar" value="{{ old('end_daftar') }}">
-                                @error('end_daftar')
+                                <label for="end_acara_time" class="form-label">Jam End Acara</label>
+                                <input type="time" class="form-control @error('end_acara_time') is-invalid @enderror" id="end_acara_time" name="end_acara_time" value="{{ old('end_acara_time') }}">
+                                @error('end_acara_time')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -161,7 +161,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="start_acara" class="form-label">Start Acara</label>
                             <input type="datetime-local" class="form-control @error('start_acara') is-invalid @enderror" id="start_acara" name="start_acara" value="{{ old('start_acara') }}">
                             @error('start_acara')
@@ -169,7 +169,7 @@
                                   {{ $message }}
                               </div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="lokasi" class="form-label">Lokasi</label>
                             <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" name="lokasi" value="{{ old('lokasi') }}">

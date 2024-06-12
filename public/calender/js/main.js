@@ -125,19 +125,30 @@
 							.then(data => {
 								
 								var color = ["primary", "secondary", "success", "danger", "warning", "info", "dark"];
+								var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 								var modalBody = document.getElementById('modal-body');
 								modalBody.innerHTML = null;
 			
 								for(var i=0; i<data.acara.length; i++){
 									var title = data.acara[i].title;
 									var lokasi = data.acara[i].lokasi;
-									var datetime = data.acara[i].start_acara;
+									var datetime = "";								
+									var start_acara_date = new Date(data.acara[i].start_acara_date);	
+									var end_acara_date = data.acara[i].end_acara_date;	
+									datetime += start_acara_date.getDate() + " " + month[start_acara_date.getMonth()] + " " + start_acara_date.getFullYear();
+									if(end_acara_date){
+										end_acara_date = new Date(data.acara[i].end_acara_date);
+										datetime += " - "+end_acara_date.getDate() + " " + month[end_acara_date.getMonth()] + " " + end_acara_date.getFullYear();
+									}
+
 									var href = '/acara/detail/'+data.acara[i].slug;
+									console.log(start_acara_date);
+									console.log(end_acara_date);
 									modalBody.innerHTML += '<a href="'+href+'"><div class="alert alert-'+color[i%6]+'" role="alert"><h5 style="font-weight:600">'+title+'</h5><div class="row"><div class="col-auto"><i class="bx bx-map-pin" style="font-size: 50px"></i></div><div class="col"><p>'+lokasi+'</p></div></div><div class="d-flex justify-content-between mt-2"><div class="pt-2"><p>'+datetime+'</p></div><button class="btn btn-'+color[i%6]+'">Selengkapnya</button></div></div></a>';
 
+									$("#myModal").modal('show');
 								}
 							});
-							$("#myModal").modal('show');
 						}
 						// selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
 					} 
