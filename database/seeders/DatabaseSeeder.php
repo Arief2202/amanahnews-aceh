@@ -40,5 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagnameSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(AcaraSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(ApaKataMerekaSeeder::class);
     }
 }

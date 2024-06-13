@@ -15,12 +15,12 @@
     <section id="hero" class="hero section">
 
         <div style="background-color:var(--main-color); width:100%; height:100%;position: absolute; z-index: 1; top:0px;"></div>
-        <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 30%;">
+        <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 10%;">
         <img src="/assets/img/bercak.png" alt="" data-aos="fade-in">
   
         <div class="heroImg">
   
-          <img src="/assets/img/logo_vertical.png" alt="" data-aos="fade-in">  
+          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in">  
         </div>
   
         <div class="container divText" style="">
@@ -163,7 +163,7 @@
                 <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
                 <div>
                   <h4 class="title"><a href="services-details.html" class="stretched-link">Pengembangan SDM</a></h4>
-                  <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                  <p class="description">Program AMANAH berupaya mengembangkan beragam kekayaan sumber daya alam dan sumber daya manusia khususnya para pemuda yang ada di Aceh. Program AMANAH juga berupaya mengangkat ekonomi kreatif yang dapat berkembang di masyarakat yang terdiri dari 18 subsektor. </p>
                 </div>
               </div>
             </div>
@@ -173,8 +173,11 @@
               <div class="service-item d-flex">
                 <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
                 <div>
-                  <h4 class="title"><a href="services-details.html" class="stretched-link">Layanan Informasi</a></h4>
-                  <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                  <h4 class="title"><a href="services-details.html" class="stretched-link">Berita Terkini</a></h4>
+                  @if($trendings->count() > 0)
+                  <p class="description"><a href="/berita/{{$trendings->first()->slug}}">{{$trendings->first()->title}}</a></p>
+                  @else
+                  @endif
                 </div>
               </div>
             </div><!-- End Service Item -->
@@ -184,7 +187,7 @@
                 <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
                 <div>
                   <h4 class="title"><a href="services-details.html" class="stretched-link">Katalog Penjualan</a></h4>
-                  <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                  {{-- <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p> --}}
                 </div>
               </div>
             </div><!-- End Service Item -->
@@ -194,7 +197,7 @@
                 <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
                 <div>
                   <h4 class="title"><a href="services-details.html" class="stretched-link">Kalender Kegiatan</a></h4>
-                  <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                  {{-- <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p> --}}
                 </div>
               </div>
             </div><!-- End Service Item -->
@@ -241,27 +244,27 @@
                 </script>
                 <div class="swiper-wrapper">
   
-                  @for($a=0;$a<10;$a++)
+                  @foreach($kata_merekas as $kataMereka)
                   <div class="swiper-slide">
                     <div class="testimonial-item">
                       <div class="d-flex">
-                        <img src="{{/*fake()->imageUrl(640, 480, 'animals', true)*/""}}" class="testimonial-img flex-shrink-0" alt="">
+                        <img src="/uploads/kataMereka/{{$kataMereka->photo}}" class="testimonial-img flex-shrink-0" alt="">
                         <div>
-                          <h3>{{fake()->name()}}</h3>
-                          <h4>Mahasiswa Teknik Informatika ITS</h4>
+                          <h3>{{$kataMereka->name}}</h3>
+                          <h4>{{$kataMereka->instance}}</h4>
                           <div class="stars">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            @for($a=0;$a<$kataMereka->star; $a++)<i class="bi bi-star-fill"></i>@endfor
                           </div>
                         </div>
                       </div>
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                        <span>{{$kataMereka->answer}}</span>
                         <i class="bi bi-quote quote-icon-right"></i>
                       </p>
                     </div>
                   </div><!-- End testimonial item -->
-                  @endfor
+                  @endforeach
   
                 </div>
                 <div class="swiper-pagination"></div>
@@ -285,55 +288,24 @@
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
               <div class="content px-xl-5">
                 <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
-                <p>
+                {{-- <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                </p>
+                </p> --}}
               </div>
             </div>
   
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
   
               <div class="faq-container">
-                <div class="faq-item faq-active">
-                  <h3><span class="num">1.</span> <span>Non consectetur a erat nam at lectus urna duis?</span></h3>
-                  <div class="faq-content">
-                    <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
-  
-                <div class="faq-item">
-                  <h3><span class="num">2.</span> <span>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</span></h3>
-                  <div class="faq-content">
-                    <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
-  
-                <div class="faq-item">
-                  <h3><span class="num">3.</span> <span>Dolor sit amet consectetur adipiscing elit pellentesque?</span></h3>
-                  <div class="faq-content">
-                    <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
-  
-                <div class="faq-item">
-                  <h3><span class="num">4.</span> <span>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</span></h3>
-                  <div class="faq-content">
-                    <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
-  
-                <div class="faq-item">
-                  <h3><span class="num">5.</span> <span>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</span></h3>
-                  <div class="faq-content">
-                    <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
-  
+                @foreach($faqs as $key=>$faq)
+                  <div class="faq-item @if($key==0)faq-active @endif">
+                    <h3><span class="num">{{$key+1}}.</span> <span>{{$faq->question}}</span></h3>
+                    <div class="faq-content">
+                      <p>{{$faq->answer}}</p>
+                    </div>
+                    <i class="faq-toggle bi bi-chevron-right"></i>
+                  </div><!-- End Faq item-->
+                @endforeach
               </div>
   
             </div>
@@ -350,7 +322,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>Kami siap membantu dengan segala pertanyaan dan informasi lebih lanjut mengenai Program Aneuk Muda Aceh Unggul dan Hebat (Amanah). Jangan ragu untuk menghubungi kami melalui saluran berikut</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -364,8 +336,8 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                   <i class="bi bi-geo-alt"></i>
                   <h3>Address</h3>
-                  <p>A108 Adam Street</p>
-                  <p>New York, NY 535022</p>
+                  <p>Sekretariat AMANAH (Aneuk Muda Aceh Unggul Hebat)</p>
+                  <p>Jl. Prof. A. Majid Ibrahim II, Kp. Baru, Kec. Baiturrahman, Kota Banda Aceh, Aceh 23116</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -373,8 +345,8 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
                   <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                  <p>+1 6678 254445 41</p>
+                  <p>+62 823-1193-8885</p>
+                  {{-- <p>+1 6678 254445 41</p> --}}
                 </div>
               </div><!-- End Info Item -->
 
@@ -382,8 +354,8 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                  <p>contact@example.com</p>
+                  <p>amanahaceh24@gmail.com</p>
+                  {{-- <p>contact@example.com</p> --}}
                 </div>
               </div><!-- End Info Item -->
 
@@ -391,8 +363,8 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="500">
                   <i class="bi bi-clock"></i>
                   <h3>Open Hours</h3>
-                  <p>Monday - Friday</p>
-                  <p>9:00AM - 05:00PM</p>
+                  <p>Monday - Saturday</p>
+                  <p>9:00 - 22:00</p>
                 </div>
               </div><!-- End Info Item -->
 

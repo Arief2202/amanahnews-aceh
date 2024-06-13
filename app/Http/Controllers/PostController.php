@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\ApaKataMereka;
 use App\Models\postcontent;
 use App\Models\category;
 use App\Models\tagname;
 use App\Models\Post;
 use App\Models\tag;
+use App\Models\faq;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\File; 
 
@@ -19,6 +21,8 @@ class PostController extends Controller
      */
     public function home(){
         return view('landing.index', [
+            'faqs' => faq::all(),
+            'kata_merekas' => ApaKataMereka::all(),
             'carousel_items' => Post::where('show', 1)->get(),
             'newest' => Post::where('show', 1)->get(),
             'populars' => Post::where('show', 1)->get(),

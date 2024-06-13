@@ -13,8 +13,8 @@
     <section style="top: 0px; padding:0px; margin:0px;">
         <div class="" style="height: 500px">
             
-            <div style="background-color:#7E9465; width:100%; height:500px;position: absolute; z-index: 0; top:0px;"></div>
-            <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:15%;">
+            <div style="background-color:var(--main-color); width:100%; height:500px;position: absolute; z-index: 0; top:0px;"></div>
+            <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:10%;">
             <div style="position: absolute; transform: translateX(-50%); left:50%;top:150px; z-index:2;">
                 <h1 style="color:white;font-weight:600;font-size:62px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">E-Katalog</h1>
                 <p  style="color:white;font-size:20px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Dukung UMKM dengan membeli produk dari kami. Sebagian besar produk merupakan hasil kolaborasi antara Amanah dan Pemuda Setempat</p>
