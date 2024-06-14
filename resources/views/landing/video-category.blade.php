@@ -1,75 +1,37 @@
 @extends('layouts.main')
 
 @section('title')
-<title>Amanah News - Video</title>
+<title>Amanah News - video</title>
 @endsection
 
 @section('script')
-@if($carousel_items->count() == 0)
 <script src="/landing/assets/js/navbarDisScroll.js"></script>
-@else
-<script src="/landing/assets/js/navbarScroll.js"></script>
-@endif
 <script src="/landing/assets/js/autoPreloader.js"></script>
 @endsection
 
 @section('main')
-  
-    <!-- Hero Section -->
-    <section style="margin: 0px; padding: 0px; width:100%;">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" >
-  
-              @foreach($carousel_items as $a=>$carousel_item)
-              <?php
-                $content = Str::limit($carousel_item->content, 370);
-                $content = str_replace("<div>","",$content);
-                $content = str_replace("</div>","",$content);
-              ?>
-              <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
-                <div style="background-color:#000000; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div>
-                <img src="/uploads/video/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="max-height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
-                
-                <div class="carousel-caption d-none d-md-block h-100 p-3" style="width: 1000px">
-                  <div style="position: absolute; left:50px; top:50%; transform:translateY(-50%); height:100% color:white;">
-                    <h5 style="color:white;font-weight:600;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Peuhaba Aceh Gayo...</h5>
-                    <h1 style="color:white;font-weight:800;font-size:56px; margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">{{$carousel_item->title}}</h1>
-                    <div style="color:white;margin:0px;padding:0px;font-size:16px;text-align:left; margin-bottom: 50px;"><?=$content?></div>
-                      
-                    <div class="d-flex justfiy-content-start align-items-start mt-4">
-                      <a href="{{route('video.detail', ['slug' => $carousel_item->slug])}}" style="color:white;font-weight:600;font-size:20px;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Lihat Selengkapnya ></a>
-                    </div>
-                    <div class="row" style="position:absolute">
-                      <div class="col">
-                        <button type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style="background-color: transparent;border:none;">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Previous</span>
-                        </button>
-                      </div>
-                      <div class="col">
-                        <button type="button" data-bs-target="#carouselExample" data-bs-slide="next" style="background-color: transparent;border:none;">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Next</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  {{-- <h1 class="d-flex justify-content-start" style="color: #ffffff; margin-top:50px;">Pemerintah Lakukan Tiga Langkah Besar Majukan Kebudayaan Aceh</h1>   --}}
-                </div>
-                {{-- <p>Some representative placeholder content for the first slide.</p> --}}
+    <section class="mb-0 pb-0" style="margin-top: 40px;">
+        <div class="mb-0 page-title" data-aos="fade">
+            <nav class="breadcrumbs">
+              <div class="container">
+                <ol>
+                  <li><a href="/video">Video</a></li>
+                  <li><a href="/video/category">Kategori</a></li>
+                  <li><a href="/video/category/{{$selected->slug}}">{{$selected->name}}</a></li>
+                </ol>
               </div>
-              @endforeach
-
-            </div>
-          </div>
+            </nav>
+          </div><!-- End Page Title -->
     </section>
+
+  
 
     <section class="section" style="">
       <div class="container">
         <div class=" d-flex justify-content-center w-100">
           <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Cari Berita Video yang ingin anda lihat" style="width: 50vw; border-width: 2px 2px;">
+              <input type="text" class="form-control" placeholder="Cari video yang ingin anda baca" style="width: 50vw; border-width: 2px 2px;">
             </div>
             <div class="col">
               <button class="btn btn-primary-orange">Search</button>
@@ -79,7 +41,7 @@
 
         <div class="row">
           <div class="col">
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH Video</h3>
+            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Kategori {{$selected->name}} dari AMANAH Video</h3>
           </div>
           <div class="col d-flex justify-content-end align-items-end mb-2">
             <div class="dropdown">
@@ -97,7 +59,7 @@
         <div style="margin:0px;padding:0px; border:none; border-top:2px solid #000000;margin-bottom:20px"></div>
         <div class="row p-3">
           <div class="col-xl-8 ps-5 pe-5">
-              @foreach($newest as $a=>$new)
+              @foreach($filters as $a=>$new)
                 <?php
                   $content = Str::limit($new->content, 370);
                   $content = str_replace("<div>","",$content);
@@ -119,21 +81,11 @@
               @endforeach
           </div>
           <div class="col-xl-4 p-2">
-            <?php $videoCode = 'DsqMUJ7rbXg'; ?>
-            
-            <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
-              <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$videoCode}}"></iframe>
-            </div>
-            <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
-              <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$videoCode}}"></iframe>
-            </div>
-            <div class="mb-5" data-aos="fade-left" data-aos-delay="100">
+            <div class="mb-5">
               <a href="">
                 <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
               </a>
             </div>
-            <div class="h3">Trending</div>
-            <hr>
             @foreach($trendings as $i=>$trending)
               <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
                 <a href="{{route('video.detail', ['slug' => $trending->slug])}}">
@@ -156,7 +108,7 @@
     <section class="section" style="padding-top:0px;">
       <div class="container">        
         <div class="container section-title" data-aos="fade-up">
-          <h2>Berita Video Lainnya</h2>
+          <h2>Artikel Lainnya</h2>
           {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
         </div>
         <div class="row">

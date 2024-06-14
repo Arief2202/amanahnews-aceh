@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Post') }}
+            {{ __('List Berita') }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Edit</th>
+                                <th>Detail</th>
                                 <th>Publish Status</th>
                                 <th>Publish</th>
                                 <th>Category</th>
@@ -37,7 +37,7 @@
                             @foreach($posts as $a=>$post)
                             <tr>
                                 <td>{{$post->id}}</td>
-                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Edit</a></td>
+                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Detail</a></td>
                                 <td>
                                     @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
                                     @elseif($post->show == 0) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
@@ -51,7 +51,7 @@
                                 <td>{{$post->category->name}}</td>
                                 <td>{{$post->title}}</td>
                                 <td><a href="{{route('berita.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
-                                <td>{{fake()->sentence(1)}} @for($b=0;$b<rand(0,10); $b++), {{fake()->sentence(1)}} @endfor</td>
+                                <td>@foreach($tags->where('post_id', $post->id) as $key=>$tag)@if($key!=0), @endif {{$tag->tagname->name}}@endforeach</td>
                                 <td>{{$post->view_total}}</td>
                                 <td>{{$post->view_monthly}}</td>
                                 <td>{{$post->view_weekly}}</td>

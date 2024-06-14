@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update Berita') }}
+            {{ __('Tambahkan Berita Video Baru') }}
         </h2>
         <style>
           trix-toolbar [data-trix-attribute='quote'],
@@ -18,14 +18,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('member.berita.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
-                        <input type="hidden" name="id" id="id" value="{{old('id', $post->id)}}">
-                        <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', $post->user_id)}}">
-                        <input type="hidden" name="category_id" id="category_id" value="{{old('category_id', $post->category_id)}}">
+                    <form action="{{route('member.video.create.post')}}" method="POST" enctype="multipart/form-data">@csrf
+                        <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', Auth::user()->id)}}">
+                        <input type="hidden" name="category_id" id="category_id" value="{{old('category_id')}}">
                         <div class="mb-3">
                             <label for="myDropDown" class="form-label">Category</label>
                             <div class="input-group">
-                              <input type="text" class="form-control @error('category') is-invalid @enderror" aria-label="Text input with dropdown button" value="{{ old('category', $post->category->name) }}" id="category_show" disabled>
+                              <input type="text" class="form-control @error('category') is-invalid @enderror" aria-label="Text input with dropdown button" value="{{ old('category') }}" id="category_show" disabled>
                               <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Category
                               </button>
@@ -42,7 +41,7 @@
                               </ul>
                             </div>
                             
-                            <input type="hidden" name="category" id="category" value="{{ old('category', $post->category->name) }}" class="@error('category') is-invalid @enderror">
+                            <input type="hidden" name="category" id="category" value="{{ old('category') }}" class="@error('category') is-invalid @enderror">
                             @error('category')
                             <div class="invalid-feedback">
                               {{ $message }}
@@ -51,9 +50,9 @@
   
                           </div>
 
-                          <div class="mb-3">
+                        <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $post->title) }}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
                             @error('title')
                               <div class="invalid-feedback">
                                   {{ $message }}
@@ -62,7 +61,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
+                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
                             @error('slug')
                               <div class="invalid-feedback">
                                   {{ $message }}
@@ -79,15 +78,24 @@
                               </div>
                             @enderror
                         </div>
-                        <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">                            
+                        <div class="mb-5 img-preview-div" style="display:none;">                            
                             <label for="image" class="form-label">Photo Preview</label>
-                            <img for="image" src="/uploads/post/image/{{$post->banner}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
+                            <img for="image" src="" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
                         
+                        <div class="mb-3 mt-4">
+                          <label for="video" class="form-label">Video Link (Youtube Link)</label>
+                          <input type="text" class="form-control @error('video') is-invalid @enderror" id="video" name="video" value="{{ old('video') }}">
+                          @error('video')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                          @enderror
+                      </div>
                         <div class="mb-3">
-                            <label for="image_source" class="form-label">Image Source / description</label>
-                            <input type="text" class="form-control @error('image_source') is-invalid @enderror" id="image_source" name="image_source" value="{{ old('image_source', $post->banner_source) }}">
-                            @error('image_source')
+                            <label for="video_source" class="form-label">Video description</label>
+                            <input type="text" class="form-control @error('video_source') is-invalid @enderror" id="video_source" name="video_source" value="{{ old('video_source') }}">
+                            @error('video_source')
                               <div class="invalid-feedback">
                                   {{ $message }}
                               </div>
@@ -95,7 +103,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="title" class="form-label">Content</label>
-                            <input id="x" type="hidden" name="content" class="@error('image_source') is-invalid @enderror" value="{{old('content', $post->content)}}">
+                            <input id="x" type="hidden" name="content" class="@error('image_source') is-invalid @enderror" value="{{old('content')}}">
                             <trix-editor class="@error('image_source') is-invalid @enderror" input="x"></trix-editor>
                             @error('content')
                               <div class="invalid-feedback">
@@ -104,13 +112,9 @@
                             @enderror
                         </div>
                         
-                        <div class="d-flex justify-content-between">
-                          <a href="{{route('member.berita.delete', ['id'=>$post->id])}}" type="button" class="btn btn-danger me-3">Delete Berita</a>
-
-                          <div>
-                            <a href="{{route('member.berita')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{route('member.video')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
-                          </div>
                         </div>
                     </form>
                 </div>
@@ -140,6 +144,7 @@
               const div = document.getElementById("myDropdown");
               const a = div.getElementsByTagName("li");
               var count = 0;
+              var found = false;
               for (let i = 0; i < a.length; i++) {
                 txtValue = a[i].textContent || a[i].innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -148,10 +153,11 @@
                 } else {
                   a[i].style.display = "none";
                 }
+                if(txtValue.toUpperCase() == filter.toUpperCase()) found = true;
               }
               
               const btnNew = document.getElementById('btnNew');
-              if(count == 0){
+              if(count == 0 || !found){
                 btnNew.style.display = ""
               }
               else {

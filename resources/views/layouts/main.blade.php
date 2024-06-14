@@ -52,11 +52,11 @@
       
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/" class="@if($_SERVER['REQUEST_URI'] == '/') active @endif">Beranda</a></li>
-          <li><a href="/berita" class="@if($_SERVER['REQUEST_URI'] == '/berita') active @endif">Berita</a></li>
-          <li><a href="/e-catalog" class="@if($_SERVER['REQUEST_URI'] == '/e-catalog') active @endif">E-Catalog</a></li>
-          <li><a href="/acara" class="@if($_SERVER['REQUEST_URI'] == '/acara') active @endif">Acara</a></li>
-          <li><a href="/video" class="@if($_SERVER['REQUEST_URI'] == '/video') active @endif">Video</a></li>
+          <li><a href="/" class="@if('/'.Request::segment(1) == '/') active @endif">Beranda</a></li>
+          <li><a href="/berita" class="@if('/'.Request::segment(1) == '/berita') active @endif">Berita</a></li>
+          <li><a href="/e-catalog" class="@if('/'.Request::segment(1) == '/e-catalog') active @endif">E-Catalog</a></li>
+          <li><a href="/acara" class="@if('/'.Request::segment(1) == '/acara') active @endif">Acara</a></li>
+          <li><a href="/video" class="@if('/'.Request::segment(1) == '/video') active @endif">Video</a></li>
           <li class="ps-2 pe-2 pb-3 signinout"><a href="/login" class="btn btn-primary-orange">Sign In</a></li>
           <li class="ps-2 pe-2 signinout"><a href="/register" class="btn btn-outline-secondary">Sign Up</a></li>
         </ul>
@@ -76,7 +76,7 @@
 
 
     <section>
-      <div class="container">
+      <div class="container" data-aos="fade-left" data-aos-delay="100">
 
         <div class="card row m-2 p-2 d-flex justify-content-center align-items-center" style="height: 250px; background-color:var(--main-color);">
           {{-- <img src="/assets/img/bintik.png" alt="" style="width: 120px; position: absolute;left:150px;"> --}}

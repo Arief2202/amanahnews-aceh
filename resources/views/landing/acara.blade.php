@@ -93,7 +93,7 @@
                                     <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
                                 @endif
                             @endfor
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+1])}}">{{$per5*3+1}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+4])}}">{{$per5*3+4}}</a></li>
                             {{-- @if($per5*5+10 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+10])}}">{{$per5*3+10}}</a></li>@endif
                             @if($per5*5+20 < $acaras->lastPage())<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+20])}}">{{$per5*3+20}}</a></li>
                             @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$acaras->lastPage()])}}">{{$acaras->lastPage()}}</a></li> @endif --}}
@@ -102,7 +102,7 @@
                             {{-- @if($per5*5-20 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-20])}}">{{$per5*5-20}}</a></li>
                             @else <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>1])}}">1</a></li> @endif
                             @if($per5*5-10 > 0)<li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*5-10])}}">{{$per5*5-10}}</a></li>@endif --}}
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-4])}}">{{$per5*3-4}}</a></li>
                             @for($a=$acaras->lastPage()-3; $a<=$acaras->lastPage(); $a++)
                                 @if($a == $acaras->currentPage())
                                     <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>

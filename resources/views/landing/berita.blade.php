@@ -5,7 +5,11 @@
 @endsection
 
 @section('script')
+@if($carousel_items->count() == 0)
+<script src="/landing/assets/js/navbarDisScroll.js"></script>
+@else
 <script src="/landing/assets/js/navbarScroll.js"></script>
+@endif
 <script src="/landing/assets/js/autoPreloader.js"></script>
 @endsection
 

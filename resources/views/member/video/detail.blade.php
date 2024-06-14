@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Post Detail') }}
+            {{ __('Post Video Detail') }}
         </h2>
     </x-slot>
 
@@ -14,19 +14,19 @@
                         <div class="col-auto">
                             <div class="input-group">
                                 <span class="input-group-text">Publish Status</span>
-                                @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
-                                @elseif($post->show == 0) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
+                                @if($post->show == 1) <a href="{{route('member.video.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
+                                @elseif($post->show == 0) <a href="{{route('member.video.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
                                 @endif
                             </div>
                         </div>
                         <div class="col">
-                            @if($post->show == 0) <a href="{{route('member.berita.publish', ['id' => $post->id])}}?source=detail" class="btn btn-success">Publish</a>
-                            @elseif($post->show == 1) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}?source=detail" class="btn btn-secondary">Unpublish</a>
+                            @if($post->show == 0) <a href="{{route('member.video.publish', ['id' => $post->id])}}?source=detail" class="btn btn-success">Publish</a>
+                            @elseif($post->show == 1) <a href="{{route('member.video.unpublish', ['id' => $post->id])}}?source=detail" class="btn btn-secondary">Unpublish</a>
                             @endif
                         </div>
                         <div class="col d-flex justify-content-end">
-                            <a href="{{route('member.berita.delete', ['id' => $post->id])}}" class="btn btn-danger me-3">Delete Post</a>
-                            <a href="{{route('member.berita.update', ['id' => $post->id])}}" class="btn btn-warning">Edit Post</a>
+                            <a href="{{route('member.video.delete', ['id' => $post->id])}}" class="btn btn-danger me-3">Delete Post</a>
+                            <a href="{{route('member.video.update', ['id' => $post->id])}}" class="btn btn-warning">Edit Post</a>
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -57,7 +57,7 @@
                     </div>
                     <hr>
                     <div class="mt-3">
-                        Link Post : <a href="{{route('berita.detail', ['slug' => $post->slug])}}">{{route('berita.detail', ['slug' => $post->slug])}}</a>
+                        Link Post : <a href="{{route('video.detail', ['slug' => $post->slug])}}">{{route('video.detail', ['slug' => $post->slug])}}</a>
                     </div>
                     <div class="ps-3">                
                         <div class="mt-3 mb-2">
@@ -81,7 +81,16 @@
 
                     <div class="row p-0 m-0">
                         {{-- <div class="col-xl-8" style=""> --}}
-                            <img src="/uploads/post/image/{{$post->banner}}" alt="" style="width:100%">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Banner</h5>
+                                    <img src="/uploads/video/image/{{$post->banner}}" alt="" style="width:100%">
+                                </div>
+                                <div class="col">
+                                    <h5>Video</h5>
+                                    <iframe style="width:100%; height:300px;" src="https://www.youtube.com/embed/{{$post->video}}"></iframe>
+                                </div>
+                            </div>
                             <p class="mt-1" style="font-size:12px; color: color:rgba(255, 255, 255, 0.700)">{{$post->banner_source}}</p>
                             <div>
                                 <?=$post->content?>
@@ -101,10 +110,10 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="w-100">
                             @if($pc->saved == 0)
-                                <form action="{{route('postcontent.save')}}" method="POST" enctype="multipart/form-data"> @csrf
+                                <form action="{{route('postcontent.video.save')}}" method="POST" enctype="multipart/form-data"> @csrf
                                     <div class="d-flex justify-content-end">
                                         <input type="hidden" name="postcontent_id" value="{{$pc->id}}">
-                                        <a href="{{route('postcontent.delete', ['id' => $pc->id])}}" class="btn btn-danger me-3">Delete</a>
+                                        <a href="{{route('postcontent.video.delete', ['id' => $pc->id])}}" class="btn btn-danger me-3">Delete</a>
                                         <button type="submit" class="btn btn-success">Save</button>
                                     </div>
                                     <hr>
@@ -161,7 +170,7 @@
                                     @endif
                                 </form>
                             @else
-                                <form action="{{route('postcontent.edit')}}" method="POST"> @csrf
+                                <form action="{{route('postcontent.video.edit')}}" method="POST"> @csrf
                                     <div class="d-flex justify-content-end">
                                         <input type="hidden" name="postcontent_id" value="{{$pc->id}}">
                                         <button type="submit" class="btn btn-secondary">Edit</button>
@@ -197,9 +206,10 @@
                         </button>
                         <ul class="dropdown-menu">
                             <div class="w-100" id="dropDownItemAddNewSection">
-                                <form action="{{route('member.berita.newSection')}}" method="POST">@csrf
+                                <form action="{{route('member.video.newSection')}}" method="POST">@csrf
                                     <input type="hidden" name="post_id" value="{{$post->id}}">
                                     <li><button type="submit" name="type" value="image" class="dropdown-item">Image</button></li>
+                                    <li><button type="submit" name="type" value="video" class="dropdown-item">Video</button></li>
                                     <li><button type="submit" name="type" value="text" class="dropdown-item">Text</button></li>
                                 </form>
                             </div>
@@ -324,7 +334,7 @@
 
             function addNewTag(){
               const input = document.getElementById("myInputTag");
-              fetch("{{route('member.berita.newTag.add')}}?name="+input.value)
+              fetch("{{route('member.video.newTag.add')}}?name="+input.value)
               .then(response => response.json())
               .then(data => {
                 console.log(data);
@@ -342,7 +352,7 @@
                 showAll();
                 document.getElementById("myInputTag").value = null;
 
-                fetch("{{route('member.berita.tag.add')}}?post_id={{$post_id}}&tagname_id="+id)
+                fetch("{{route('member.video.tag.add')}}?post_id={{$post_id}}&tagname_id="+id)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -354,7 +364,7 @@
                 showAll();
                 document.getElementById("myInputTagDelete").value = null;
 
-                fetch("{{route('member.berita.tag.delete')}}?id="+id)
+                fetch("{{route('member.video.tag.delete')}}?id="+id)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -365,7 +375,7 @@
             setInterval(updateTagValue, 1000);
 
             function updateTagValue(){                
-                fetch("{{route('member.berita.tag.get')}}?post_id={{$post_id}}")
+                fetch("{{route('member.video.tag.get')}}?post_id={{$post_id}}")
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('tagsView').innerHTML = "<div class=\"col-auto\">Tags : </div>";

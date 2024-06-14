@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Post') }}
+            {{ __('List Video') }}
         </h2>
     </x-slot>
 
@@ -12,7 +12,7 @@
                     <div class="d-flex justify-content-end mb-3">
                         <div class="row">
                             <div class="col-md-auto d-flex justify-content-center mb-3">
-                                <a href="{{route('member.berita.create')}}" class="btn btn-primary">Tambahkan Berita Baru</a>
+                                <a href="{{route('member.video.create')}}" class="btn btn-primary">Tambahkan Berita Video Baru</a>
                             </div>
                         </div>
                     </div>
@@ -21,10 +21,11 @@
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Edit</th>
+                                <th>Detail</th>
                                 <th>Publish Status</th>
                                 <th>Publish</th>
                                 <th>Category</th>
+                                <th>Video</th>
                                 <th>Title</th>
                                 <th>Slug Link</th>
                                 <th>Tag</th>
@@ -37,21 +38,22 @@
                             @foreach($posts as $a=>$post)
                             <tr>
                                 <td>{{$post->id}}</td>
-                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Edit</a></td>
+                                <td><a href="{{route('member.video.detail', ['id' => $post->id])}}" class="btn btn-warning">Detail</a></td>
                                 <td>
-                                    @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
-                                    @elseif($post->show == 0) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
+                                    @if($post->show == 1) <a href="{{route('member.video.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
+                                    @elseif($post->show == 0) <a href="{{route('member.video.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($post->show == 0) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-secondary">Publish</a>
-                                    @elseif($post->show == 1) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-secondary">Unpublish</a>
+                                    @if($post->show == 0) <a href="{{route('member.video.publish', ['id' => $post->id])}}" class="btn btn-secondary">Publish</a>
+                                    @elseif($post->show == 1) <a href="{{route('member.video.unpublish', ['id' => $post->id])}}" class="btn btn-secondary">Unpublish</a>
                                     @endif
                                 </td>
                                 <td>{{$post->category->name}}</td>
+                                <td><a href="https://youtu.be/{{$post->video}}">{{$post->video}}</a></td>
                                 <td>{{$post->title}}</td>
-                                <td><a href="{{route('berita.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
-                                <td>{{fake()->sentence(1)}} @for($b=0;$b<rand(0,10); $b++), {{fake()->sentence(1)}} @endfor</td>
+                                <td><a href="{{route('video.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
+                                <td>@foreach($tags->where('post_id', $post->id) as $key=>$tag)@if($key!=0), @endif {{$tag->tagname->name}}@endforeach</td>
                                 <td>{{$post->view_total}}</td>
                                 <td>{{$post->view_monthly}}</td>
                                 <td>{{$post->view_weekly}}</td>

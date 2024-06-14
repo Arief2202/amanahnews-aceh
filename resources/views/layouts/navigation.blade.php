@@ -16,16 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if(Auth::user()->role == '1')
-                        <x-nav-link :href="route('member.berita')" :active="request()->routeIs('member.berita')">
+                        <x-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                             {{ __('Berita') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('member.e-catalog')" :active="request()->routeIs('member.e-catalog')">
+                        <x-nav-link :href="route('member.e-catalog')" :active="Request::segment(2) == 'e-catalog'">
                             {{ __('E-Catalog') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('member.acara')" :active="request()->routeIs('member.acara')">
+                        <x-nav-link :href="route('member.acara')" :active="Request::segment(2) == 'acara'">
                             {{ __('Acara') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('member.video')" :active="request()->routeIs('member.video')">
+                        <x-nav-link :href="route('member.video')" :active="Request::segment(2) == 'video'">
                             {{ __('Video') }}
                         </x-nav-link>
                     @endif
@@ -85,16 +85,16 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if(Auth::user()->role == '1')
-                <x-responsive-nav-link :href="route('member.berita')" :active="request()->routeIs('member.berita')">
+                <x-responsive-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                     {{ __('Berita') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('member.e-catalog')" :active="request()->routeIs('member.e-catalog')">
+                <x-responsive-nav-link :href="route('member.e-catalog')" :active="Request::segment(2) == 'e-catalog'">
                     {{ __('E-Catalog') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('member.acara')" :active="request()->routeIs('member.acara')">
+                <x-responsive-nav-link :href="route('member.acara')" :active="Request::segment(2) == 'acara'">
                     {{ __('Acara') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('member.video')" :active="request()->routeIs('member.video')">
+                <x-responsive-nav-link :href="route('member.video')" :active="Request::segment(2) == 'video'">
                     {{ __('Video') }}
                 </x-responsive-nav-link>
             @endif
