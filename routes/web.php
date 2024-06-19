@@ -43,19 +43,6 @@ Route::get('/testYT', function(Request $req){
 
 });
 
-Route::get('/e-catalog', function () {
-    return view('landing.e-catalog');
-});
-Route::get('/e-catalog/detail', function () {
-    return view('landing.e-catalog-detail');
-})->name('landing.e-catalog.detail');
-
-Route::get('/blog', function () {
-    return view('backup.blog');
-});
-Route::get('/blog-details', function () {
-    return view('backup.blog-details');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -65,6 +52,11 @@ Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
     Route::get('/acara/get', 'acaraGet')->name('acara.get');    
     Route::get('/acara/detail/{id}', 'acaraDetail')->name('acara.detail');    
+});
+Route::controller(ECatalogController::class)->group(function () {
+    Route::get('/e-catalog', 'eCatalog')->name('e-catalog');
+    Route::get('/e-catalog/get', 'eCatalogGet')->name('e-catalog.get');    
+    Route::get('/e-catalog/detail/{slug}', 'eCatalogDetail')->name('e-catalog.detail');    
 });
 
 Route::controller(PostController::class)->group(function () {
@@ -100,16 +92,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/acara/create', 'createView')->name('member.acara.create');
         Route::post('/member/acara/create', 'create')->name('member.acara.create.post');
         Route::get('/member/acara', 'read')->name('member.acara');
-        Route::get('/member/acara/update/{id}', 'update')->name('member.acara.update');
+        Route::get('/member/acara/update/{id}', 'updateView')->name('member.acara.update');
+        Route::post('/member/acara/update', 'update')->name('member.acara.update.post');
         Route::get('/member/acara/delete/{id}', 'delete')->name('member.acara.delete');
 
         Route::get('/member/acara/slug/check', 'checkSlug')->name('member.acara.slug.check');
     });
     Route::controller(ECatalogController::class)->group(function () {
-        Route::get('/member/e-catalog', 'read')->name('member.e-catalog');
         Route::get('/member/e-catalog/create', 'createView')->name('member.e-catalog.create');
-        Route::post('/member/e-catalog/create', 'create')->name('member.e-catalog.post');
+        Route::post('/member/e-catalog/create', 'create')->name('member.e-catalog.create.post');
+        Route::get('/member/e-catalog', 'read')->name('member.e-catalog');
+        Route::get('/member/e-catalog/update/{id}', 'updateView')->name('member.e-catalog.update');
+        Route::post('/member/e-catalog/update', 'update')->name('member.e-catalog.update.post');
+        Route::get('/member/e-catalog/delete/{id}', 'delete')->name('member.e-catalog.delete');
+        
         Route::get('/member/e-catalog/slug/check', 'checkSlug')->name('member.e-catalog.slug.check');
+        Route::get('/member/e-catalog/banner', 'changeBannerView')->name('member.e-catalog.banner');
+        Route::post('/member/e-catalog/banner', 'changeBanner')->name('member.e-catalog.banner.post');
     });
     Route::controller(PostVideoController::class)->group(function () {
         Route::get('/member/video', 'read')->name('member.video');

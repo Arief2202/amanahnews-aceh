@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id');
+            $table->string('post_type')->default('photo');
             $table->foreignId('tagname_id');
             $table->timestamps();
         });

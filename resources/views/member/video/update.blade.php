@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update Berita Video') }}
+            {{ __('Update video Video') }}
         </h2>
         <style>
           trix-toolbar [data-trix-attribute='quote'],
@@ -18,7 +18,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('member.berita.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
+                    <form action="{{route('member.video.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
                         <input type="hidden" name="id" id="id" value="{{old('id', $post->id)}}">
                         <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', $post->user_id)}}">
                         <input type="hidden" name="category_id" id="category_id" value="{{old('category_id', $post->category_id)}}">
@@ -81,13 +81,22 @@
                         </div>
                         <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">                            
                             <label for="image" class="form-label">Photo Preview</label>
-                            <img for="image" src="/uploads/post/image/{{$post->banner}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
+                            <img for="image" src="/uploads/video/image/{{$post->banner}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
                         
+                        <div class="mb-3 mt-4">
+                          <label for="video" class="form-label">Video Link (Youtube Link)</label>
+                          <input type="text" class="form-control @error('video') is-invalid @enderror" id="video" name="video" value="{{ old('video', 'https://youtube.com/watch?v='.$post->video) }}">
+                          @error('video')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                          @enderror
+                      </div>
                         <div class="mb-3">
-                            <label for="image_source" class="form-label">Image Source / description</label>
-                            <input type="text" class="form-control @error('image_source') is-invalid @enderror" id="image_source" name="image_source" value="{{ old('image_source', $post->banner_source) }}">
-                            @error('image_source')
+                            <label for="video_source" class="form-label">Video description</label>
+                            <input type="text" class="form-control @error('video_source') is-invalid @enderror" id="video_source" name="video_source" value=" {{ old('video_source', $post->video_source) }} ">
+                            @error('video_source')
                               <div class="invalid-feedback">
                                   {{ $message }}
                               </div>
@@ -105,10 +114,10 @@
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                          <a href="{{route('member.berita.delete', ['id'=>$post->id])}}" type="button" class="btn btn-danger me-3">Delete Berita</a>
+                          <a href="{{route('member.video.delete', ['id'=>$post->id])}}" type="button" class="btn btn-danger me-3">Delete video</a>
 
                           <div>
-                            <a href="{{route('member.berita')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
+                            <a href="{{route('member.video')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
                           </div>
                         </div>
@@ -183,7 +192,7 @@
             const title = document.querySelector("#title");
             const slug = document.querySelector("#slug");
             title.addEventListener('keyup', function(){
-                fetch("{{route('member.berita.slug.check')}}?title="+title.value)
+                fetch("{{route('member.video.slug.check')}}?title="+title.value)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);
             });

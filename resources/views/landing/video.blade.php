@@ -109,7 +109,7 @@
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                     </div>
-                    <img src="/uploads/video/image/{{$new->banner}}" alt="" style="width: 100%">
+                    <img src="/uploads/video/image/{{$new->banner}}" alt="" style="max-height:350px; width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
                     <a href="/video/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Artikel ></a>
@@ -120,13 +120,14 @@
           </div>
           <div class="col-xl-4 p-2">
             <?php $videoCode = 'DsqMUJ7rbXg'; ?>
-            
+            @if($trendings->first())
             <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
-              <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$videoCode}}"></iframe>
+              <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$trendings->first()->video}}"></iframe>
             </div>
-            <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
+            @endif
+            {{-- <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
               <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$videoCode}}"></iframe>
-            </div>
+            </div> --}}
             <div class="mb-5" data-aos="fade-left" data-aos-delay="100">
               <a href="">
                 <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
@@ -141,7 +142,7 @@
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{$trending->category->name}}</p>
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($trending->updated_at))}}</p>
                   </div>
-                  <img src="/uploads/video/image/{{$trending->banner}}" alt="" style="width: 100%">
+                  <img src="/uploads/video/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%;">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
                   <a href="/video/detail/{{$trending->slug}}">Baca Artikel ></a>
                   <hr>
@@ -164,7 +165,7 @@
           <div class="col-xl-4 mb-3">
             <a href="{{route('video.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
-                <img src="/uploads/video/image/{{$lainnya->banner}}" alt="" style="width: 100%">
+                <img src="/uploads/video/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
                 <a href="mb-5">Baca Artikel ></a>
               </div>

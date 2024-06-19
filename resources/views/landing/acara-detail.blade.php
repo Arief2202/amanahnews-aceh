@@ -64,13 +64,13 @@
 
                         <div class="row d-flex align-items-end">
                             <div class="col-auto">
-                                <a href="{{$acara->hubungi_kami}}" class="btn btn-primary-orange" style="border-radius:10px">Hubungi Kami</a>
+                                <a href="{{$acara->hubungi_kami}}" target="_blank" class="btn btn-primary-orange" style="border-radius:10px">Hubungi Kami</a>
                             </div>
                             <div class="col-auto">
-                                <a href="{{$acara->sosial_media}}" class="btn btn-primary-orange" style="border-radius:10px">Sosial Media</a>
+                                <a href="{{$acara->sosial_media}}" target="_blank" class="btn btn-primary-orange" style="border-radius:10px">Sosial Media</a>
                             </div>
                             <div class="col-auto">
-                                <a href="{{$acara->peta}}" class="btn btn-primary-orange" style="border-radius:10px">Lihat Peta</a>
+                                <a href="{{$acara->peta}}" target="_blank" class="btn btn-primary-orange" style="border-radius:10px">Lihat Peta</a>
                             </div>
                         </div>
                     </div>

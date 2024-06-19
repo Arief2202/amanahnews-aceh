@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('postcontents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id');
+            $table->string('post_type')->default('photo');
             $table->string('type')->default('text');
             $table->longText('content')->nullable();
             $table->text('image_width')->nullable();

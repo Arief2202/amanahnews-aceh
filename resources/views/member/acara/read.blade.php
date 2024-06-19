@@ -26,9 +26,14 @@
                                 <th>slug</th>
                                 <th>penyelenggara</th>
                                 <th>deskripsi</th>
-                                <th>Start Daftar</th>
-                                <th>End Daftar</th>
-                                <th>Start Acara</th>
+                                <th>Start Daftar Date</th>
+                                <th>End Daftar Date</th>
+                                <th>Start Daftar Time</th>
+                                <th>End Daftar Time</th>
+                                <th>Start Acara Date</th>
+                                <th>End Acara Date</th>
+                                <th>Start Acara Time</th>
+                                <th>End Acara Time</th>
                                 <th>Lokasi</th>
                                 <th>Nama PJ</th>
                                 <th>Nomor PJ</th>
@@ -41,14 +46,19 @@
                             @foreach($acaras as $a=>$acara)
                             <tr>
                                 <td>{{$acara->id}}</td>
-                                <td><a href="{{route('member.acara.delete', ['id' => $acara->id])}}" class="btn btn-danger">Delete</a></td>
+                                <td><a href="{{route('member.acara.update', ['id' => $acara->id])}}" class="btn btn-warning">Edit</a></td>
                                 <td>{{$acara->title}}</td>
                                 <td><a href="{{route('acara.detail', ['id' => $acara->slug])}}" class="">{{$acara->slug}}</a></td>
                                 <td>{{$acara->penyelenggara}}</td>
                                 <td>{{$acara->deskripsi}}</td>
-                                <td>{{$acara->start_daftar}}</td>
-                                <td>{{$acara->end_daftar}}</td>
-                                <td>{{$acara->start_acara}}</td>
+                                <td>{{$acara->start_daftar_date ? date('Y-m-d', strtotime($acara->start_daftar_date)) : null}}</td>
+                                <td>{{$acara->end_daftar_date ? date('Y-m-d', strtotime($acara->end_daftar_date)) : null}}</td>
+                                <td>{{$acara->start_daftar_time ? date('H:i', strtotime($acara->start_daftar_time)) : null}}</td>
+                                <td>{{$acara->end_daftar_time ? date('H:i', strtotime($acara->end_daftar_time)) : null}}</td>
+                                <td>{{$acara->start_acara_date ? date('Y-m-d', strtotime($acara->start_acara_date)) : null}}</td>
+                                <td>{{$acara->end_acara_date ? date('Y-m-d', strtotime($acara->end_acara_date)) : null}}</td>
+                                <td>{{$acara->start_acara_time ? date('H:i', strtotime($acara->start_acara_time)) : null}}</td>
+                                <td>{{$acara->end_acara_time ? date('H:i', strtotime($acara->end_acara_time)) : null}}</td>
                                 <td>{{$acara->lokasi}}</td>
                                 <td>{{$acara->nama_pj}}</td>
                                 <td>{{$acara->nomor_pj}}</td>

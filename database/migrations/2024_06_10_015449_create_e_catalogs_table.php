@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('e_catalogs', function (Blueprint $table) {
             $table->id();
+            $table->string('photo');
+            $table->string('title');
+            $table->string('slug');
+            $table->string('price');
+            $table->string('owner');
+            $table->longText('description');
+            $table->string('address');
+            $table->string('hubungi');
+            $table->string('sosmed');
             $table->timestamps();
         });
     }

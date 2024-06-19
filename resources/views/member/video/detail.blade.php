@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class="col">
                                     <h5>Banner</h5>
-                                    <img src="/uploads/video/image/{{$post->banner}}" alt="" style="width:100%">
+                                    <img style="max-height:300px;" src="/uploads/video/image/{{$post->banner}}" alt="" style="width:100%">
                                 </div>
                                 <div class="col">
                                     <h5>Video</h5>

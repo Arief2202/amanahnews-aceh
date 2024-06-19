@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Post') }}
+            {{ __('E-Catalog') }}
         </h2>
     </x-slot>
 
@@ -12,7 +12,8 @@
                     <div class="d-flex justify-content-end mb-3">
                         <div class="row">
                             <div class="col-md-auto d-flex justify-content-center mb-3">
-                                <a href="{{route('member.berita.create')}}" class="btn btn-primary">Tambahkan Berita Baru</a>
+                                <a href="{{route('member.e-catalog.banner')}}" class="btn btn-warning me-3">Ubah Banner</a>
+                                <a href="{{route('member.e-catalog.create')}}" class="btn btn-primary">Tambahkan Acara Baru</a>
                             </div>
                         </div>
                     </div>
@@ -22,39 +23,29 @@
                             <tr>
                                 <th>id</th>
                                 <th>Edit</th>
-                                <th>Publish Status</th>
-                                <th>Publish</th>
-                                <th>Category</th>
-                                <th>Title</th>
-                                <th>Slug Link</th>
-                                <th>Tag</th>
-                                <th>Total View</th>
-                                <th>Total View Monthly</th>
-                                <th>Total View Weekly</th>
+                                <th>title</th>
+                                <th>slug</th>
+                                <th>Price</th>
+                                <th>Owner</th>
+                                <th>Description</th>
+                                <th>Address</th>
+                                <th>Hubungi</th>
+                                <th>Sosmed</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($posts as $a=>$post)
+                            @foreach($ecatalogs as $a=>$ecatalog)
                             <tr>
-                                <td>{{$post->id}}</td>
-                                <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Edit</a></td>
-                                <td>
-                                    @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>
-                                    @elseif($post->show == 0) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-danger disabled" disabled>Not Publish</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($post->show == 0) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-secondary">Publish</a>
-                                    @elseif($post->show == 1) <a href="{{route('member.berita.unpublish', ['id' => $post->id])}}" class="btn btn-secondary">Unpublish</a>
-                                    @endif
-                                </td>
-                                <td>{{$post->category->name}}</td>
-                                <td>{{$post->title}}</td>
-                                <td><a href="{{route('berita.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
-                                <td>{{fake()->sentence(1)}} @for($b=0;$b<rand(0,10); $b++), {{fake()->sentence(1)}} @endfor</td>
-                                <td>{{$post->view_total}}</td>
-                                <td>{{$post->view_monthly}}</td>
-                                <td>{{$post->view_weekly}}</td>
+                                <td>{{$ecatalog->id}}</td>
+                                <td><a href="{{route('member.e-catalog.update', ['id' => $ecatalog->id])}}" class="btn btn-warning">Edit</a></td>
+                                <td>{{$ecatalog->title}}</td>
+                                <td><a href="{{route('e-catalog.detail', ['slug' => $ecatalog->slug])}}" class="">{{$ecatalog->slug}}</a></td>
+                                <td>Rp. {{number_format($ecatalog->price, 2, ",", ".")}}</td>
+                                <td>{{$ecatalog->owner}}</td>
+                                <td>{{$ecatalog->description}}</td>
+                                <td>{{$ecatalog->address}}</td>
+                                <td>{{$ecatalog->hubungi}}</td>
+                                <td>{{$ecatalog->sosmed}}</td>
                             </tr>
                             @endforeach
                         </tbody>

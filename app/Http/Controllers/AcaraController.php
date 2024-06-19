@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Acara;
 use App\Http\Requests\StoreAcaraRequest;
 use App\Http\Requests\UpdateAcaraRequest;
+use App\Models\Acara;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -31,14 +31,7 @@ class AcaraController extends Controller
             'slug' => 'required|unique:acaras|max:255',
             'penyelenggara' => 'required',
             'deskripsi' => 'required',
-            'start_daftar_date' => 'required',
-            'end_daftar_date' => 'required',
-            'start_daftar_time' => 'required',
-            'end_daftar_time' => 'required',
             'start_acara_date' => 'required',
-            'end_acara_date' => 'required',
-            'start_acara_time' => 'required',
-            'end_acara_time' => 'required',
             'lokasi' => 'required',
             'nama_pj' => 'required',
             'nomor_pj' => 'required',
@@ -59,14 +52,14 @@ class AcaraController extends Controller
             'slug' => $request->slug,
             'penyelenggara' => $request->penyelenggara,
             'deskripsi' => $request->deskripsi,
-            'start_daftar_date' => $request->start_daftar_date." 00:00:00",
-            'end_daftar_date' => $request->end_daftar_date." 00:00:00",
-            'start_daftar_time' => date('Y-m-d ').$request->start_daftar_time.':00',
-            'end_daftar_time' => date('Y-m-d ').$request->end_daftar_time.':00',
+            'start_daftar_date' => $request->start_daftar_date ? $request->start_daftar_date." 00:00:00" : null,
+            'end_daftar_date' => $request->end_daftar_date ? $request->end_daftar_date." 00:00:00" : null,
+            'start_daftar_time' => $request->start_daftar_time ? date('Y-m-d ').$request->start_daftar_time.':00' : null,
+            'end_daftar_time' => $request->end_daftar_time ? date('Y-m-d ').$request->end_daftar_time.':00' : null,
             'start_acara_date' => $request->start_acara_date." 00:00:00",
-            'end_acara_date' => $request->end_acara_date." 00:00:00",
-            'start_acara_time' => $request->start_acara_date.' '.$request->start_acara_time.':00',
-            'end_acara_time' => $request->start_acara_date.' '.$request->end_acara_time.':00',
+            'end_acara_date' => $request->end_acara_date ? $request->end_acara_date." 00:00:00" : null,
+            'start_acara_time' => $request->start_acara_date ? $request->start_acara_date.' '.$request->start_acara_time.':00' : null,
+            'end_acara_time' => $request->start_acara_date ? $request->start_acara_date.' '.$request->end_acara_time.':00' : null,
             'lokasi' => $request->lokasi,
             'nama_pj' => $request->nama_pj,
             'nomor_pj' => $request->nomor_pj,
@@ -86,6 +79,90 @@ class AcaraController extends Controller
             'acaras' => Acara::all(),
         ]);
     }
+    
+    public function updateView($id)
+    {
+        if(Auth::user()->role != '1') return redirect('/');
+        return view('member.acara.update', [
+            'acara' => Acara::where('id', $id)->first()
+        ]);
+    }
+    public function update(Request $request)
+    {
+        if(Auth::user()->role != '1') return redirect('/');
+        $acara = Acara::where('id', $request->id)->first();
+        if($acara){
+            if($request->slug == $acara->slug){
+                $validated = $request->validate([
+                    'user_id' => 'required',
+                    'title' => 'required',
+                    'penyelenggara' => 'required',
+                    'deskripsi' => 'required',
+                    'start_acara_date' => 'required',
+                    'lokasi' => 'required',
+                    'nama_pj' => 'required',
+                    'nomor_pj' => 'required',
+                    'hubungi_kami' => 'required',
+                    'sosial_media' => 'required',
+                    'peta' => 'required',
+                ]);    
+            }
+            else {
+                $validated = $request->validate([
+                    'user_id' => 'required',
+                    'title' => 'required',
+                    'slug' => 'required|unique:acaras|max:255',
+                    'penyelenggara' => 'required',
+                    'deskripsi' => 'required',
+                    'start_acara_date' => 'required',
+                    'lokasi' => 'required',
+                    'nama_pj' => 'required',
+                    'nomor_pj' => 'required',
+                    'hubungi_kami' => 'required',
+                    'sosial_media' => 'required',
+                    'peta' => 'required',
+                ]);        
+            }
+            
+            if($request->image){
+                $destinationPath = public_path().'\uploads\acara\image';
+                $imageName = $destinationPath.'\\'.$acara->photo;
+                File::delete($imageName);
+
+                $destinationPath = 'uploads/acara/image';
+                $imageName = $request->slug.'.'.$request->image->extension();
+                $request->image->move(public_path($destinationPath), $imageName);
+                $acara->poster = $imageName;
+            }
+
+            
+            $acara->user_id = $request->user_id;
+            $acara->title = $request->title;
+            $acara->slug = $request->slug;
+            $acara->penyelenggara = $request->penyelenggara;
+            $acara->deskripsi = $request->deskripsi;
+            $acara->start_daftar_date = $request->start_daftar_date ? $request->start_daftar_date." 00:00:00" : null;
+            $acara->end_daftar_date = $request->end_daftar_date ? $request->end_daftar_date." 00:00:00" : null;
+            $acara->start_daftar_time = $request->start_daftar_time ? date('Y-m-d ').$request->start_daftar_time.':00' : null;
+            $acara->end_daftar_time = $request->end_daftar_time ? date('Y-m-d ').$request->end_daftar_time.':00' : null;
+            $acara->start_acara_date = $request->start_acara_date." 00:00:00";
+            $acara->end_acara_date = $request->end_acara_date ? $request->end_acara_date." 00:00:00" : null;
+            $acara->start_acara_time = $request->start_acara_time ? $request->start_acara_date.' '.$request->start_acara_time.':00' : null;
+            $acara->end_acara_time = $request->end_acara_time ? $request->start_acara_date.' '.$request->end_acara_time.':00' : null;
+            $acara->lokasi = $request->lokasi;
+            $acara->nama_pj = $request->nama_pj;
+            $acara->nomor_pj = $request->nomor_pj;
+            $acara->hubungi_kami = $request->hubungi_kami;
+            $acara->sosial_media = $request->sosial_media;
+            $acara->peta = $request->peta;
+            $acara->updated_at = date('Y-m-d H:i:s');
+            $acara->save();
+
+            return redirect(route('member.acara'));
+        }
+        return redirect(route('member.acara'));
+    }
+
 
     public function delete($id)
     {

@@ -177,7 +177,8 @@ class PostVideoController extends Controller
                 'user_id' => 'required',
                 'category_id' => 'required',
                 'category' => 'required',
-                'image_source' => 'required',
+                'video' => 'required',
+                'video_source' => 'required',
                 'title' => 'required',
                 'content' => 'required'
             ]);
@@ -188,7 +189,8 @@ class PostVideoController extends Controller
                 'user_id' => 'required',
                 'category_id' => 'required',
                 'category' => 'required',
-                'image_source' => 'required',
+                'video' => 'required',
+                'video_source' => 'required',
                 'title' => 'required',
                 'slug' => 'required|unique:posts|max:255',
                 'content' => 'required'
@@ -209,7 +211,8 @@ class PostVideoController extends Controller
         $post->user_id =  $request->user_id;
         $post->category_id =  $request->category_id;
         $post->title =  $request->title;
-        $post->banner_source =  $request->image_source;
+        $post->video =  getVideoCode($request->video);
+        $post->video_source =  $request->video_source;
         $post->slug =  $request->slug;
         $post->content =  $request->content;
         $post->updated_at =  date('Y-m-d H:i:s');

@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
 
         
         $this->call(CategorySeeder::class);
+        $this->call(ECatalogSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(PostVideoSeeder::class);
         $this->call(TagnameSeeder::class);

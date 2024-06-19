@@ -109,7 +109,7 @@
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                     </div>
-                    <img src="/uploads/post/image/{{$new->banner}}" alt="" style="width: 100%">
+                    <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
                     <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Artikel ></a>
@@ -133,7 +133,7 @@
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{$trending->category->name}}</p>
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($trending->updated_at))}}</p>
                   </div>
-                  <img src="/uploads/post/image/{{$trending->banner}}" alt="" style="width: 100%">
+                  <img src="/uploads/post/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
                   <a href="/berita/detail/{{$trending->slug}}">Baca Artikel ></a>
                   <hr>
@@ -156,7 +156,7 @@
           <div class="col-xl-4 mb-3">
             <a href="{{route('berita.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
-                <img src="/uploads/post/image/{{$lainnya->banner}}" alt="" style="width: 100%">
+                <img src="/uploads/post/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
                 <a href="mb-5">Baca Artikel ></a>
               </div>
