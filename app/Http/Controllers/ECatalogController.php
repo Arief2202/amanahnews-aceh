@@ -58,7 +58,7 @@ class ECatalogController extends Controller
     {
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.e-catalog.read', [
-            'ecatalogs' => ECatalog::all(),
+            'ecatalogs' => ECatalog::orderBy('id', 'DESC')->get(),
         ]);
     }
     public function updateView($id)

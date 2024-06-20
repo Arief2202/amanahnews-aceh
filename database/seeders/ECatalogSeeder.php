@@ -13,6 +13,6 @@ class ECatalogSeeder extends Seeder
      */
     public function run(): void
     {
-        // ECatalog::factory(50)->create();
+        ECatalog::factory(50)->create();
     }
 }

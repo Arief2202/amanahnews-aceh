@@ -37,27 +37,51 @@
             </div>
         </div> --}}
         <div class="container p-0 mt-0">
-            <div class="ps-3">                
-                <div class="mt-3 mb-2">
-                    <h1 style="font-weight:600">{{$post->title}}</h1>
-                </div>
-                <div class="mb-3">
-                    <div class="row mb-2">
-                        <div class="col-auto">
-                            <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:70px; height:70px; border-radius:50px">
+
+                <div class="">                
+                    <div class="mt-3 mb-2">
+                        <h1 style="font-weight:600">{{$post->title}}</h1>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row mb-2">
+                            <div class="col-auto">
+                                <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:70px; height:70px; border-radius:50px">
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mt-2" style="font-weight:600">{{$post->user->name}}</h5>
+                                <p class=" " style="font-weight:600; color:rgba(0, 0, 0, 0.486)">{{$post->user->instance}}</p>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                {{-- <div class="row">
+                                  <div class="col-12">
+                                    Bagikan Artikel
+                                  </div>
+                                  <div class="col-12">
+                                    <div class="col-lg-5 col-md-12 footer-about">
+                                      <div class="social-links d-flex mt-4">
+                                        <a href=""><i class="bi bi-twitter-x"></i></a>
+                                        <a href=""><i class="bi bi-facebook"></i></a>
+                                        <a href=""><i class="bi bi-instagram"></i></a>
+                                        <a href=""><i class="bi bi-linkedin"></i></a>
+                                      </div>
+                                    </div>
+
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{route('berita.detail', ['slug' => $post->slug])}}" class="btn btn-primary" style="width:50px; height:50px; border-radius:50px"></a>
+                                    <a href="https://twitter.com/share?url={{route('berita.detail', ['slug' => $post->slug])}}" class="btn btn-success" style="width:50px; height:50px; border-radius:50px"></a>
+                                    <a href="https://www.linkedin.com/uas/login?session_redirect={{route('berita.detail', ['slug' => $post->slug])}}" class="btn btn-dark" style="width:50px; height:50px; border-radius:50px"></a>
+                                    <a href="https://web.whatsapp.com/send?text={{route('berita.detail', ['slug' => $post->slug])}}" class="btn btn-warning" style="width:50px; height:50px; border-radius:50px"></a>
+                                  </div>
+                                </div> --}}
+                            </div>
                         </div>
-                        <div class="col">
-                            <h5 class="mt-2" style="font-weight:600">{{$post->user->name}}</h5>
-                            <p class=" " style="font-weight:600; color:rgba(0, 0, 0, 0.486)">{{$post->user->instance}}</p>
+                        <div>
+                            <p>{{date('d M Y h:i', strtotime($post->updated_at))}} WIB - Waktu baca 1 menit</p>
                         </div>
                     </div>
-                    <div>
-                        <p>20 Mei 2024 7:46 WIB - Waktu baca 1 menit</p>
-                    </div>
                 </div>
-            </div>
-            <div class="row p-0 m-0">
-                <div class="col-xl-8" style="">
+
+                <div class="row p-0 m-0">
+                  <div class="col-xl-8" style="">
                     <img src="/uploads/post/image/{{$post->banner}}" alt="" style="width:100%">
                     <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$post->banner_source}}</p>
                     <div>

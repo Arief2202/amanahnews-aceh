@@ -76,7 +76,7 @@
             <div class="row mt-4">
               @foreach($trendings as $trending)
               <div class="col-md-3 mb-3">
-                <a class="myCard" href="">
+                <a class="myCard" href="/berita/detail/{{$trending->slug}}">
                   <img src="/uploads/post/image/{{$trending->banner}}" alt="">
   
                   <div class="card-title ps-3 pe-3">
@@ -87,36 +87,6 @@
               </div>
               @endforeach
             </div>
-        </div>
-  
-          <div class="row gy-4">
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-            </div><!-- End Client Item -->
-  
-          </div>
-  
         </div>
   
       </section><!-- /Clients Section -->
@@ -162,7 +132,7 @@
               <div class="service-item d-flex">
                 <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
                 <div>
-                  <h4 class="title"><a href="services-details.html" class="stretched-link">Pengembangan SDM</a></h4>
+                  <h4 class="title"><a class="stretched-link">Pengembangan SDM</a></h4>
                   <p class="description">Program AMANAH berupaya mengembangkan beragam kekayaan sumber daya alam dan sumber daya manusia khususnya para pemuda yang ada di Aceh. Program AMANAH juga berupaya mengangkat ekonomi kreatif yang dapat berkembang di masyarakat yang terdiri dari 18 subsektor. </p>
                 </div>
               </div>
@@ -173,10 +143,9 @@
               <div class="service-item d-flex">
                 <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
                 <div>
-                  <h4 class="title"><a href="services-details.html" class="stretched-link">Berita Terkini</a></h4>
-                  @if($trendings->count() > 0)
-                  <p class="description"><a href="/berita/{{$trendings->first()->slug}}">{{$trendings->first()->title}}</a></p>
-                  @else
+                  <h4 class="title"><a href="@if($newest->count() > 0) /berita/detail/{{$newest->first()->slug}} @endif" class="stretched-link">Berita Terkini</a></h4>
+                  @if($newest->count() > 0)
+                  <p class="description">{{$newest->first()->title}}</p>
                   @endif
                 </div>
               </div>
@@ -186,7 +155,7 @@
               <div class="service-item d-flex">
                 <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
                 <div>
-                  <h4 class="title"><a href="services-details.html" class="stretched-link">Katalog Penjualan</a></h4>
+                  <h4 class="title"><a class="stretched-link">Katalog Penjualan</a></h4>
                   {{-- <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p> --}}
                 </div>
               </div>
@@ -196,7 +165,7 @@
               <div class="service-item d-flex">
                 <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
                 <div>
-                  <h4 class="title"><a href="services-details.html" class="stretched-link">Kalender Kegiatan</a></h4>
+                  <h4 class="title"><a class="stretched-link">Kalender Kegiatan</a></h4>
                   {{-- <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p> --}}
                 </div>
               </div>

@@ -28,31 +28,68 @@
             {{-- <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
             <div class="topBar">
                 <h2 style="color:white;font-weight:600;font-size:62px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Acara</h2>
-                <p  style="color:white;font-size:20px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Berikut merupakan Kalender mengenai acara-acara yang diselenggarakan oleh Amanah. Ayo Sobat, daftar Amanah sekarang juga dan nikmati berbagai fasilitas pemasaran produk melalui acara Amanah secara gratis, lho!</p>
+                <p  style="color:white;font-size:18px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Berikut merupakan Kalender mengenai acara-acara yang diselenggarakan oleh Amanah. Ayo Sobat, daftar Amanah sekarang juga dan nikmati berbagai fasilitas pemasaran produk melalui acara Amanah secara gratis, lho!</p>
             </div>
         </div>
     </section>
-    <section class="ftco-section mt-5 mb-0 pb-0">
+    <section class="ftco-section mb-0 pb-0">
         <div class="container">
-
-                <div class="calendar-section">
-
-                    <div class="calendar calendar-first" id="calendar_first">
-                    <div class="calendar_header">
-                        <button class="switch-month switch-left">
-                        <i class="fa fa-chevron-left"></i>
-                        </button>
-                        <h2></h2>
-                        <button class="switch-month switch-right">
-                        <i class="fa fa-chevron-right"></i>
-                        </button>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="calendar-section">
+        
+                        <div class="calendar calendar-first" id="calendar_first">
+                        <div class="calendar_header">
+                            <button class="switch-month switch-left">
+                            <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <h2></h2>
+                            <button class="switch-month switch-right">
+                            <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar_weekdays"></div>
+                        <div class="calendar_content"></div>
+                        </div>
+        
+                        
                     </div>
-                    <div class="calendar_weekdays"></div>
-                    <div class="calendar_content"></div>
-                    </div>
-
-                    
                 </div>
+
+                <div class="col-md-5 mb-3">
+                    <div class="shadow p-2" style="border-radius: 15px">
+                    <div class="h3 ps-3 pe-3 pt-3">Acara Hari Ini</div>
+                    <hr>
+                    @foreach($today as $i=>$acara)
+                        <?php
+                        $content = Str::limit($acara->deskripsi, 50);
+                        $content = str_replace("<div>","",$content);
+                        $content = str_replace("</div>","",$content);
+                        ?>
+
+                        <div class="mb-3 p-2">
+                            <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
+                                {{-- <div class="shadow" style="border-radius: 15px"> --}}
+                                <div class="row">
+                                    <div class="col-md">
+                                        <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
+                                    </div>
+                                    <div class="col-md">
+                                        <h5 style="font-weight:600; font-size:14px;">{{$acara->title}}</h5>
+                                        <p style="color:rgb(121, 121, 121); font-size:12px;">{{$content}}</p>
+                                        <p style="color:rgb(121, 121, 121); font-size:12px;">{{date("d M Y", strtotime($acara->start_acara_date))}} @if(isset($acara->end_acara_date)) - {{date("d M Y", strtotime($acara->end_acara_date))}} @endif</p>
+                                        <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <hr>
+                    @endforeach
+                    </div>
+                </div>
+
+            </div>
+
             </div>
 
         </div>
@@ -67,19 +104,24 @@
     <section class="section" style="">
         <div class="container">
             <div class="container section-title" data-aos="fade-up">
-              <h2>Acara</h2>
+              <h2>Acara Lainnya</h2>
               <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
             </div><!-- End Section Title -->
             <div class="">
                 <div class="row p-3">
                 @foreach($acaras as $acara)
+                    <?php
+                    $content = Str::limit($acara->deskripsi, 75);
+                    $content = str_replace("<div>","",$content);
+                    $content = str_replace("</div>","",$content);
+                    ?>
                     <div class="col-md-4 p-2">
                         <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                             <div class="shadow" style="border-radius: 15px">
                                 <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
                                 <div class="p-3">
                                     <h4 style="font-weight:600;">{{$acara->title}}</h4>
-                                    <p style="color:rgb(121, 121, 121);">{{$acara->deskripsi}}</p>
+                                    <p style="color:rgb(121, 121, 121);">{{$content}}</p>
                                     <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
                                 </div>
                             </div>

@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div>
-                        <p>20 Mei 2024 7:46 WIB - Waktu baca 1 menit</p>
+                        <p>{{date('d M Y h:i', strtotime($post->updated_at))}} WIB - Waktu baca 1 menit</p>
                     </div>
                 </div>
             </div>
@@ -91,13 +91,13 @@
                     </div>
                     <h4 style="font-weight: 600;">Sedang Hangat</h4>
                     <hr>
-                    {{-- @foreach($hots as $a=>$hot)
+                    @foreach($hots as $a=>$hot)
                       <div class="w-100" data-aos="fade-left" data-aos-delay="100">
                         <a href="/video/detail/{{$hot->slug}}">
                             <h5 class="p-0 m-0" style="font-weight:700; font-size:16px;">{{$hot->title}}</h5>
                             <div class="row p-0 m-0 mt-2">
                                 <div class="col-auto p-0 m-0">
-                                    <button class="btn btn-secondary p-0 m-0" style="width:30px; height:30px; border-radius:50px;"></button>
+                                  <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:30px; height:30px; border-radius:50px">
                                 </div>
                                 <div class="col-auto p-0 m-0">
                                     <h5 style="font-weight:600; font-size:14px; margin-left:10px; margin-top:8px">{{$hot->user->name}}</h5>
@@ -112,7 +112,7 @@
                           <hr>
                         </a>
                       </div>
-                    @endforeach --}}
+                    @endforeach
                   </div>
             </div>
         </div>

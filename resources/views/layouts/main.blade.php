@@ -136,25 +136,14 @@
           </div>
         </div>
 
-        <div class="col-lg-2 col-6 footer-links">
+        <div class="col-lg-4 col-md-12 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
+            <li><a href="{{route('home')}}">Beranda</a></li>
+            <li><a href="{{route('berita')}}">Berita</a></li>
+            <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
+            <li><a href="{{route('acara')}}">Acara</a></li>
+            <li><a href="{{route('video')}}">Video</a></li>
           </ul>
         </div>
 

@@ -76,7 +76,7 @@ class AcaraController extends Controller
     {
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.acara.read', [
-            'acaras' => Acara::all(),
+            'acaras' => Acara::orderBy('id', 'DESC')->get(),
         ]);
     }
     
@@ -175,8 +175,22 @@ class AcaraController extends Controller
 
     public function acara()
     {
+        
+        $acaras1 = Acara::where('start_acara_date', '<=' , date('Y-m-d')." 00:00:00")->where('end_acara_date', '>=' ,date('Y-m-d')." 00:00:00")->get();
+        $acaras2 = Acara::where('start_acara_date', '=' , date('Y-m-d')." 00:00:00")->where('end_acara_date', '=' , null)->get();
+        $acaras = [];
+        $arr = 0;
+        foreach($acaras1 as $acara1){
+            $acaras[$arr++] = $acara1; 
+        }
+        foreach($acaras2 as $acara2){
+            $acaras[$arr++] = $acara2; 
+        }
+        $today = collect($acaras);
+
         return view('landing.acara', [
             'acaras' => Acara::paginate(9),
+            'today' => $today
         ]);
     }
 

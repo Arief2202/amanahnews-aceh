@@ -36,7 +36,7 @@
                         <tbody>
                             @foreach($posts as $a=>$post)
                             <tr>
-                                <td>{{$post->id}}</td>
+                                <td>{{$a+1}}</td>
                                 <td><a href="{{route('member.berita.detail', ['id' => $post->id])}}" class="btn btn-warning">Detail</a></td>
                                 <td>
                                     @if($post->show == 1) <a href="{{route('member.berita.publish', ['id' => $post->id])}}" class="btn btn-success disabled" disabled>Published</a>

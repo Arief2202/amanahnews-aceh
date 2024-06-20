@@ -36,7 +36,7 @@
                         <tbody>
                             @foreach($ecatalogs as $a=>$ecatalog)
                             <tr>
-                                <td>{{$ecatalog->id}}</td>
+                                <td>{{$a+1}}</td>
                                 <td><a href="{{route('member.e-catalog.update', ['id' => $ecatalog->id])}}" class="btn btn-warning">Edit</a></td>
                                 <td>{{$ecatalog->title}}</td>
                                 <td><a href="{{route('e-catalog.detail', ['slug' => $ecatalog->slug])}}" class="">{{$ecatalog->slug}}</a></td>

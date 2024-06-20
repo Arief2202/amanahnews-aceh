@@ -23,35 +23,35 @@ class PostController extends Controller
         return view('landing.index', [
             'faqs' => faq::all(),
             'kata_merekas' => ApaKataMereka::all(),
-            'carousel_items' => Post::where('show', 1)->get(),
-            'newest' => Post::where('show', 1)->get(),
-            'populars' => Post::where('show', 1)->get(),
-            'trendings' => Post::where('show', 1)->get(),
-            'others' => Post::where('show', 1)->get(),
+            'carousel_items' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(10)->get(),
+            'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+            'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(4)->get(),
+            'others' => Post::where('show', 1)->paginate(9),
         ]);
     }
     public function berita(){
         return view('landing.berita', [
             'categories' => category::all(),
             'carousel_items' => Post::where('show', 1)->get(),
-            'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->get(),
-            'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-            'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-            'others' => Post::where('show', 1)->get(),
+            'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+            'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+            'others' => Post::where('show', 1)->paginate(9),
         ]);
     }
     public function beritaCategory($slug){
         $category = Category::where('slug', $slug)->first();
         if($category){
             
-            return view('landing.berita-category', [
+            return view('landing.berita', [
                 'categories' => category::all(),
-                'selected' => $category,
-                'filters' => Post::where('category_id', $category->id)->get(),
-                'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->get(),
-                'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-                'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-                'others' => Post::where('show', 1)->get(),
+                'carousel_items' => Post::where('show', 1)->get(),
+                'newest' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+                'populars' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+                'trendings' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'others' => Post::where('category_id', $category->id)->where('show', 1)->paginate(9),
+                'selected_category' => $category
             ]);
         }
         return redirect('berita');
@@ -60,14 +60,15 @@ class PostController extends Controller
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
-            return view('landing.berita-tag', [
+            
+            return view('landing.berita', [
                 'categories' => category::all(),
-                'selected' => $tagname,
-                'filters' => $tag,
-                'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->get(),
-                'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-                'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-                'others' => Post::where('show', 1)->get(),
+                'carousel_items' => Post::where('show', 1)->get(),
+                'newest' => $tag->post->orderBy('id', 'DESC')->limit(5)->get(),
+                'populars' => $tag->post->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+                'trendings' => $tag->post->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'others' => $tag->post->where('show', 1)->paginate(9),
+                'selected_tag' => $tag,
             ]);
         }
         return redirect('berita');
@@ -79,10 +80,11 @@ class PostController extends Controller
             $post->view_monthly = $post->view_monthly + 1;
             $post->view_weekly = $post->view_weekly + 1;
             $post->view_daily = $post->view_daily + 1;
+            $post->timestamps = false;
             $post->save();
             return view('landing.detail-berita', [
                 'post' => $post,
-                'hots' => Post::with(['contents'])->get()
+                'hots' => Post::with(['contents'])->orderBy('view_weekly', 'DESC')->paginate(5)
             ]);
         }
         return redirect('berita');
@@ -92,7 +94,7 @@ class PostController extends Controller
     {
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.read', [
-            'posts' => Post::all(),
+            'posts' => Post::orderBy('id', 'DESC')->get(),
             'tags' => tag::all(),
         ]);
     }
@@ -113,7 +115,7 @@ class PostController extends Controller
             'post' => $post,
             'tags' => tagname::all(),
             'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'photo')->get(),
-            'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->get(),
+            'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->where('post_type', 'photo')->get(),
             'post_id' => $id,
         ]);
     }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostcontentController;
 use App\Http\Controllers\CategoryController;
@@ -11,39 +10,6 @@ use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\ECatalogController;
 use App\Http\Controllers\PostVideoController;
 
-Route::get('/testYT', function(Request $req){
-    function GET($link, $param){
-        $out = [];
-        if(isset(parse_url($link)['query'])){
-            foreach(explode('&', parse_url($link)['query']) as $k=>$co){
-                $out += [explode('=', $co)[0] => explode('=', $co)[1]];
-            }
-            return $out[$param];
-        }
-        return null;
-    }
-
-    function getVideoCode($link){
-        $code = null;
-        if($link){
-            $url = parse_url($link);
-            $segments = explode('/', $url['path']);
-    
-            if     ($url['host'] == 'youtu.be') $code = $segments[1];
-            else if($segments[1] == 'shorts')   $code = $segments[2];
-            else if($segments[1] == 'watch')    $code = GET($link, 'v');
-    
-            return $code;
-        }
-        return null;
-    }
-    $videoCode = getVideoCode($req['link']);
-    if($videoCode) echo '<iframe style="width:100%;height:100%;" src="https://www.youtube.com/embed/'.$videoCode.'"></iframe>';
-    else{echo 'link required';}
-
-});
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -51,12 +17,10 @@ Route::get('/dashboard', function () {
 Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
     Route::get('/acara/get', 'acaraGet')->name('acara.get');    
-    Route::get('/acara/detail/{id}', 'acaraDetail')->name('acara.detail');    
 });
 Route::controller(ECatalogController::class)->group(function () {
     Route::get('/e-catalog', 'eCatalog')->name('e-catalog');
     Route::get('/e-catalog/get', 'eCatalogGet')->name('e-catalog.get');    
-    Route::get('/e-catalog/detail/{slug}', 'eCatalogDetail')->name('e-catalog.detail');    
 });
 
 Route::controller(PostController::class)->group(function () {
@@ -75,12 +39,12 @@ Route::controller(PostController::class)->group(function () {
 });
 
 Route::controller(PostVideoController::class)->group(function () {
-    Route::get('/video', 'berita')->name('berita');
+    Route::get('/video', 'berita')->name('video');
     Route::get('/video/detail/{slug}', 'beritaDetail')->name('video.detail');
     Route::get('/video/category/{slug}', 'beritaCategory')->name('video.category');
     Route::get('/video/tag/{slug}', 'beritaTag')->name('video.tag');
-    Route::get('/video/tag', function(){return redirect(route('berita'));});
-    Route::get('/video/category', function(){return redirect(route('berita'));});
+    Route::get('/video/tag', function(){return redirect(route('video'));});
+    Route::get('/video/category', function(){return redirect(route('video'));});
     
     Route::get('/video/detail', function () {
         return view('landing.detail-berita');
@@ -95,6 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/acara/update/{id}', 'updateView')->name('member.acara.update');
         Route::post('/member/acara/update', 'update')->name('member.acara.update.post');
         Route::get('/member/acara/delete/{id}', 'delete')->name('member.acara.delete');
+        
+        Route::get('/acara/detail/{id}', 'acaraDetail')->name('acara.detail');
 
         Route::get('/member/acara/slug/check', 'checkSlug')->name('member.acara.slug.check');
     });
@@ -105,6 +71,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/e-catalog/update/{id}', 'updateView')->name('member.e-catalog.update');
         Route::post('/member/e-catalog/update', 'update')->name('member.e-catalog.update.post');
         Route::get('/member/e-catalog/delete/{id}', 'delete')->name('member.e-catalog.delete');
+
+        Route::get('/e-catalog/detail/{slug}', 'eCatalogDetail')->name('e-catalog.detail');    
         
         Route::get('/member/e-catalog/slug/check', 'checkSlug')->name('member.e-catalog.slug.check');
         Route::get('/member/e-catalog/banner', 'changeBannerView')->name('member.e-catalog.banner');

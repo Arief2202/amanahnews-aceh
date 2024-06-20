@@ -45,7 +45,7 @@
                         <tbody>
                             @foreach($acaras as $a=>$acara)
                             <tr>
-                                <td>{{$acara->id}}</td>
+                                <td>{{$a+1}}</td>
                                 <td><a href="{{route('member.acara.update', ['id' => $acara->id])}}" class="btn btn-warning">Edit</a></td>
                                 <td>{{$acara->title}}</td>
                                 <td><a href="{{route('acara.detail', ['id' => $acara->slug])}}" class="">{{$acara->slug}}</a></td>

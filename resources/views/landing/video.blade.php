@@ -14,9 +14,13 @@
 @endsection
 
 @section('main')
-  
-    <!-- Hero Section -->
-    <section style="margin: 0px; padding: 0px; width:100%;">
+<section class="d-block d-xl-none" style="margin: 0px; padding: 0px; width:100%;">
+  <div style="height: 100px">
+
+  </div>
+</section>
+<!-- Hero Section -->
+<section class="d-none d-xl-block" style="margin: 0px; padding: 0px; width:100%;">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" >
   
@@ -79,7 +83,13 @@
 
         <div class="row">
           <div class="col">
+            @if(isset($selected_category))
+            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Category {{$selected_category->name}} dari AMANAH Video</h3>
+            @elseif(isset($selected_tag))
+            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag {{$selected_tag->name}} dari AMANAH Video</h3>
+            @else
             <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH Video</h3>
+            @endif
           </div>
           <div class="col d-flex justify-content-end align-items-end mb-2">
             <div class="dropdown">
@@ -96,7 +106,7 @@
         </div>
         <div style="margin:0px;padding:0px; border:none; border-top:2px solid #000000;margin-bottom:20px"></div>
         <div class="row p-3">
-          <div class="col-xl-8 ps-5 pe-5">
+          <div class="col-xl-8 ps-2 pe-2">
               @foreach($newest as $a=>$new)
                 <?php
                   $content = Str::limit($new->content, 370);
@@ -133,7 +143,13 @@
                 <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
               </a>
             </div>
+            @if(isset($selected_category))
+            <div class="h3">Trending {{$selected_category->name}}</div>
+            @elseif(isset($selected_tag))
+            <div class="h3">Trending {{$selected_tag->name}}</div>
+            @else
             <div class="h3">Trending</div>
+            @endif
             <hr>
             @foreach($trendings as $i=>$trending)
               <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
@@ -157,7 +173,13 @@
     <section class="section" style="padding-top:0px;">
       <div class="container">        
         <div class="container section-title" data-aos="fade-up">
-          <h2>Berita Video Lainnya</h2>
+          @if(isset($selected_category))
+            <h2>Berita Video {{$selected_category->name}} Lainnya</h2>
+          @elseif(isset($selected_tag))
+            <h2>Berita Video {{$selected_tag->name}} Lainnya</h2>
+          @else
+            <h2>Berita Video Lainnya</h2>
+          @endif
           {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
         </div>
         <div class="row">
@@ -172,6 +194,51 @@
             </a>
           </div>
           @endforeach
+          <div class="d-flex justify-content-center">
+
+            <nav aria-label="...">
+                
+                <?php $per5 = (int)($others->currentPage()/3);?>
+                <ul class="pagination">
+                  <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
+                    <a href="{{route('video', ['page'=>$others->currentPage()-1])}}" class="page-link">Prev</a>
+                  </li>
+                  @if($others->currentPage() < 3)
+                    @for($a=1; $a<=3; $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3+4])}}">{{$per5*3+4}}</a></li>
+                    
+                  @elseif($others->currentPage() > $others->lastPage()-3)                      
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3-4])}}">{{$per5*3-4}}</a></li>
+                    @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                  @else                 
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                    @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3+3])}}">{{$per5*3+3}}</a></li>
+                  @endif
+                  <li class="page-item @if($others->currentPage() >= $others->lastPage() ) disabled @endif">
+                    <a class="page-link" href="{{route('video', ['page'=>$others->currentPage()+1])}}">Next</a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
         </div>
       </div>
     </section>

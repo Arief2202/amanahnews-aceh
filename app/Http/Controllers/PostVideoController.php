@@ -42,25 +42,25 @@ class PostVideoController extends Controller
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('show', 1)->get(),
-            'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->get(),
-            'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-            'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-            'others' => PostVideo::where('show', 1)->get(),
+            'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+            'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+            'others' => PostVideo::where('show', 1)->paginate(9),
         ]);
     }
     public function beritaCategory($slug){
         $category = Category::where('slug', $slug)->first();
         if($category){
             
-            return view('landing.video-category', [
-                'categories' => category::all(),
-                'selected' => $category,
-                'filters' => PostVideo::where('category_id', $category->id)->get(),
-                'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->get(),
-                'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-                'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-                'others' => PostVideo::where('show', 1)->get(),
-            ]);
+        return view('landing.video', [
+            'categories' => category::all(),
+            'carousel_items' => PostVideo::where('category_id', $category->id)->where('show', 1)->get(),
+            'newest' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'populars' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+            'trendings' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+            'others' => PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(9),
+            'selected_category' => $category,
+        ]);
         }
         return redirect('berita');
     }
@@ -68,14 +68,15 @@ class PostVideoController extends Controller
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
-            return view('landing.video-tag', [
+            
+            return view('landing.video', [
                 'categories' => category::all(),
-                'selected' => $tagname,
-                'filters' => $tag,
-                'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->get(),
-                'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->get(),
-                'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->get(),
-                'others' => PostVideo::where('show', 1)->get(),
+                'carousel_items' => $tag->post->where('show', 1)->get(),
+                'newest' => $tag->post->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+                'populars' => $tag->post->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
+                'trendings' => $tag->post->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'others' => $tag->post->where('show', 1)->paginate(9),
+                'selected_tag' => $tag,
             ]);
         }
         return redirect('berita');
@@ -87,10 +88,15 @@ class PostVideoController extends Controller
             $post->view_monthly = $post->view_monthly + 1;
             $post->view_weekly = $post->view_weekly + 1;
             $post->view_daily = $post->view_daily + 1;
+            $post->timestamps = false;
             $post->save();
             return view('landing.detail-video', [
                 'post' => $post,
-                'hots' => PostVideo::with(['contents'])->get()
+                'tags' => tagname::all(),
+                'hots' => PostVideo::with(['contents'])->orderBy('view_weekly', 'DESC')->paginate(5),
+                'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'video')->get(),
+                'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->where('post_type', 'video')->get(),
+                'post_id' => $post->id,
             ]);
         }
         return redirect('berita');
@@ -100,7 +106,7 @@ class PostVideoController extends Controller
     {
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.video.read', [
-            'posts' => PostVideo::all(),
+            'posts' => PostVideo::orderBy('id', 'DESC')->get(),
             'tags' => tag::all(),
         ]);
     }
