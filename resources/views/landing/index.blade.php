@@ -13,8 +13,8 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section">
 
-        <div style="background-color:#00000057; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div>
-        <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 10%;">
+        {{-- <div style="background-color:#00000057; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div> --}}
+        <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 15%;">
         <img src="/assets/img/bercak.png" alt="" data-aos="fade-in" style="opacity: 50%;">
   
         <div class="heroImg">
@@ -28,7 +28,7 @@
               <div class="col" style="text-align: center;">            
                 <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
                 <p data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
-                <p data-aos="fade-up" data-aos-delay="200"><a href="/login" class="btn btn-primary-orange p-3" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
+                <p data-aos="fade-up" data-aos-delay="200"><a href="/login" class="btn btn-primary-orange p-3 mt-3" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
               </div>
             </div>
           </div>
