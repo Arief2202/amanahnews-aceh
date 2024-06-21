@@ -59,7 +59,7 @@ class AcaraController extends Controller
             'start_acara_date' => $request->start_acara_date." 00:00:00",
             'end_acara_date' => $request->end_acara_date ? $request->end_acara_date." 00:00:00" : null,
             'start_acara_time' => $request->start_acara_date ? $request->start_acara_date.' '.$request->start_acara_time.':00' : null,
-            'end_acara_time' => $request->start_acara_date ? $request->start_acara_date.' '.$request->end_acara_time.':00' : null,
+            'end_acara_time' => $request->end_acara_date ? $request->end_acara_date.' '.$request->end_acara_time.':00' : null,
             'lokasi' => $request->lokasi,
             'nama_pj' => $request->nama_pj,
             'nomor_pj' => $request->nomor_pj,

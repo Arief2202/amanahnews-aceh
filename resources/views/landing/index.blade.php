@@ -47,7 +47,7 @@
               @foreach($carousel_items as $a=>$carousel_item)
               <a href="{{route('berita.detail', ['slug' => $carousel_item->slug])}}">
                 <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
-                  <img src="/uploads/post/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 650px;">
+                  <img src="/uploads/post/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 650px; object-fit:cover;">
                   
                   <div class="carousel-caption d-none d-md-block w-100 p-3 carousel-bg-caption">
                     <div style="position: absolute;left:0px;bottom:0px;">
@@ -76,7 +76,7 @@
               @foreach($trendings as $trending)
               <div class="col-md-3 mb-3">
                 <a class="myCard" href="/berita/detail/{{$trending->slug}}">
-                  <img src="/uploads/post/image/{{$trending->banner}}" alt="">
+                  <img src="/uploads/post/image/{{$trending->banner}}" alt="" style="object-fit:cover">
   
                   <div class="card-title ps-3 pe-3">
                     <h5 class="title mt-5">{{$trending->title}}</h5>

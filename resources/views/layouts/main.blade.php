@@ -129,10 +129,9 @@
           <h5>Aneuk Muda Aceh Unggul & Hebat</h5>
           <p>Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
           <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://youtube.com/@amanah_aceh?si=LzsxoIgxmEjcxH11"><i class="bi bi-youtube"></i></a>
+            <a href="https://www.tiktok.com/@amanah_aceh?_t=8nO8tX2fR4s&_r=1"><i class="bi bi-tiktok"></i></a>
+            <a href="https://www.instagram.com/amanah_aceh?igsh=MTIyd3B6OHkyemMyZQ=="><i class="bi bi-instagram"></i></a>
           </div>
         </div>
 
