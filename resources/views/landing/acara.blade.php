@@ -25,7 +25,7 @@
         <div class="" style="height: 500px">
             
             <div style="background-color:var(--main-color); width:100%; min-height:500px;position: absolute; z-index: 0; top:0px;"></div>
-            {{-- <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
+            {{-- <img style="object-fit:cover;" src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
             <div class="topBar">
                 <h2 style="color:white;font-weight:600;font-size:62px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Acara</h2>
                 <p  style="color:white;font-size:18px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Berikut merupakan Kalender mengenai acara-acara yang diselenggarakan oleh Amanah. Ayo Sobat, daftar Amanah sekarang juga dan nikmati berbagai fasilitas pemasaran produk melalui acara Amanah secara gratis, lho!</p>
@@ -72,7 +72,7 @@
                                 {{-- <div class="shadow" style="border-radius: 15px"> --}}
                                 <div class="row">
                                     <div class="col-md">
-                                        <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
+                                        <img style="object-fit:cover;" src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
                                     </div>
                                     <div class="col-md">
                                         <h5 style="font-weight:600; font-size:14px;">{{$acara->title}}</h5>
@@ -97,7 +97,7 @@
     <section class="section">
         <div class="container">
             <a href="">                
-                <img src="\assets\uploads\iklan\iklan2.png" alt="" style="width: 100%">
+                <img style="object-fit:cover;" src="\assets\uploads\iklan\iklan2.png" alt="" style="width: 100%">
             </a>
         </div>
     </section>
@@ -118,7 +118,7 @@
                     <div class="col-md-4 p-2">
                         <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                             <div class="shadow" style="border-radius: 15px">
-                                <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
+                                <img style="object-fit:cover;" src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
                                 <div class="p-3">
                                     <h4 style="font-weight:600;">{{$acara->title}}</h4>
                                     <p style="color:rgb(121, 121, 121);">{{$content}}</p>

@@ -44,7 +44,7 @@
                 <div class="mb-3">
                     <div class="row mb-2">
                         <div class="col-auto">
-                          <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:70px; height:70px; border-radius:50px">
+                          <img style="object-fit:cover;" src="/uploads/user/{{$post->user->photo}}" alt="" style="width:70px; height:70px; border-radius:50px">
                         </div>
                         <div class="col">
                             <h5 class="mt-2" style="font-weight:600">{{$post->user->name}}</h5>
@@ -67,7 +67,7 @@
                         <div class="row p-0 m-0">
                             {{-- <div class="col-xl-8" style=""> --}}
                                 @if($content->href)<a href="{{$content->href}}">@endif
-                                <img src="/uploads/post/image/{{$content->content}}" alt="" style="max-width:{{$content->image_width}}px; max-height:{{$content->image_height}}px;">
+                                <img style="object-fit:cover;" src="/uploads/post/image/{{$content->content}}" alt="" style="max-width:{{$content->image_width}}px; max-height:{{$content->image_height}}px;">
                                 @if($content->href)</a>@endif
                                 <p class="mt-1" style="font-size:12px; color: color:rgba(255, 255, 255, 0.700)">{{$content->source}}</p>
                         </div>
@@ -86,7 +86,7 @@
                 <div class="col-xl-4 p-3">
                     <div class="mb-5">
                       <a href="">
-                        <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
+                        <img style="object-fit:cover;" src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
                       </a>
                     </div>
                     <h4 style="font-weight: 600;">Sedang Hangat</h4>
@@ -97,7 +97,7 @@
                             <h5 class="p-0 m-0" style="font-weight:700; font-size:16px;">{{$hot->title}}</h5>
                             <div class="row p-0 m-0 mt-2">
                                 <div class="col-auto p-0 m-0">
-                                  <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:30px; height:30px; border-radius:50px">
+                                  <img style="object-fit:cover;" src="/uploads/user/{{$post->user->photo}}" alt="" style="width:30px; height:30px; border-radius:50px">
                                 </div>
                                 <div class="col-auto p-0 m-0">
                                     <h5 style="font-weight:600; font-size:14px; margin-left:10px; margin-top:8px">{{$hot->user->name}}</h5>

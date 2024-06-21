@@ -32,11 +32,21 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'instance' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $imageName = 'user.png';
+        if($request->image){
+            $destinationPath = 'uploads/user/';
+            $imageName = $request->email.'.'.$request->image->extension();
+            $request->image->move(public_path($destinationPath), $imageName);
+        }
+
         $user = User::create([
             'name' => $request->name,
+            'photo' => $imageName,
+            'instance' => $request->instance,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

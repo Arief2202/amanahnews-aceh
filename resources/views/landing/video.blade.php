@@ -32,7 +32,7 @@
               ?>
               <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
                 <div style="background-color:#000000; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div>
-                <img src="/uploads/video/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
+                <img style="object-fit:cover;" src="/uploads/video/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
                 
                 <div class="carousel-caption d-none d-md-block h-100 p-3" style="width: 1000px">
                   <div style="position: absolute; left:50px; top:50%; transform:translateY(-50%); height:100% color:white;">
@@ -119,7 +119,7 @@
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                     </div>
-                    <img src="/uploads/video/image/{{$new->banner}}" alt="" style="max-height:350px; width: 100%">
+                    <img style="object-fit:cover;" src="/uploads/video/image/{{$new->banner}}" alt="" style="max-height:350px; width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
                     <a href="/video/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Artikel ></a>
@@ -140,7 +140,7 @@
             </div> --}}
             <div class="mb-5" data-aos="fade-left" data-aos-delay="100">
               <a href="">
-                <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
+                <img style="object-fit:cover;" src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
               </a>
             </div>
             @if(isset($selected_category))
@@ -158,7 +158,7 @@
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{$trending->category->name}}</p>
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($trending->updated_at))}}</p>
                   </div>
-                  <img src="/uploads/video/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%;">
+                  <img style="object-fit:cover;" src="/uploads/video/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%;">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
                   <a href="/video/detail/{{$trending->slug}}">Baca Artikel ></a>
                   <hr>
@@ -187,7 +187,7 @@
           <div class="col-xl-4 mb-3">
             <a href="{{route('video.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
-                <img src="/uploads/video/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
+                <img style="object-fit:cover;" src="/uploads/video/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
                 <a href="mb-5">Baca Artikel ></a>
               </div>

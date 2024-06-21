@@ -9,6 +9,7 @@ use App\Http\Controllers\TagnameController;
 use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\ECatalogController;
 use App\Http\Controllers\PostVideoController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');

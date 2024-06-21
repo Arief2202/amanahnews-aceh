@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="row p-3">
                     <div class="col-md-4">
-                        <img src="/uploads/e-catalog/image/{{$ecatalog->photo}}" alt="" style="width: 100%; border-radius: 20px;" class="mb-3">
+                        <img style="object-fit:cover;" src="/uploads/e-catalog/image/{{$ecatalog->photo}}" alt="" style="width: 100%; border-radius: 20px;" class="mb-3">
                     </div>
                     <div class="col-md h-auto" class="position:relative">
                         <h2 style="font-weight:700;text-transform: uppercase; color:#7E9465; font-weight:700;">{{$ecatalog->title}}</h2>
@@ -65,7 +65,7 @@
                     <div class="col-md-3 p-2">
                         <a href="">
                             <div class="shadow" style="border-radius: 15px">
-                                <img src="/uploads/e-catalog/image/{{$ecatalog->photo}}" alt="" style="width: 100%;">
+                                <img style="object-fit:cover;" src="/uploads/e-catalog/image/{{$ecatalog->photo}}" alt="" style="width: 100%;">
                                 <div class="p-3">
 
                                     <h4 style="font-weight:600;">{{$ecatalog->title}}</h4>

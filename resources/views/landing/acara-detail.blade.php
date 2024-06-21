@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="row p-3">
                     <div class="col-xl-5">
-                        <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%; border-radius: 20px;">
+                        <img style="object-fit:cover;" src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%; border-radius: 20px;">
                     </div>
                     <div class="col-xl">
                         <h2 class="mb-3" style="font-weight:700;text-transform: uppercase; color:#7E9465; font-weight:700;">{{$acara->title}}</h2>
@@ -82,7 +82,7 @@
     <section class="section">
         <div class="container">
             <a href="">                
-                <img src="\assets\uploads\iklan\iklan2.png" alt="" style="width: 100%">
+                <img style="object-fit:cover;" src="\assets\uploads\iklan\iklan2.png" alt="" style="width: 100%">
             </a>
         </div>
     </section>

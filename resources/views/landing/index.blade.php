@@ -19,7 +19,7 @@
   
         <div class="heroImg">
   
-          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in">  
+          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in" style="object-fit:cover;">  
         </div>
   
         <div class="container divText" style="">
