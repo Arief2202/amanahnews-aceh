@@ -33,7 +33,7 @@ class PostController extends Controller
     public function berita(){
         return view('landing.berita', [
             'categories' => category::all(),
-            'carousel_items' => Post::where('show', 1)->get(),
+            'carousel_items' => Post::where('show', 1)->limit(10)->get(),
             'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -46,7 +46,7 @@ class PostController extends Controller
             
             return view('landing.berita', [
                 'categories' => category::all(),
-                'carousel_items' => Post::where('show', 1)->get(),
+                'carousel_items' => Post::where('category_id', $category->id)->where('show', 1)->limit(10)->get(),
                 'newest' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -63,7 +63,7 @@ class PostController extends Controller
             
             return view('landing.berita', [
                 'categories' => category::all(),
-                'carousel_items' => Post::where('show', 1)->get(),
+                'carousel_items' => $tag->post->orderBy('id', 'DESC')->where('show', 1)->limit(10)->get(),
                 'newest' => $tag->post->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => $tag->post->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => $tag->post->orderBy('view_weekly', 'DESC')->limit(5)->get(),

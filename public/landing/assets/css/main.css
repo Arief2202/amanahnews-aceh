@@ -837,7 +837,7 @@ section,
 --------------------------------------------------------------*/
 .hero {
   --default-color: #ffffff;
-  --background-color: #000000;
+  --background-color: var(--main-color);
   --heading-color: #ffffff;
   width: 100%;
   min-height: 100vh;
