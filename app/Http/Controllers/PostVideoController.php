@@ -51,7 +51,8 @@ function resetView(){
     }
 }
 
-function GET($link, $param){
+function GET($link, $param){resetView();
+    resetView();
     $out = [];
     if(isset(parse_url($link)['query'])){
         foreach(explode('&', parse_url($link)['query']) as $k=>$co){
@@ -63,6 +64,7 @@ function GET($link, $param){
 }
 
 function getVideoCode($link){
+    resetView();
     $code = null;
     if($link != null){
         $url = parse_url($link);
@@ -78,6 +80,7 @@ function getVideoCode($link){
 class PostVideoController extends Controller
 {
     public function berita(){
+        resetView();
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('show', 1)->get(),
@@ -88,6 +91,7 @@ class PostVideoController extends Controller
         ]);
     }
     public function beritaCategory($slug){
+        resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
             
@@ -104,6 +108,7 @@ class PostVideoController extends Controller
         return redirect('berita');
     }
     public function beritaTag($slug){
+        resetView();
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
@@ -121,6 +126,7 @@ class PostVideoController extends Controller
         return redirect('berita');
     }
     public function beritaDetail($slug){
+        resetView();
         $post = PostVideo::where('show', 1)->where('slug', $slug)->first();
         if($post){
             $post->view_total = $post->view_total + 1;
@@ -143,6 +149,7 @@ class PostVideoController extends Controller
 
     public function read()
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.video.read', [
             'posts' => PostVideo::orderBy('id', 'DESC')->get(),
@@ -151,6 +158,7 @@ class PostVideoController extends Controller
     }
     public function createView()
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.video.create', [
             'categories' => Category::all(),
@@ -158,6 +166,7 @@ class PostVideoController extends Controller
     }
     public function readDetail($id)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         // $tagPost = tag::where('post_id', $post->id)->get();
@@ -172,6 +181,7 @@ class PostVideoController extends Controller
     }
     public function create(Request $request)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $validated = $request->validate([
             'user_id' => 'required',
@@ -204,7 +214,7 @@ class PostVideoController extends Controller
     
     public function updateView($id)
     {
-        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.video.update', [
             'categories' => Category::all(),
@@ -213,6 +223,7 @@ class PostVideoController extends Controller
     }
     public function update(Request $request)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $request->id)->first();
 
@@ -269,7 +280,7 @@ class PostVideoController extends Controller
 
     public function delete($id)
     {
-        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         if(Auth::user()->id != $post->user_id) return redirect(route('member.video'));
@@ -287,12 +298,14 @@ class PostVideoController extends Controller
     }
 
     public function checkSlug(Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $slug = SlugService::createSlug(PostVideo::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
     }
 
     public function publish($id, Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
@@ -302,6 +315,7 @@ class PostVideoController extends Controller
         return redirect(route('member.video'));
     }
     public function unpublish($id, Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
@@ -312,6 +326,7 @@ class PostVideoController extends Controller
     }
 
     public function newSection(Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $request->validate([
             'post_id' => 'required',
