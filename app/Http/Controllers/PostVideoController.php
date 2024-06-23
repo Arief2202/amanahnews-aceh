@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\StatisticsView;
 use App\Models\postcontent;
 use App\Models\category;
 use App\Models\tagname;
@@ -11,6 +12,44 @@ use App\Models\PostVideo;
 use App\Models\tag;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\File; 
+use Carbon\Carbon;
+
+function resetView(){
+    $dateMin1 = Carbon::now()->subDays(1);
+    // dd($newDateTime);
+    $stats = StatisticsView::where('date', date('Y-m-d', strtotime($dateMin1))." 00:00:00")->first();
+    if(!$stats){
+        $stats = StatisticsView::create([
+            'date' => date('Y-m-d', strtotime($dateMin1))." 00:00:00",
+            'totalViews' => 0,
+        ]);
+    }
+    $posts = PostVideo::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
+    foreach($posts as $post){
+        $now = Carbon::now();
+        
+        $stats->totalViews += (int) $post->view_daily;
+        $post->view_daily = 0;
+        $post->last_reset_daily = $now;
+
+        $date = Carbon::parse($post->last_reset_weekly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_weekly = 0;
+            $post->last_reset_weekly = $now;
+        }
+
+        $date = Carbon::parse($post->last_reset_monthly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_monthly = 0;
+            $post->last_reset_monthly = $now;
+        }
+
+        $stats->save();
+        $post->save();
+    }
+}
 
 function GET($link, $param){
     $out = [];
