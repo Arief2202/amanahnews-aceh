@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Reset Password</th>
+                                {{-- <th>Reset Password</th> --}}
                                 <th>Role</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -33,7 +33,7 @@
                             @foreach($users as $a=>$user)
                             <tr>
                                 <td>{{$a+1}}</td>
-                                <td><a href="{{route('member.user.update', ['id' => $user->id])}}" class="btn btn-warning">Edit</a></td>
+                                {{-- <td><a href="{{route('member.user.update', ['id' => $user->id])}}" class="btn btn-warning">Edit</a></td> --}}
                                 <td>
                                         @if($user->role == 1)
                                         <button class="btn btn-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</button>
