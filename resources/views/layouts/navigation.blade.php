@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(Auth::user()->role == '2')
+                        <x-nav-link :href="route('member.user')" :active="Request::segment(2) == 'user'">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    @endif
                     @if(Auth::user()->role == '1')
                         <x-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                             {{ __('Berita') }}
@@ -84,6 +89,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(Auth::user()->role == '2')
+                <x-responsive-nav-link :href="route('member.user')" :active="Request::segment(2) == 'user'">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endif
             @if(Auth::user()->role == '1')
                 <x-responsive-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                     {{ __('Berita') }}

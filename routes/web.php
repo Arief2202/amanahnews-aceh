@@ -10,6 +10,7 @@ use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\ECatalogController;
 use App\Http\Controllers\PostVideoController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UserController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -53,6 +54,18 @@ Route::controller(PostVideoController::class)->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/member/user/create', 'createView')->name('member.user.create');
+        Route::post('/member/user/create', 'create')->name('member.user.create.post');
+        Route::get('/member/user', 'read')->name('member.user');
+        Route::get('/member/user/update/{id}', 'updateView')->name('member.user.update');
+        Route::post('/member/user/update', 'update')->name('member.user.update.post');
+        Route::get('/member/user/delete/{id}', 'delete')->name('member.user.delete');
+        Route::post('/member/user/update', 'update')->name('member.user.update.post');
+        
+        Route::post('/member/user/changeRole', 'changeRole')->name('member.changeRole');
+    });
+
     Route::controller(AcaraController::class)->group(function () {
         Route::get('/member/acara/create', 'createView')->name('member.acara.create');
         Route::post('/member/acara/create', 'create')->name('member.acara.create.post');

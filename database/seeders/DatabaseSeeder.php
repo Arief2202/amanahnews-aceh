@@ -33,10 +33,18 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'photo' => 'user.png',
-            'instance' => 'Admin Amanahnews',
+            'instance' => 'Admin Amanah',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
             'role' => '1'
+        ]);
+        User::factory()->create([
+            'name' => 'Super Admin',
+            'photo' => 'user.png',
+            'instance' => 'Super Admin Amanah',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('superadmin'),
+            'role' => '2'
         ]);
 
         

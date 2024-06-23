@@ -1,56 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambahkan Berita Baru') }}
+            {{ __('Tambahkan E-Catalog Baru') }}
         </h2>
-        <style>
-          trix-toolbar [data-trix-attribute='quote'],
-          trix-toolbar [data-trix-attribute='code'] ,
-          trix-toolbar [data-trix-button-group='file-tools'],
-          trix-toolbar [data-trix-action='increaseNestingLevel'],
-          trix-toolbar [data-trix-action='decreaseNestingLevel']{
-            display: none;
-          }
-        </style>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('member.berita.create.post')}}" method="POST" enctype="multipart/form-data">@csrf
+                    <form action="{{route('member.e-catalog.create.post')}}" method="POST" enctype="multipart/form-data">@csrf
                         <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', Auth::user()->id)}}">
-                        <input type="hidden" name="category_id" id="category_id" value="{{old('category_id')}}">
-                          <div class="mb-3">
-                            <label for="myDropDown" class="form-label">Category</label>
-                            <div class="input-group">
-                              <input type="text" class="form-control @error('category') is-invalid @enderror" aria-label="Text input with dropdown button" value="{{ old('category') }}" id="category_show" disabled>
-                              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Select Category
-                              </button>
-                              <ul class="dropdown-menu" id="myDropdown">
-                                <div class="pe-2 ps-2">
-                                  <input type="text" class="form-control mb-3" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                                  <button class="btn btn-secondary w-100 mb-3" id="btnNew" style="display: none;" type="button" onclick="addNewCategory()">Add New Category</button>
-                                </div> 
-                                <div style="overflow-y: scroll; height: 150px;" id="dropDownItem">
-                                  @foreach($categories as $i=>$category)
-                                  <li><a class="dropdown-item" onclick="select('{{ $category->name }}', '{{ $category->id }}')">{{ $category->name }}</a></li>
-                                  @endforeach
-                                </div>
-                              </ul>
-                            </div>
-                            
-                            <input type="hidden" name="category" id="category" value="{{ old('category') }}" class="@error('category') is-invalid @enderror">
-                            @error('category')
+                        
+                        <div class="mb-3">
+                          <label for="image" class="form-label">Image</label>
+                          <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
+                          @error('image')
                             <div class="invalid-feedback">
-                              {{ $message }}
+                                {{ $message }}
                             </div>
-                            @enderror
-  
-                          </div>
+                          @enderror
+                        </div>
+                        <div class="mb-5 img-preview-div" style="display:none;">                            
+                            <label for="image" class="form-label">Photo Preview</label>
+                            <img for="image" src="" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
+                        </div>
 
-                          <div class="mb-3">
+                        <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
                             @error('title')
@@ -68,35 +44,58 @@
                               </div>
                             @enderror
                         </div>
-
                         <div class="mb-3">
-                            <label for="image" class="form-label">Thumbnail</label>
-                            <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
-                            @error('image')
-                              <div class="invalid-feedback">
-                                  {{ $message }}
-                              </div>
-                            @enderror
-                        </div>
-                        <div class="mb-5 img-preview-div" style="display:none;">                            
-                            <label for="image" class="form-label">Photo Preview</label>
-                            <img for="image" src="" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="image_source" class="form-label">Image Source / description</label>
-                            <input type="text" class="form-control @error('image_source') is-invalid @enderror" id="image_source" name="image_source" value="{{ old('image_source') }}">
-                            @error('image_source')
+                            <label for="price" class="form-label">Price</label>
+                            <div class="input-group mb-3">
+                              <span class="input-group-text" id="basic-addon1">Rp. </span>
+                              <input type="number" class="form-control" placeholder="10000" id="price" name="price" value="{{ old('price') }}">
+                            </div>
+                            @error('price')
                               <div class="invalid-feedback">
                                   {{ $message }}
                               </div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">Content</label>
-                            <input id="x" type="hidden" name="content" class="@error('image_source') is-invalid @enderror" value="{{old('content')}}">
-                            <trix-editor class="@error('image_source') is-invalid @enderror" input="x"></trix-editor>
-                            @error('content')
+                            <label for="owner" class="form-label">Owner</label>
+                            <input type="text" class="form-control @error('owner') is-invalid @enderror" id="owner" name="owner" value="{{ old('owner') }}">
+                            @error('owner')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">description</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="3" name="description" value="{{ old('description') }}">{{ old('description') }}</textarea>
+                            @error('description')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}">
+                            @error('address')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="hubungi" class="form-label">Hubungi Kami (Link)</label>
+                            <input type="text" class="form-control @error('hubungi') is-invalid @enderror" id="hubungi" name="hubungi" value="{{ old('hubungi') }}" placeholder="Ex. https://wa.me/+6212345678">
+                            @error('hubungi')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="sosmed" class="form-label">Sosial Media (Link)</label>
+                            <input type="text" class="form-control @error('sosmed') is-invalid @enderror" id="sosmed" name="sosmed" value="{{ old('sosmed') }}" placeholder="Ex. https://instagram.com/amanahnews">
+                            @error('sosmed')
                               <div class="invalid-feedback">
                                   {{ $message }}
                               </div>
@@ -104,7 +103,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-end">
-                            <a href="{{route('member.berita')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
+                            <a href="{{route('member.acara')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </form>
@@ -135,7 +134,6 @@
               const div = document.getElementById("myDropdown");
               const a = div.getElementsByTagName("li");
               var count = 0;
-              var found = false;
               for (let i = 0; i < a.length; i++) {
                 txtValue = a[i].textContent || a[i].innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -144,11 +142,10 @@
                 } else {
                   a[i].style.display = "none";
                 }
-                if(txtValue.toUpperCase() == filter.toUpperCase()) found = true;
               }
               
               const btnNew = document.getElementById('btnNew');
-              if(count == 0 || !found){
+              if(count == 0){
                 btnNew.style.display = ""
               }
               else {
@@ -180,7 +177,7 @@
             const title = document.querySelector("#title");
             const slug = document.querySelector("#slug");
             title.addEventListener('keyup', function(){
-                fetch("{{route('member.berita.slug.check')}}?title="+title.value)
+                fetch("{{route('member.e-catalog.slug.check')}}?title="+title.value)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);
             });

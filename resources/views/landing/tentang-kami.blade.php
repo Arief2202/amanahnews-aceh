@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<title>Amanah News - Login</title>
+<title>Amanah News - Tentang Kami</title>
 @endsection
 
 @section('script')
