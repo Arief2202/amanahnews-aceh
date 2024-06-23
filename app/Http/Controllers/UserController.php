@@ -12,13 +12,13 @@ class UserController extends Controller
     
     public function read()
     {
-        // if(Auth::user()->role != '2') return redirect('/');
+        if(Auth::user()->role != '2') return redirect('/');
         return view('member.user.read', [
             'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ]);
     }
     public function changeRole(Request $request){
-        // if(Auth::user()->role != '2') return redirect('/');
+        if(Auth::user()->role != '2') return redirect('/');
         if(isset($request->id) && isset($request->role)){
             $user = User::where('id', $request->id)->first();
             if($request->role == 0 || $request->role == 1 || $request->role == 2 ) $user->role = $request->role;
