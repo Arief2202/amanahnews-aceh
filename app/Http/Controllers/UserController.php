@@ -12,27 +12,11 @@ class UserController extends Controller
     
     public function read()
     {
-        if(Auth::user()->role != '2') return redirect('/');
+        // if(Auth::user()->role != '2') return redirect('/');
         return view('member.user.read', [
             'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ]);
     }
-    public function createView()
-    {
-        if(Auth::user()->role != '2') return redirect('/');
-        return view('member.user.create');
-    }
-    public function create(Request $request)
-    {
-        if(Auth::user()->role != '2') return redirect('/');
-        $validated = $request->validate([
-            'name' => 'required|unique:categories|max:255',
-            'slug'=> 'required|unique:categories|max:255'
-        ]);
-        // category::create($validated);
-        return redirect(route('member.berita.category'));
-    }
-    
     public function changeRole(Request $request){
         // if(Auth::user()->role != '2') return redirect('/');
         if(isset($request->id) && isset($request->role)){
