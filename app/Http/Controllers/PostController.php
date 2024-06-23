@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\ApaKataMereka;
+use App\Models\StatisticsView;
 use App\Models\postcontent;
 use App\Models\category;
 use App\Models\tagname;
@@ -13,6 +14,44 @@ use App\Models\tag;
 use App\Models\faq;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\File; 
+use Carbon\Carbon;
+
+function resetView(){
+    $dateMin1 = Carbon::now()->subDays(1);
+    // dd($newDateTime);
+    $stats = StatisticsView::where('date', date('Y-m-d', strtotime($dateMin1))." 00:00:00")->first();
+    if(!$stats){
+        $stats = StatisticsView::create([
+            'date' => date('Y-m-d', strtotime($dateMin1))." 00:00:00",
+            'totalViews' => 0,
+        ]);
+    }
+    $posts = Post::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
+    foreach($posts as $post){
+        $now = Carbon::now();
+        
+        $stats->totalViews += (int) $post->view_daily;
+        $post->view_daily = 0;
+        $post->last_reset_daily = $now;
+
+        $date = Carbon::parse($post->last_reset_weekly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_weekly = 0;
+            $post->last_reset_weekly = $now;
+        }
+
+        $date = Carbon::parse($post->last_reset_monthly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_monthly = 0;
+            $post->last_reset_monthly = $now;
+        }
+
+        $stats->save();
+        $post->save();
+    }
+}
 
 class PostController extends Controller
 {
@@ -20,6 +59,7 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function home(){
+        resetView();
         return view('landing.index', [
             'faqs' => faq::all(),
             'kata_merekas' => ApaKataMereka::all(),
@@ -31,6 +71,7 @@ class PostController extends Controller
         ]);
     }
     public function berita(){
+        resetView();
         return view('landing.berita', [
             'categories' => category::all(),
             'carousel_items' => Post::where('show', 1)->limit(10)->get(),
@@ -41,6 +82,7 @@ class PostController extends Controller
         ]);
     }
     public function beritaCategory($slug){
+        resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
             
@@ -57,6 +99,7 @@ class PostController extends Controller
         return redirect('berita');
     }
     public function beritaTag($slug){
+        resetView();
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
@@ -74,6 +117,7 @@ class PostController extends Controller
         return redirect('berita');
     }
     public function beritaDetail($slug){
+        resetView();
         $post = Post::where('show', 1)->where('slug', $slug)->first();
         if($post){
             $post->view_total = $post->view_total + 1;
@@ -92,6 +136,7 @@ class PostController extends Controller
 
     public function read()
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.read', [
             'posts' => Post::orderBy('id', 'DESC')->get(),
@@ -100,6 +145,7 @@ class PostController extends Controller
     }
     public function createView()
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.create', [
             'categories' => Category::all(),
@@ -107,6 +153,7 @@ class PostController extends Controller
     }
     public function readDetail($id)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         // $tagPost = tag::where('post_id', $post->id)->get();
@@ -121,6 +168,7 @@ class PostController extends Controller
     }
     public function create(Request $request)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $validated = $request->validate([
             'user_id' => 'required',
@@ -151,7 +199,7 @@ class PostController extends Controller
     
     public function updateView($id)
     {
-        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.berita.update', [
             'categories' => Category::all(),
@@ -160,6 +208,7 @@ class PostController extends Controller
     }
     public function update(Request $request)
     {
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $request->id)->first();
 
@@ -213,7 +262,7 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        
+        resetView();        
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if(Auth::user()->id != $post->user_id) return redirect(route('member.berita'));
@@ -231,12 +280,14 @@ class PostController extends Controller
     }
 
     public function checkSlug(Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
     }
 
     public function publish($id, Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
@@ -246,6 +297,7 @@ class PostController extends Controller
         return redirect(route('member.berita'));
     }
     public function unpublish($id, Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
@@ -256,6 +308,7 @@ class PostController extends Controller
     }
 
     public function newSection(Request $request){
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $request->validate([
             'post_id' => 'required',

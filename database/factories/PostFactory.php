@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -16,6 +17,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $dateMin1 = Carbon::now()->subDays(rand(25,40));
         return [
             'user_id' => '1',
             'category_id' => rand(1,4),
@@ -29,9 +31,9 @@ class PostFactory extends Factory
             'view_weekly' => rand(0, 100),
             'view_daily' => rand(0, 100),
             'show' => '1',
-            'last_reset_monthly' => date('Y-m-d H:i:s'),
-            'last_reset_weekly' => date('Y-m-d H:i:s'),
-            'last_reset_daily' => date('Y-m-d H:i:s'),
+            'last_reset_monthly' => $dateMin1,
+            'last_reset_weekly' => $dateMin1,
+            'last_reset_daily' => $dateMin1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
