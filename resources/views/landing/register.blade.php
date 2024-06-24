@@ -92,6 +92,9 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-4 d-block d-xl-none">
+                                <p>Sudah mempunyai akun ? <a href="/login">masuk</a></p>
+                            </div>
                             <div class="">
                                 <button type="submit" class="btn btn-warning" style="color: white;">Daftar</button>
                             </div>

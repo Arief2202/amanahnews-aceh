@@ -14,10 +14,10 @@
         <div class="container">
             <div class="shadow card" style="position:relative; overflow:hidden; height: 500px;">
                 <div class="row h-100">
-                    <div class="col d-none d-xl-block border p-5 h-100">
+                    <div class="col border p-5 h-100">
                         <form method="POST" action="{{ route('login') }}">@csrf
                             <h1 style="font-weight: 700;">Login</h1>
-                            <div class="mb-5 mt-5">
+                            <div class="mt-5">
                                 <label for="exampleFormControlInput1" class="form-label">Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1" name="email" value="{{old('email')}}">
                                 @error('email')
@@ -26,7 +26,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-5">
+                            <div class="mt-4">
                                 <label for="exampleFormControlInput2" class="form-label">Password</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="exampleFormControlInput2" name="password" value="{{old('password')}}">
                                 @error('password')
@@ -35,7 +35,10 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div class="mt-4 d-block d-xl-none">
+                                <p>Belum mempunyai akun ? <a href="/register">daftar</a></p>
+                            </div>
+                            <div class="mt-4">
                                 <button type="submit" class="btn btn-warning" style="color: white;">Masuk</button>
                             </div>
                         </form>

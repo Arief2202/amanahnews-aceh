@@ -10,6 +10,7 @@ use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\ECatalogController;
 use App\Http\Controllers\PostVideoController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\StatisticsViewController;
 use App\Http\Controllers\UserController;
 
 Route::get('/dashboard', function () {
@@ -174,6 +175,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/video/tag/delete', 'deleteTag')->name('member.video.tag.delete');
         Route::get('/member/video/tag/add', 'addTag')->name('member.video.tag.add');
         Route::get('/member/video/tag/get', 'getTag')->name('member.video.tag.get');
+    });
+    Route::controller(StatisticsViewController::class)->group(function () {
+        Route::get('/member/statistics/get', 'statisticsGet')->name('member.statistics.get');
     });
 });
 
