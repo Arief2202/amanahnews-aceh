@@ -12,11 +12,13 @@
 @section('style')
   <meta property="og:title" content="{{$post->title}}"/>
   <meta property="og:image" content="/uploads/video/image/{{$post->banner}}"/>
+  <meta property="og:image:type" content="image/jpeg">
   {{-- <meta property="og:description" content="3 words describe your website"/> --}}
   <meta property="og:url" content="https://amanahnews.id"/>
-  <meta property="og:image:width" content="500" />
-  <meta property="og:image:height" content="500"/>
-  <meta property="og:type" content="website"/> 
+  {{-- <meta property="og:image:width" content="500" />
+  <meta property="og:image:height" content="500"/> --}}
+  <meta property="og:type" content="article"/> 
+  <meta property="image_src" href="/uploads/video/image/{{$post->banner}}"/>
 @endsection
 
 @section('main')
