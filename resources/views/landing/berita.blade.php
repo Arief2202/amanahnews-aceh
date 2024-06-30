@@ -130,11 +130,16 @@
               @endforeach
           </div>
           <div class="col-xl-4 p-2">
+            @if($iklan)
             <div class="mb-5">
-              <a href="">
-                <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
-              </a>
+              <form action="{{route('iklan.click')}}" method="POST">@csrf
+                <input type="hidden" name="id" value="{{$iklan->id}}">
+                <button type="submit">
+                  <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
+                </button>
+              </form>
             </div>
+            @endif
             @if(isset($selected_category))
             <div class="h3">Trending {{$selected_category->name}}</div>
             @elseif(isset($selected_tag))

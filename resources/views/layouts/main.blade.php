@@ -103,10 +103,10 @@
               <form action="" style="width:70%">
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-8 mt-3 d-flex justify-content-center">
-                    <input type="text" class="form-control" placeholder="Masukkan alamat email anda disini">
+                    <input type="text" class="form-control" placeholder="Masukkan pesan anda disini" id="formhubungikamiwa" onkeyup="updatehref()">
                   </div>
                   <div class="col-md-4 mt-3 d-flex justify-content-center">
-                    <button class="btn btn-primary-orange">Mari Berlangganan</button>
+                    <a class="btn btn-primary-orange" id="hubungikamiwa" target="_blank">Hubungi Kami</a>
                   </div>
                 </div>
               </form>
@@ -190,6 +190,11 @@
   <!-- Main JS File -->
   @yield('script')
   <script src="/landing/assets/js/main.js"></script>
+  <script type="text/javascript">
+      function updatehref(){
+        document.getElementById('hubungikamiwa').href = "https://wa.me/+6282311938885?text="+document.getElementById('formhubungikamiwa').value;
+      }
+  </script>
 
 </body>
 

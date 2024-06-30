@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAcaraRequest;
 use App\Http\Requests\UpdateAcaraRequest;
 use App\Models\Acara;
+use App\Models\Iklan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -77,6 +78,7 @@ class AcaraController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         return view('member.acara.read', [
             'acaras' => Acara::orderBy('id', 'DESC')->get(),
+            'iklan' => Iklan::inRandomOrder()->where('type', 'panjang')->first()
         ]);
     }
     
@@ -190,7 +192,8 @@ class AcaraController extends Controller
 
         return view('landing.acara', [
             'acaras' => Acara::paginate(9),
-            'today' => $today
+            'today' => $today,
+            'iklan' => Iklan::inRandomOrder()->where('type', 'panjang')->first()
         ]);
     }
 
@@ -199,7 +202,8 @@ class AcaraController extends Controller
         $acara = Acara::where('slug', $slug)->first();
         if($acara){
             return view('landing.acara-detail', [
-                'acara' => $acara
+                'acara' => $acara,
+                'iklan' => Iklan::inRandomOrder()->where('type', 'panjang')->first()
             ]);
         }
         return redirect('acara');

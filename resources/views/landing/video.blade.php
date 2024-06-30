@@ -138,11 +138,16 @@
             {{-- <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
               <iframe style="width:100%; height:230px;" src="https://www.youtube.com/embed/{{$videoCode}}"></iframe>
             </div> --}}
-            <div class="mb-5" data-aos="fade-left" data-aos-delay="100">
-              <a href="">
-                <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
-              </a>
+            @if($iklan)
+            <div class="mb-5">
+              <form action="{{route('iklan.click')}}" method="POST">@csrf
+                <input type="hidden" name="id" value="{{$iklan->id}}">
+                <button type="submit">
+                  <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
+                </button>
+              </form>
             </div>
+            @endif
             @if(isset($selected_category))
             <div class="h3">Trending {{$selected_category->name}}</div>
             @elseif(isset($selected_tag))

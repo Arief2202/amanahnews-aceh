@@ -4,6 +4,16 @@
 <title>Amanah News - Berita</title>
 @endsection
 
+@section('style')
+  <meta property="og:title" content="{{$post->title}}"/>
+  <meta property="og:image" content="/uploads/post/image/{{$post->banner}}"/>
+  {{-- <meta property="og:description" content="3 words describe your website"/> --}}
+  <meta property="og:url" content="https://amanahnews.id"/>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200"/>
+  <meta property="og:type" content="website"/> 
+@endsection
+
 @section('script')
 <script src="/landing/assets/js/navbarDisScroll.js"></script>
 <script src="/landing/assets/js/autoPreloader.js"></script>
@@ -103,11 +113,16 @@
                     </div>
                 </div>
                 <div class="col-xl-4 p-3">
-                    <div class="mb-5">
-                      <a href="">
-                        <img src="\assets\uploads\iklan\iklan1.png" alt="" style="width: 100%">
-                      </a>
-                    </div>
+                  @if($iklan)
+                  <div class="mb-5">
+                    <form action="{{route('iklan.click')}}" method="POST">@csrf
+                      <input type="hidden" name="id" value="{{$iklan->id}}">
+                      <button type="submit">
+                        <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
+                      </button>
+                    </form>
+                  </div>
+                  @endif
                     <h4 style="font-weight: 600;">Sedang Hangat</h4>
                     <hr>
                     @foreach($hots as $a=>$hot)

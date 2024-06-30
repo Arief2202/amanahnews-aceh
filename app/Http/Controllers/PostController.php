@@ -12,6 +12,7 @@ use App\Models\tagname;
 use App\Models\Post;
 use App\Models\tag;
 use App\Models\faq;
+use App\Models\Iklan;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\File; 
 use Carbon\Carbon;
@@ -79,6 +80,7 @@ class PostController extends Controller
             'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => Post::where('show', 1)->paginate(9),
+            'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
     }
     public function beritaCategory($slug){
@@ -128,7 +130,8 @@ class PostController extends Controller
             $post->save();
             return view('landing.detail-berita', [
                 'post' => $post,
-                'hots' => Post::with(['contents'])->orderBy('view_weekly', 'DESC')->paginate(5)
+                'hots' => Post::with(['contents'])->orderBy('view_weekly', 'DESC')->paginate(5),
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
         return redirect('berita');

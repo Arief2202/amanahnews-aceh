@@ -59,5 +59,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FaqSeeder::class);
         $this->call(ApaKataMerekaSeeder::class);
         $this->call(StatisticsViewSeeder::class);
+        $this->call(IklanSeeder::class);
     }
 }

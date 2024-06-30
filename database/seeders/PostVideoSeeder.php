@@ -13,6 +13,6 @@ class PostVideoSeeder extends Seeder
      */
     public function run(): void
     {
-        PostVideo::factory(200)->create();
+        PostVideo::factory(rand(100,1000))->create();
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\StatisticsView;
 use App\Models\postcontent;
 use App\Models\category;
+use App\Models\Iklan;
 use App\Models\tagname;
 use App\Models\PostVideo;
 use App\Models\tag;
@@ -88,6 +89,7 @@ class PostVideoController extends Controller
             'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => PostVideo::where('show', 1)->paginate(9),
+            'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
     }
     public function beritaCategory($slug){
@@ -103,6 +105,7 @@ class PostVideoController extends Controller
             'trendings' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(9),
             'selected_category' => $category,
+            'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
         }
         return redirect('berita');
@@ -121,6 +124,7 @@ class PostVideoController extends Controller
                 'trendings' => $tag->post->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $tag->post->where('show', 1)->paginate(9),
                 'selected_tag' => $tag,
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
         return redirect('berita');
@@ -142,6 +146,7 @@ class PostVideoController extends Controller
                 'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'video')->get(),
                 'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->where('post_type', 'video')->get(),
                 'post_id' => $post->id,
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
         return redirect('berita');

@@ -94,13 +94,18 @@
 
         </div>
     </section>
-    <section class="section">
+    @if($iklan)
+    <section class="section">        
         <div class="container">
-            <a href="">                
-                <img src="\assets\uploads\iklan\iklan2.png" alt="" style="width: 100%">
-            </a>
+            <form action="{{route('iklan.click')}}" method="POST">@csrf
+              <input type="hidden" name="id" value="{{$iklan->id}}">
+              <button type="submit">
+                <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
+              </button>
+            </form>
         </div>
     </section>
+    @endif
     <section class="section" style="">
         <div class="container">
             <div class="container section-title" data-aos="fade-up">

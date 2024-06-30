@@ -8,15 +8,16 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagnameController;
 use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\ECatalogController;
+use App\Http\Controllers\IklanController;
 use App\Http\Controllers\PostVideoController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StatisticsViewController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
- 
+Route::post('/hubungiKami', function (Request $request) {
+    return redirect('mailto:amanahaceh24@gmail.com?subject=Amanahnews%20Contact%20Us%0A'.$request->name.'%0A'.$request->email.'%0A%0A'.$request->subject.'&body='.$request->message);
+})->name('hubungiKami');
+
 Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
     Route::get('/acara/get', 'acaraGet')->name('acara.get');    
@@ -177,7 +178,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/video/tag/get', 'getTag')->name('member.video.tag.get');
     });
     Route::controller(StatisticsViewController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/member/statistics/get', 'statisticsGet')->name('member.statistics.get');
+    });
+    Route::controller(IklanController::class)->group(function () {
+        Route::get('/member/iklan/create', 'createView')->name('member.iklan.create');
+        Route::post('/member/iklan/create', 'create')->name('member.iklan.create.post');
+        Route::get('/member/iklan', 'read')->name('member.iklan');
+        Route::get('/member/iklan/update/{id}', 'updateView')->name('member.iklan.update');
+        Route::post('/member/iklan/update', 'update')->name('member.iklan.update.post');
+        Route::get('/member/iklan/delete/{id}', 'delete')->name('member.iklan.delete');
+
+        Route::get('/member/iklan/publish/{id}', 'publish')->name('member.iklan.publish');
+        Route::get('/member/iklan/unpublish/{id}', 'unpublish')->name('member.iklan.unpublish');
+        Route::post('/iklan/click', 'click')->name('iklan.click');
     });
 });
 

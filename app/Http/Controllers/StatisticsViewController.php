@@ -4,10 +4,101 @@ namespace App\Http\Controllers;
 
 use App\Models\StatisticsView;
 use App\Models\Acara;
+use App\Models\Post;
+use App\Models\PostVideo;
+use App\Models\ECatalog;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
+function resetView(){
+    $dateMin1 = Carbon::now()->subDays(1);
+    // dd($newDateTime);
+    $stats = StatisticsView::where('date', date('Y-m-d', strtotime($dateMin1))." 00:00:00")->first();
+    if(!$stats){
+        $stats = StatisticsView::create([
+            'date' => date('Y-m-d', strtotime($dateMin1))." 00:00:00",
+            'totalViews' => 0,
+        ]);
+    }
+    $posts = Post::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
+    foreach($posts as $post){
+        $now = Carbon::now();
+        
+        $stats->totalViews += (int) $post->view_daily;
+        $post->view_daily = 0;
+        $post->last_reset_daily = $now;
+
+        $date = Carbon::parse($post->last_reset_weekly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_weekly = 0;
+            $post->last_reset_weekly = $now;
+        }
+
+        $date = Carbon::parse($post->last_reset_monthly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_monthly = 0;
+            $post->last_reset_monthly = $now;
+        }
+
+        $stats->save();
+        $post->save();
+    }
+    $posts = PostVideo::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
+    foreach($posts as $post){
+        $now = Carbon::now();
+        
+        $stats->totalViews += (int) $post->view_daily;
+        $post->view_daily = 0;
+        $post->last_reset_daily = $now;
+
+        $date = Carbon::parse($post->last_reset_weekly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_weekly = 0;
+            $post->last_reset_weekly = $now;
+        }
+
+        $date = Carbon::parse($post->last_reset_monthly);
+        $diff = $date->diffInDays($now);
+        if($diff>=7){
+            $post->view_monthly = 0;
+            $post->last_reset_monthly = $now;
+        }
+
+        $stats->save();
+        $post->save();
+    }
+}
+
 
 class StatisticsViewController extends Controller
 {
+    public function dashboard(Request $request)
+    {
+        $totalBerita = Post::where('show', '1')->get()->count();
+        $totalCatalog = ECatalog::all()->count();
+        $totalAcara = Acara::all()->count();
+        $totalVideo = PostVideo::where('show', '1')->get()->count();
+        $totalViews = 0;
+        foreach(StatisticsView::all() as $stat){
+            $totalViews += $stat->totalViews;
+        }
+        foreach(Post::all() as $post){
+            $totalViews += $post->view_daily;
+        }
+        foreach(PostVideo::all() as $post){
+            $totalViews += $post->view_daily;
+        }
+        return view('dashboard', [
+            'totalViews' => $totalViews,
+            'totalBerita' => $totalBerita,
+            'totalCatalog' => $totalCatalog,
+            'totalAcara' => $totalAcara,
+            'totalVideo' => $totalVideo,
+        ]);
+    }
     public function statisticsGet(Request $request)
     {
         
