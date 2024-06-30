@@ -14,8 +14,8 @@
   <meta property="og:image" content="/uploads/video/image/{{$post->banner}}"/>
   {{-- <meta property="og:description" content="3 words describe your website"/> --}}
   <meta property="og:url" content="https://amanahnews.id"/>
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="1200"/>
+  <meta property="og:image:width" content="500" />
+  <meta property="og:image:height" content="500"/>
   <meta property="og:type" content="website"/> 
 @endsection
 
