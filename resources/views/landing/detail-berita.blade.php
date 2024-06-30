@@ -12,7 +12,7 @@
   {{-- <meta property="og:image:width" content="500" />
   <meta property="og:image:height" content="500"/> --}}
   <meta property="og:type" content="article"/> 
-  <meta property="image_src" href="https://amanahnews.id/uploads/video/image/{{$post->banner}}"/>
+  <meta property="image_src" href="https://amanahnews.id/uploads/post/image/{{$post->banner}}"/>
 @endsection
 
 @section('script')
