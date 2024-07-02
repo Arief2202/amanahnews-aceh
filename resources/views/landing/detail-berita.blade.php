@@ -159,7 +159,7 @@
           <div class="col-auto">
               <h4>Tag</h4>
           </div>
-          @foreach($post->tags as $tag)
+          @foreach($post->tags->where('post_type', 'photo') as $tag)
             <div class="col-auto p-0 m-0 me-2 mb-3">
                 <a href="/berita/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
             </div>

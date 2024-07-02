@@ -53,7 +53,7 @@
                                 <td><a href="https://youtu.be/{{$post->video}}">{{$post->video}}</a></td>
                                 <td>{{$post->title}}</td>
                                 <td><a href="{{route('video.detail', ['slug' => $post->slug])}}">{{$post->slug}}</a></td>
-                                <td>@foreach($tags->where('post_id', $post->id) as $key=>$tag)@if($key!=0), @endif {{$tag->tagname->name}}@endforeach</td>
+                                <td>@foreach($tags->where('post_id', $post->id)->where('post_type', 'video') as $key=>$tag)@if($key!=0), @endif {{$tag->tagname->name}}@endforeach</td>
                                 <td>{{$post->view_total}}</td>
                                 <td>{{$post->view_monthly}}</td>
                                 <td>{{$post->view_weekly}}</td>
