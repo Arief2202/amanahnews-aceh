@@ -95,7 +95,8 @@ class PostController extends Controller
                 'populars' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => Post::where('category_id', $category->id)->where('show', 1)->paginate(9),
-                'selected_category' => $category
+                'selected_category' => $category,
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
         return redirect('berita');
@@ -114,6 +115,7 @@ class PostController extends Controller
                 'trendings' => $tag->post->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $tag->post->where('show', 1)->paginate(9),
                 'selected_tag' => $tag,
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
         return redirect('berita');
