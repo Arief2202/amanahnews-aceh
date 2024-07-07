@@ -122,13 +122,17 @@ class PostVideoController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
+        $others = PostVideo::where('show', 1)->paginate(9);
+        if(request('page') > 1){
+            $others = PostVideo::where('show', 1)->paginate(5);
+        }
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('show', 1)->get(),
             'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'others' => PostVideo::where('show', 1)->paginate(9),
+            'others' => $others,
             'search' => $search,
             'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
@@ -137,6 +141,10 @@ class PostVideoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
+        $others = PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(9);
+        if(request('page') > 1){
+            $others = PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(5);
+        }
             
         return view('landing.video', [
             'categories' => category::all(),
@@ -144,7 +152,7 @@ class PostVideoController extends Controller
             'newest' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'others' => PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(9),
+            'others' => $others,
             'selected_category' => $category,
             'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
@@ -156,14 +164,17 @@ class PostVideoController extends Controller
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
-            
+            $others = $tag->post->where('show', 1)->paginate(9);
+            if(request('page') > 1){
+                $others = $tag->post->where('show', 1)->paginate(5);
+            }
             return view('landing.video', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->post->where('show', 1)->get(),
                 'newest' => $tag->post->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => $tag->post->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => $tag->post->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'others' => $tag->post->where('show', 1)->paginate(9),
+                'others' => $others,
                 'selected_tag' => $tag,
                 'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);

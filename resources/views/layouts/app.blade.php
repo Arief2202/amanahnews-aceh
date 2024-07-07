@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Amanah News Dashboard') }}</title>
 
         <link rel="stylesheet" type="text/css" href="/vendor/trix-2.0.8/trix.css">
         <script type="text/javascript" src="/vendor/trix-2.0.8/trix.umd.min.js"></script>

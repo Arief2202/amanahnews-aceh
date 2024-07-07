@@ -5,7 +5,7 @@
 @endsection
 
 @section('script')
-@if($carousel_items->count() == 0 || strlen(request('search')) > 0)
+@if($carousel_items->count() == 0 || strlen(request('search')) > 0 || request('page') > 1)
 <script src="/landing/assets/js/navbarDisScroll.js"></script>
 @else
 <script src="/landing/assets/js/navbarScroll.js"></script>
@@ -21,7 +21,7 @@
       </div>
     </section>
     <!-- Hero Section -->
-    @if(strlen(request('search')) > 0)
+    @if(strlen(request('search')) > 0 || request('page') > 1)
     <section class="d-block" style="margin: 0px; padding: 0px; width:100%;">
       <div style="height: 100px">
 
@@ -90,18 +90,17 @@
             </div>
           </form>
         </div>
-
         <div class="row">
           <div class="col">
             @if(strlen(request('search')) > 0)
               <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Pencarian "{{Str::limit(request('search'), 50)}}"<h3>
             @else
               @if(isset($selected_category))
-              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Category {{$selected_category->name}} dari AMANAH</h3>
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Category {{$selected_category->name}} dari AMANAH @if(request('page') > 1)(Page {{request('page')}})@endif</h3>
               @elseif(isset($selected_tag))
-              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag {{$selected_tag->name}} dari AMANAH</h3>
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag {{$selected_tag->name}} dari AMANAH @if(request('page') > 1)(Page {{request('page')}})@endif</h3>
               @else
-              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH</h3>
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH @if(request('page') > 1)(Page {{request('page')}})@endif</h3>
               @endif
             @endif
           </div>
@@ -203,27 +202,96 @@
               @else
               <p>Data Pencarian tidak ditemukan</p>
               @endif
+
               @else
-                @foreach($newest as $a=>$new)
-                  <?php
-                    $content = Str::limit($new->content, 370);
-                    $content = str_replace("<div>","",$content);
-                    $content = str_replace("</div>","",$content);
-                  ?>
-                  <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
-                    <a href="{{route('berita.detail', ['slug' => $new->slug])}}">
-                      <div class="d-flex justify-content-between">
-                        <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
-                        <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
-                      </div>
-                      <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
-                      <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
-                      <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                      <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
-                      <hr>
-                    </a>
-                  </div>
-                @endforeach
+                @if(request('page') > 1)
+                  @foreach($others as $a=>$new)
+                    <?php
+                      $content = Str::limit($new->content, 370);
+                      $content = str_replace("<div>","",$content);
+                      $content = str_replace("</div>","",$content);
+                    ?>
+                    <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
+                      <a href="{{route('berita.detail', ['slug' => $new->slug])}}">
+                        <div class="d-flex justify-content-between">
+                          <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
+                          <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
+                        </div>
+                        <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                        <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
+                        <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
+                        <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <hr>
+                      </a>
+                    </div>
+                  @endforeach
+                  <div class="d-flex justify-content-center">
+
+                    <nav aria-label="...">
+                        
+                        <?php $per5 = (int)($others->currentPage()/3);?>
+                        <ul class="pagination">
+                          <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
+                            <a href="{{request()->getPathInfo()}}?page={{$others->currentPage()-1}}" class="page-link">Prev</a>
+                          </li>
+                          @if($others->currentPage() < 3)
+                            @for($a=1; $a<=3; $a++)
+                                @if($a == $others->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+4}}">{{$per5*3+4}}</a></li>
+                            
+                          @elseif($others->currentPage() > $others->lastPage()-3)                      
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-4}}">{{$per5*3-4}}</a></li>
+                            @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
+                                @if($a == $others->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                          @else                 
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-1}}">{{$per5*3-1}}</a></li>
+                            @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                                @if($a == $others->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+3}}">{{$per5*3+3}}</a></li>
+                          @endif
+                          <li class="page-item @if($others->currentPage() >= $others->lastPage() ) disabled @endif">
+                            <a class="page-link" href="{{request()->getPathInfo()}}?page={{$others->currentPage()+1}}">Next</a>
+                          </li>
+                        </ul>
+                      </nav>
+                </div>
+                @else
+                  @foreach($newest as $a=>$new)
+                    <?php
+                      $content = Str::limit($new->content, 370);
+                      $content = str_replace("<div>","",$content);
+                      $content = str_replace("</div>","",$content);
+                    ?>
+                    <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
+                      <a href="{{route('berita.detail', ['slug' => $new->slug])}}">
+                        <div class="d-flex justify-content-between">
+                          <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
+                          <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
+                        </div>
+                        <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                        <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
+                        <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
+                        <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <hr>
+                      </a>
+                    </div>
+                  @endforeach
+                @endif
               @endif
           </div>
           <div class="col-xl-4 p-2">
@@ -264,7 +332,7 @@
       </div>
     </section>
     
-    @if(strval(request('search')) > 0)
+    @if(strval(request('search')) > 0 || request('page') > 1)
     @else
     <section class="section" style="padding-top:0px;">
       <div class="container">        
@@ -297,40 +365,40 @@
                 <?php $per5 = (int)($others->currentPage()/3);?>
                 <ul class="pagination">
                   <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
-                    <a href="{{route('berita', ['page'=>$others->currentPage()-1])}}" class="page-link">Prev</a>
+                    <a href="{{request()->getPathInfo()}}?page={{$others->currentPage()-1}}" class="page-link">Prev</a>
                   </li>
                   @if($others->currentPage() < 3)
                     @for($a=1; $a<=3; $a++)
                         @if($a == $others->currentPage())
                             <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                         @else
-                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}">{{$a}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
                         @endif
                     @endfor
-                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3+4])}}">{{$per5*3+4}}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+4}}">{{$per5*3+4}}</a></li>
                     
                   @elseif($others->currentPage() > $others->lastPage()-3)                      
-                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3-4])}}">{{$per5*3-4}}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-4}}">{{$per5*3-4}}</a></li>
                     @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
                         @if($a == $others->currentPage())
                             <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                         @else
-                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}">{{$a}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
                         @endif
                     @endfor
                   @else                 
-                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-1}}">{{$per5*3-1}}</a></li>
                     @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                         @if($a == $others->currentPage())
                             <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                         @else
-                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}">{{$a}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
                         @endif
                     @endfor
-                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3+3])}}">{{$per5*3+3}}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+3}}">{{$per5*3+3}}</a></li>
                   @endif
                   <li class="page-item @if($others->currentPage() >= $others->lastPage() ) disabled @endif">
-                    <a class="page-link" href="{{route('berita', ['page'=>$others->currentPage()+1])}}">Next</a>
+                    <a class="page-link" href="{{request()->getPathInfo()}}?page={{$others->currentPage()+1}}">Next</a>
                   </li>
                 </ul>
               </nav>

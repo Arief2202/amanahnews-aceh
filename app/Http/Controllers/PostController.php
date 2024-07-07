@@ -113,13 +113,17 @@ class PostController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
+        $others = Post::where('show', 1)->paginate(9);
+        if(request('page') > 1){
+            $others = Post::where('show', 1)->paginate(5);
+        }
         return view('landing.berita', [
             'categories' => category::all(),
             'carousel_items' => Post::where('show', 1)->limit(10)->get(),
             'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'others' => Post::where('show', 1)->paginate(9),
+            'others' => $others,
             'search' => $search,
             'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
@@ -128,6 +132,10 @@ class PostController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
+            $others = Post::where('category_id', $category->id)->where('show', 1)->paginate(9);
+            if(request('page') > 1){
+                $others = Post::where('category_id', $category->id)->where('show', 1)->paginate(5);
+            }
             
             return view('landing.berita', [
                 'categories' => category::all(),
@@ -135,7 +143,7 @@ class PostController extends Controller
                 'newest' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'others' => Post::where('category_id', $category->id)->where('show', 1)->paginate(9),
+                'others' => $others,
                 'selected_category' => $category,
                 'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
@@ -147,6 +155,11 @@ class PostController extends Controller
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
             $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
+
+            $others = $tag->post->where('show', 1)->paginate(9);
+            if(request('page') > 1){
+                $others = $tag->post->where('show', 1)->paginate(5);
+            }
             
             return view('landing.berita', [
                 'categories' => category::all(),
@@ -154,7 +167,7 @@ class PostController extends Controller
                 'newest' => $tag->post->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => $tag->post->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => $tag->post->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'others' => $tag->post->where('show', 1)->paginate(9),
+                'others' => $others,
                 'selected_tag' => $tag,
                 'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
