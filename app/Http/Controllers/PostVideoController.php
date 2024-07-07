@@ -366,7 +366,7 @@ class PostVideoController extends Controller
         resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
-        if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
+        // if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
         $post->timestamps = false;
         $post->show=1;
         $post->save();
@@ -377,7 +377,7 @@ class PostVideoController extends Controller
         resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
-        if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
+        // if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
         $post->timestamps = false;
         $post->show=0;
         $post->save();

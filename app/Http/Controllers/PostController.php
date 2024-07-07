@@ -350,7 +350,7 @@ class PostController extends Controller
         resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
-        if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
+        // if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
         $post->timestamps = false;
         $post->show=1;
         $post->save();
@@ -361,7 +361,7 @@ class PostController extends Controller
         resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
-        if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
+        // if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
         $post->timestamps = false;
         $post->show=0;
         $post->save();
