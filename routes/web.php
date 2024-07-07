@@ -7,8 +7,11 @@ use App\Http\Controllers\PostcontentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagnameController;
 use App\Http\Controllers\AcaraController;
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ECatalogController;
+use App\Http\Controllers\FotoController;
 use App\Http\Controllers\IklanController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PostVideoController;
 use App\Http\Controllers\StatisticsViewController;
 use App\Http\Controllers\UserController;
@@ -21,6 +24,18 @@ Route::post('/hubungiKami', function (Request $request) {
 Route::get('/tentang-kami', function () {
     return view('landing.tentang-kami');
 })->name('tentang-kami');
+
+Route::get('/artikel', function () {
+    return view('comingsoon');
+})->name('artikel');
+
+Route::get('/foto', function () {
+    return view('comingsoon');
+})->name('foto');
+
+Route::controller(MitraController::class)->group(function () {
+    Route::get('/kemitraan', 'kemitraan')->name('kemitraan');
+});
 
 Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
@@ -157,6 +172,48 @@ Route::middleware('auth')->group(function () {
         Route::post('/member/berita/newSection', 'newSection')->name('member.berita.newSection');
         Route::get('/member/berita/newSection/{id}', 'newSectionView')->name('member.berita.newSection.View');
     });
+    Route::controller(ArtikelController::class)->group(function () {
+        Route::get('/member/artikel', 'read')->name('member.artikel');
+        Route::get('/member/artikel/create', 'createView')->name('member.artikel.create');
+        Route::post('/member/artikel/create', 'create')->name('member.artikel.create.post');
+        
+        Route::get('/member/artikel/update/{id}', 'updateView')->name('member.artikel.update');
+        Route::post('/member/artikel/update', 'update')->name('member.artikel.update.post');
+
+        Route::get('/member/artikel/delete/{id}', 'delete')->name('member.artikel.delete');
+        
+        Route::get('/member/artikel/publish/{id}', 'publish')->name('member.artikel.publish');
+        Route::get('/member/artikel/unpublish/{id}', 'unpublish')->name('member.artikel.unpublish');
+
+        Route::get('/member/artikel/category', 'readCategory')->name('member.artikel.category');
+        Route::get('/member/artikel/detail/{id}', 'readDetail')->name('member.artikel.detail');
+        Route::get('/member/artikel/tag', 'readTag')->name('member.artikel.tag');
+        Route::get('/member/artikel/slug/check', 'checkSlug')->name('member.artikel.slug.check');
+
+        Route::post('/member/artikel/newSection', 'newSection')->name('member.artikel.newSection');
+        Route::get('/member/artikel/newSection/{id}', 'newSectionView')->name('member.artikel.newSection.View');
+    });
+    Route::controller(FotoController::class)->group(function () {
+        Route::get('/member/foto', 'read')->name('member.foto');
+        Route::get('/member/foto/create', 'createView')->name('member.foto.create');
+        Route::post('/member/foto/create', 'create')->name('member.foto.create.post');
+        
+        Route::get('/member/foto/update/{id}', 'updateView')->name('member.foto.update');
+        Route::post('/member/foto/update', 'update')->name('member.foto.update.post');
+
+        Route::get('/member/foto/delete/{id}', 'delete')->name('member.foto.delete');
+        
+        Route::get('/member/foto/publish/{id}', 'publish')->name('member.foto.publish');
+        Route::get('/member/foto/unpublish/{id}', 'unpublish')->name('member.foto.unpublish');
+
+        Route::get('/member/foto/category', 'readCategory')->name('member.foto.category');
+        Route::get('/member/foto/detail/{id}', 'readDetail')->name('member.foto.detail');
+        Route::get('/member/foto/tag', 'readTag')->name('member.foto.tag');
+        Route::get('/member/foto/slug/check', 'checkSlug')->name('member.foto.slug.check');
+
+        Route::post('/member/foto/newSection', 'newSection')->name('member.foto.newSection');
+        Route::get('/member/foto/newSection/{id}', 'newSectionView')->name('member.foto.newSection.View');
+    });
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/member/berita/category', 'read')->name('member.berita.category');
         Route::get('/member/berita/category/create', 'createView')->name('member.berita.category.create');
@@ -196,6 +253,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/iklan/publish/{id}', 'publish')->name('member.iklan.publish');
         Route::get('/member/iklan/unpublish/{id}', 'unpublish')->name('member.iklan.unpublish');
         Route::post('/iklan/click', 'click')->name('iklan.click');
+    });
+    
+    Route::controller(MitraController::class)->group(function () {
+        Route::get('/member/mitra/create', 'createView')->name('member.mitra.create');
+        Route::post('/member/mitra/create', 'create')->name('member.mitra.create.post');
+        Route::get('/member/mitra', 'read')->name('member.mitra');
+        Route::get('/member/mitra/update/{id}', 'updateView')->name('member.mitra.update');
+        Route::post('/member/mitra/update', 'update')->name('member.mitra.update.post');
+        Route::get('/member/mitra/delete/{id}', 'delete')->name('member.mitra.delete');
+
+        Route::get('/member/mitra/publish/{id}', 'publish')->name('member.mitra.publish');
+        Route::get('/member/mitra/unpublish/{id}', 'unpublish')->name('member.mitra.unpublish');
+        Route::post('/mitra/click', 'click')->name('mitra.click');
     });
 });
 

@@ -27,17 +27,26 @@
                         <x-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                             {{ __('Berita') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('member.artikel')" :active="Request::segment(2) == 'artikel'">
+                            {{ __('Artikel') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('member.e-catalog')" :active="Request::segment(2) == 'e-catalog'">
                             {{ __('E-Catalog') }}
                         </x-nav-link>
                         <x-nav-link :href="route('member.acara')" :active="Request::segment(2) == 'acara'">
                             {{ __('Acara') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('member.foto')" :active="Request::segment(2) == 'foto'">
+                            {{ __('Foto') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('member.video')" :active="Request::segment(2) == 'video'">
                             {{ __('Video') }}
                         </x-nav-link>
                         <x-nav-link :href="route('member.iklan')" :active="Request::segment(2) == 'iklan'">
                             {{ __('Iklan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('member.mitra')" :active="Request::segment(2) == 'mitra'">
+                            {{ __('Mitra') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -107,17 +116,26 @@
                 <x-responsive-nav-link :href="route('member.berita')" :active="Request::segment(2) == 'berita'">
                     {{ __('Berita') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.artikel')" :active="Request::segment(2) == 'artikel'">
+                    {{ __('Artikel') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('member.e-catalog')" :active="Request::segment(2) == 'e-catalog'">
                     {{ __('E-Catalog') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('member.acara')" :active="Request::segment(2) == 'acara'">
                     {{ __('Acara') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.foto')" :active="Request::segment(2) == 'foto'">
+                    {{ __('Foto') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('member.video')" :active="Request::segment(2) == 'video'">
                     {{ __('Video') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('member.iklan')" :active="Request::segment(2) == 'iklan'">
                     {{ __('Iklan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('member.mitra')" :active="Request::segment(2) == 'mitra'">
+                    {{ __('Mitra') }}
                 </x-responsive-nav-link>
             @endif
         </div>

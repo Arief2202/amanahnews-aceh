@@ -55,9 +55,12 @@
         <ul>
           <li><a href="/" class="@if('/'.Request::segment(1) == '/') active @endif">Beranda</a></li>
           <li><a href="/berita" class="@if('/'.Request::segment(1) == '/berita') active @endif">Berita</a></li>
+          <li><a href="/artikel" class="@if('/'.Request::segment(1) == '/artikel') active @endif">Artikel</a></li>
           <li><a href="/e-catalog" class="@if('/'.Request::segment(1) == '/e-catalog') active @endif">E-Catalog</a></li>
           <li><a href="/acara" class="@if('/'.Request::segment(1) == '/acara') active @endif">Acara</a></li>
+          <li><a href="/foto" class="@if('/'.Request::segment(1) == '/foto') active @endif">Foto</a></li>
           <li><a href="/video" class="@if('/'.Request::segment(1) == '/video') active @endif">Video</a></li>
+          <li><a href="/kemitraan" class="@if('/'.Request::segment(1) == '/kemitraan') active @endif">Kemitraan</a></li>
           @if(!isset(Auth::user()->id))
           <li class="ps-2 pe-2 pb-3 signinout"><a href="/login" class="btn btn-primary-orange">Sign In</a></li>
           <li class="ps-2 pe-2 signinout"><a href="/register" class="btn btn-outline-secondary">Sign Up</a></li>

@@ -63,6 +63,36 @@
 :root {
   scroll-behavior: smooth;
 }
+.img-carousel-home-small{
+  height: 650px; 
+  object-fit:cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .img-carousel-home-small{
+    height: 250px; 
+  }
+}
+
+.container-top{
+  height: 400px;
+}
+.bg-container-top{
+  background-color:var(--main-color);
+  width:100%;
+  min-height:400px;
+  position: absolute;
+  z-index: 0;
+  top:0px;
+}
+@media only screen and (max-width: 600px) {
+  .container-top{
+      height: 500px;
+  }
+  .bg-container-top{
+      height: 500px;
+  }
+}
 
 .topBar{
   position: absolute; 

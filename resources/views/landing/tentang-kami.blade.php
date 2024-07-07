@@ -11,27 +11,6 @@
 @section('style')
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .container-top{
-            height: 400px;
-        }
-        .bg-container-top{
-            background-color:var(--main-color);
-            width:100%;
-            min-height:400px;
-            position: absolute;
-            z-index: 0;
-            top:0px;
-        }
-        @media only screen and (max-width: 600px) {
-            .container-top{
-                height: 500px;
-            }
-            .bg-container-top{
-                height: 500px;
-            }
-        }
-    </style>
 @endsection
 
 @section('script')

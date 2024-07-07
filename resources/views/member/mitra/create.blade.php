@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update Iklan') }}
+            {{ __('Tambahkan Mitra Baru') }}
         </h2>
     </x-slot>
 
@@ -9,8 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('member.iklan.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
-                        <input type="hidden" name="id" id="id" value="{{old('id', $iklan->id)}}">
+                    <form action="{{route('member.mitra.create.post')}}" method="POST" enctype="multipart/form-data">@csrf
+                        <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', Auth::user()->id)}}">
                         
                         <div class="mb-3">
                           <label for="image" class="form-label">Poster</label>
@@ -21,26 +21,14 @@
                             </div>
                           @enderror
                         </div>
-                        <div class="mb-5 img-preview-div">                            
+                        <div class="mb-5 img-preview-div" style="display:none;">                            
                             <label for="image" class="form-label">Photo Preview</label>
-                            <img for="image" src="/uploads/iklan/image/{{$iklan->type}}/{{$iklan->image}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
+                            <img for="image" src="" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
 
                         <div class="mb-3">
-                          <label for="type" class="form-label">Type</label>
-                          <select class="form-select @error('type') is-invalid @endif" aria-label="Default select example" name="type">
-                            <option value="persegi" @if($iklan->type == "persegi") active @endif>Persegi</option>
-                            <option value="panjang" @if($iklan->type == "panjang") active @endif>Persegi Panjang</option>
-                          </select>  
-                          @error('type')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                          @enderror
-                      </div>
-                        <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $iklan->title) }}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
                             @error('title')
                               <div class="invalid-feedback">
                                   {{ $message }}
@@ -49,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="href" class="form-label">Link Redirect</label>
-                            <input type="text" class="form-control @error('href') is-invalid @enderror" id="href" name="href" value="{{ old('href', $iklan->href) }}">
+                            <input type="text" class="form-control @error('href') is-invalid @enderror" id="href" name="href" value="{{ old('href') }}">
                             @error('href')
                               <div class="invalid-feedback">
                                   {{ $message }}
@@ -57,12 +45,9 @@
                             @enderror
                         </div>
                         
-                        <div class="d-flex justify-content-between">
-                          <a href="{{route('member.iklan.delete', ['id' => $iklan->id])}}" type="button" class="btn btn-danger me-3">Delete</a>
-                          <div>
-                            <a href="{{route('member.iklan')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{route('member.mitra')}}" type="button" class="btn btn-secondary me-3">Cancel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
-                          </div>
                         </div>
                     </form>
                 </div>

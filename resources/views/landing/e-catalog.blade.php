@@ -17,7 +17,7 @@
                 style="background-color:var(--main-color); width:100%; min-height:500px;position: absolute; z-index: 0; top:0px;">
             </div>
             <img src="/uploads/e-catalog/bg.png" alt=""
-                style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;">
+                style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%; object-fit:cover;">
             <div class="topBar">
                 <h2
                     style="color:white;font-weight:600;font-size:62px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">
@@ -57,7 +57,7 @@
                             <a href="{{ route('e-catalog.detail', ['slug' => $ecatalog->slug]) }}">
                                 <div class="shadow" style="border-radius: 15px">
                                     <img src="/uploads/e-catalog/image/{{ $ecatalog->photo }}" alt=""
-                                        style="width: 100%;">
+                                        style="width: 100%; object-fit:cover;">
                                     <div class="p-3">
 
                                         <h4 style="font-weight:600;">{{ $ecatalog->title }}</h4>

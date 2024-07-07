@@ -22,9 +22,9 @@
 
 @section('main')
     <section style="top: 0px; padding:0px; margin:0px;">
-        <div class="" style="height: 500px">
+        <div class="container-top" style="">
             
-            <div style="background-color:var(--main-color); width:100%; min-height:500px;position: absolute; z-index: 0; top:0px;"></div>
+            <div class="bg-container-top"></div>
             {{-- <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
             <div class="topBar">
                 <h2 style="color:white;font-weight:600;font-size:62px; margin:0px;padding:0px;text-align:center; margin-bottom: 50px;">Acara</h2>
