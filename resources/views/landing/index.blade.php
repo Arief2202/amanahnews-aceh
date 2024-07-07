@@ -33,10 +33,10 @@
                     <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
                   </div>
                   <div class="col">
-                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
+                    <p><a href="/berita" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
                   </div>
                   <div class="col">
-                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Video</a></p>
+                    <p><a href="/video" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Video</a></p>
                   </div>
                 </div>
               </div>
