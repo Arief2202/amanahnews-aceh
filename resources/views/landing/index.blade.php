@@ -119,7 +119,7 @@
             </div>
 
             <div class="order-1 col-lg-7 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
-                <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front">
+                <img src="assets/img/mengapa-amanah.jpg" alt="" class="stack-front">
             </div>
 
           </div>

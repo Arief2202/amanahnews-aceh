@@ -23,7 +23,7 @@
 @section('main')
     <section style="top: 0px; padding:0px; margin:0px;">
         <div class="container-top" style="">
-            
+
             <div class="bg-container-top"></div>
             {{-- <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
             <div class="topBar">
@@ -32,17 +32,17 @@
             </div>
         </div>
     </section>
-    {{-- <section class="ftco-section mb-0 pb-0">
+    {{-- <section class="pb-0 mb-0 ftco-section">
         <div class="container">
         </div>
     </section> --}}
-    
+
     <section id="about" class="about section">
-  
+
         <div class="container" data-aos="fade-up" data-aos-delay="100">
           <div class="row align-items-xl-center gy-5">
-  
-            <div class="col-xl-5 order-2 order-lg-1 content">
+
+            <div class="order-2 col-xl-5 order-lg-1 content">
                 <h3>About Us</h3>
                 <h1 style="font-weight:600">Kami bantu untuk membuat mereka menjadi lebih baik</h1>
                 <ol>
@@ -56,15 +56,15 @@
                     Daftar dan Bergabung Sekarang!
                     Jadi Bagian dari ANEUK MUDA ACEH UNGGUL DAN HEBAT!
                 </h5>
-              <a href="{{route('register')}}" class="read-more mt-3"><span>Daftar Sekarang</span></a>
+              <a href="{{route('register')}}" class="mt-3 read-more"><span>Daftar Sekarang</span></a>
             </div>
-            
-            <div class="col-lg-7 order-1 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
-                <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front">
+
+            <div class="order-1 col-lg-7 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
+                <img src="assets/img/mengapa-amanah.jpg" alt="" class="stack-front">
             </div>
-  
+
           </div>
         </div>
-  
+
       </section><!-- /About Section -->
 @endsection
