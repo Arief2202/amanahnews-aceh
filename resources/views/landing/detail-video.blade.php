@@ -64,7 +64,25 @@
                         </div>
                     </div>
                     <div>
-                        <p>{{date('d M Y h:i', strtotime($post->updated_at))}} WIB - Waktu baca 1 menit</p>
+                      <?php
+                              $val = $post->view_total;
+                              $divider = "";
+                              $valPrint = "";
+                              if($val > 1000000000){
+                                  $valPrint = number_format((float)($val/1000000000), 2, '.', '')." M";
+                              }
+                              else if($val > 1000000){
+                                  $valPrint = number_format((float)($val/1000000), 2, '.', '')." Jt";
+                              }
+                              else if($val > 1000){
+                                  $valPrint = number_format((float)($val/1000), 2, '.', '')." Rb";
+                              }
+                              else{
+                                  $valPrint = $val;
+                              }
+                              
+                          ?>
+                          <p>{{date('d M Y H:i', strtotime($post->updated_at))}} WIB - Total Views {{$valPrint}}</p>
                     </div>
                 </div>
             </div>
@@ -94,6 +112,28 @@
 
                       @endforeach
                     </div>
+                    
+                    <div class="row p-0 m-0 mt-4">
+                      <div class="col-auto">
+                          <h4>Tag</h4>
+                      </div>
+                      @foreach($post->tags->where('post_type', 'video') as $tag)
+                        <div class="col-auto p-0 m-0 me-2 mb-3">
+                            <a href="/berita/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
+                        </div>
+                      @endforeach
+                    </div>    
+                    <div class="mt-3" style="border-bottom:2px solid #000000;">
+
+                    </div>
+                    <div class="mb-3 mt-2">
+                          <h5 style="font-weight: 700;">Bagikan Berita</h5>
+                          <a href="https://www.facebook.com/sharer/sharer.php?u={{route('video.detail', ['slug' => $post->slug])}}" class="btn btn-primary me-2" style="position:relative; width:40px; height:40px; border-radius:5px"><i class="bi bi-facebook" style="position: absolute; font-size: 30px; transform:translate(-50%, -50%); top:49%; left:50%;"></i></a>
+                          <a href="https://twitter.com/share?url={{route('video.detail', ['slug' => $post->slug])}}" class="btn btn-dark me-2" style="position:relative; width:40px; height:40px; border-radius:5px"><i class="bi bi-twitter-x" style="position: absolute; font-size: 25px; transform:translate(-50%, -50%); top:49%; left:50%;"></i></a>
+                          <a href="https://www.linkedin.com/uas/login?session_redirect={{route('video.detail', ['slug' => $post->slug])}}" class="btn btn-primary me-2" style="position:relative; width:40px; height:40px; border-radius:5px"><i class="bi bi-linkedin" style="position: absolute; font-size: 25px; transform:translate(-50%, -50%); top:49%; left:50%;"></i></a>
+                          <a href="https://web.whatsapp.com/send?text={{route('video.detail', ['slug' => $post->slug])}}" class="btn btn-success me-2" style="position:relative; width:40px; height:40px; border-radius:5px"><i class="bi bi-whatsapp" style="position: absolute; font-size: 25px; transform:translate(-50%, -50%); top:49%; left:50%;"></i></a>
+                          <a href="https://telegram.me/share/url?url={{route('video.detail', ['slug' => $post->slug])}}" class="btn btn-primary me-2" style="position:relative; width:40px; height:40px; border-radius:5px; background-color:#26a5e4; border-color:#26a5e4"><i class="bi bi-telegram" style="position: absolute; font-size: 25px; transform:translate(-50%, -50%); top:49%; left:50%;"></i></a>
+                    </div>    
                 </div>
                 <div class="col-xl-4 p-3">
                   @if($iklan)
@@ -134,24 +174,69 @@
             </div>
         </div>
     </section>
-
-    <section class="section" >
-      <div class="container">    
-        <div class="row p-0 m-0">
-          <div class="col-auto">
-              <h4>Tag</h4>
-          </div>
-          @foreach($post->tags->where('post_type', 'video') as $tag)
-            <div class="col-auto p-0 m-0 me-2 mb-3">
-                <a href="/video/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
-            </div>
-          @endforeach
-        </div>    
-        <div class="mt-3" style="border-bottom:2px solid #000000;">
-
+    <section class="section" style="padding-top:0px;">
+      <div class="container">        
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Berita Video Lainnya</h2>
         </div>
-        
+        <div class="row">
+          @foreach($others as $i=>$lainnya)
+          <div class="col-xl-4 mb-3">
+            <a href="{{route('video.detail', ['slug' => $lainnya->slug])}}">
+              <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
+                <img src="/uploads/video/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
+                <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
+                <a href="mb-5">Baca Artikel ></a>
+              </div>
+            </a>
+          </div>
+          @endforeach
+          <div class="d-flex justify-content-center">
+
+            <nav aria-label="...">
+                
+                <?php $per5 = (int)($others->currentPage()/3);?>
+                <ul class="pagination">
+                  <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
+                    <a href="{{route('video', ['page'=>$others->currentPage()-1])}}" class="page-link">Prev</a>
+                  </li>
+                  @if($others->currentPage() < 3)
+                    @for($a=1; $a<=3; $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3+4])}}">{{$per5*3+4}}</a></li>
+                    
+                  @elseif($others->currentPage() > $others->lastPage()-3)                      
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3-4])}}">{{$per5*3-4}}</a></li>
+                    @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                  @else                 
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
+                    @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                        @if($a == $others->currentPage())
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$a])}}">{{$a}}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{route('video', ['page'=>$per5*3+3])}}">{{$per5*3+3}}</a></li>
+                  @endif
+                  <li class="page-item @if($others->currentPage() >= $others->lastPage() ) disabled @endif">
+                    <a class="page-link" href="{{route('video', ['page'=>$others->currentPage()+1])}}">Next</a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+        </div>
       </div>
     </section>
-
 @endsection

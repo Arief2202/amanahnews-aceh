@@ -17,7 +17,7 @@
                 <ol>
                 <li><a href="/acara">Acara</a></li>
                 <li><a href="/acara">Detail</a></li>
-                <li><a href="/acara/detail/{{$acara->slug}}">{{$acara->slug}}</a></li>
+                <li class="current">{{$acara->slug}}</li>
                 </ol>
             </div>
             </nav>

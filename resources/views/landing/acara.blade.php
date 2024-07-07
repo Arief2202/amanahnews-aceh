@@ -32,6 +32,8 @@
             </div>
         </div>
     </section>
+    @if(request('search'))
+    @else
     <section class="ftco-section mb-0 pb-0">
         <div class="container">
             <div class="row">
@@ -58,13 +60,18 @@
 
                 <div class="col-md-5 mb-3">
                     <div class="shadow p-2" style="border-radius: 15px">
-                    <div class="h3 ps-3 pe-3 pt-3">Acara Hari Ini</div>
+                    <div class="h3 ps-3 pe-3 pt-3">Acara Hari Ini ({{$today->count()}})</div>
                     <hr>
+                    <?php $count = 0; ?>
                     @foreach($today as $i=>$acara)
                         <?php
                         $content = Str::limit($acara->deskripsi, 50);
                         $content = str_replace("<div>","",$content);
                         $content = str_replace("</div>","",$content);
+                        if($today->count() > 3) {
+                            $count++;
+                            if($count >= 4) break;
+                        }
                         ?>
 
                         <div class="mb-3 p-2">
@@ -85,6 +92,11 @@
                         </div>
                         <hr>
                     @endforeach
+                    @if($today->count() > 3)
+                        <div style="m-3 w-100">
+                            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#myModalToday">Acara Hari Ini Lainnya</button>
+                        </div>
+                    @endif
                     </div>
                 </div>
 
@@ -94,24 +106,42 @@
 
         </div>
     </section>
-    @if($iklan)
-    <section class="section">        
-        <div class="container">
-            <form action="{{route('iklan.click')}}" method="POST">@csrf
-              <input type="hidden" name="id" value="{{$iklan->id}}">
-              <button type="submit">
-                <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
-              </button>
-            </form>
-        </div>
-    </section>
+        @if($iklan)
+        <section class="section">        
+            <div class="container">
+                <form action="{{route('iklan.click')}}" method="POST">@csrf
+                <input type="hidden" name="id" value="{{$iklan->id}}">
+                <button type="submit">
+                    <img src="/uploads/iklan/image/{{$iklan->type}}\{{$iklan->image}}" alt="" style="width: 100%">
+                </button>
+                </form>
+            </div>
+        </section>
+        @endif
     @endif
+
     <section class="section" style="">
         <div class="container">
+            @if(request('search'))
+            @else
             <div class="container section-title" data-aos="fade-up">
               <h2>Acara Lainnya</h2>
-              <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+              {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
             </div><!-- End Section Title -->
+            @endif
+            <div class=" d-flex justify-content-center w-100 mb-3">
+                <form action="" method="get">
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Cari Acara yang ingin anda inginkan disini" name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-primary-orange">Cari Disini</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
             <div class="">
                 <div class="row p-3">
                 @foreach($acaras as $acara)
@@ -141,40 +171,50 @@
                         <?php $per5 = (int)($acaras->currentPage()/3);?>
                         <ul class="pagination">
                           <li class="page-item @if($acaras->currentPage() <= 1) disabled @endif">
-                            <a href="{{route('acara', ['page'=>$acaras->currentPage()-1])}}" class="page-link">Prev</a>
+                            <a href="{{route('acara', ['page'=>$acaras->currentPage()-1])}}@if(request('search'))&search={{request('search')}} @endif" class="page-link">Prev</a>
                           </li>
-                          @if($acaras->currentPage() < 3)
-                            @for($a=1; $a<=3; $a++)
-                                @if($a == $acaras->currentPage())
-                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
-                                @else
-                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
-                                @endif
-                            @endfor
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+4])}}">{{$per5*3+4}}</a></li>
-                            
-                          @elseif($acaras->currentPage() > $acaras->lastPage()-3)                      
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-4])}}">{{$per5*3-4}}</a></li>
-                            @for($a=$acaras->lastPage()-3; $a<=$acaras->lastPage(); $a++)
-                                @if($a == $acaras->currentPage())
-                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
-                                @else
-                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
-                                @endif
-                            @endfor
-                          @else                 
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}">{{$per5*3-1}}</a></li>
-                            @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
-                                @if($a == $acaras->currentPage())
-                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
-                                @else
-                                    <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}">{{$a}}</a></li>
-                                @endif
-                            @endfor
-                            <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+3])}}">{{$per5*3+3}}</a></li>
-                          @endif
+                          @if($acaras->lastPage() > 3)
+                            @if($acaras->currentPage() < 3)
+                                @for($a=1; $a<=3; $a++)
+                                    @if($a == $acaras->currentPage())
+                                        <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}@if(request('search'))&search={{request('search')}} @endif">{{$a}}</a></li>
+                                    @endif
+                                @endfor
+                                <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+4])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3+4}}</a></li>
+                                
+                            @elseif($acaras->currentPage() > $acaras->lastPage()-3)                      
+                                <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-4])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3-4}}</a></li>
+                                @for($a=$acaras->lastPage()-3; $a<=$acaras->lastPage(); $a++)
+                                    @if($a == $acaras->currentPage())
+                                        <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}@if(request('search'))&search={{request('search')}} @endif">{{$a}}</a></li>
+                                    @endif
+                                @endfor
+                            @else                 
+                                <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3-1}}</a></li>
+                                @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                                    @if($a == $acaras->currentPage())
+                                        <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}@if(request('search'))&search={{request('search')}} @endif">{{$a}}</a></li>
+                                    @endif
+                                @endfor
+                                <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+3])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3+3}}</a></li>
+                            @endif
+                            @else
+                            @for($a=1; $a<=$acaras->lastPage(); $a++)
+                                    @if($a == $acaras->currentPage())
+                                        <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}@if(request('search'))&search={{request('search')}} @endif">{{$a}}</a></li>
+                                    @endif
+                                @endfor
+                            @endif
                           <li class="page-item @if($acaras->currentPage() >= $acaras->lastPage() ) disabled @endif">
-                            <a class="page-link" href="{{route('acara', ['page'=>$acaras->currentPage()+1])}}">Next</a>
+                            <a class="page-link" href="{{route('acara', ['page'=>$acaras->currentPage()+1])}}@if(request('search'))&search={{request('search')}} @endif">Next</a>
                           </li>
                         </ul>
                       </nav>
@@ -191,6 +231,68 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalToday" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-title">Acara Hari Ini</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    
+                    @foreach($today as $acara)
+                    <?php
+                        $content = Str::limit($acara->deskripsi, 50);
+                        $content = str_replace("<div>","",$content);
+                        $content = str_replace("</div>","",$content);
+                        ?>
+
+                        <div class="mb-3 p-2">
+                            <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
+                                    </div>
+                                    <div class="col-md">
+                                        <h5 style="font-weight:600; font-size:14px;">{{$acara->title}}</h5>
+                                        <p style="color:rgb(121, 121, 121); font-size:12px;">{{$content}}</p>
+                                        <p style="color:rgb(121, 121, 121); font-size:12px;">{{date("d M Y", strtotime($acara->start_acara_date))}} @if(isset($acara->end_acara_date)) - {{date("d M Y", strtotime($acara->end_acara_date))}} @endif</p>
+                                        <button class="btn btn-primary-orange" style="width:100%; border-radius:10px">Read More</button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <hr>
+{{--                         
+                    <a href="/acara/detail/sed-ut-neque-molestiae-impedit-ratione">
+                        <div class="alert alert-primary" role="alert">
+                            <h5 style="font-weight:600">Possimus nihil occaecati cumque ut nihil.</h5>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="bx bx-map-pin" style="font-size: 50px"></i>
+                                </div>
+                                <div class="col">
+                                    <p>Voluptates voluptas rerum sit.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div class="pt-2">
+                                    <p>11 Apr 2024 - 30 Jul 2024</p>
+                                </div>
+                                <button class="btn btn-primary">Selengkapnya</button>
+                            </div>
+                        </div>
+                    </a> --}}
+                    @endforeach
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

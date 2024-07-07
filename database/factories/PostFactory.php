@@ -34,8 +34,8 @@ class PostFactory extends Factory
             'last_reset_monthly' => $dateMin1,
             'last_reset_weekly' => $dateMin1,
             'last_reset_daily' => $dateMin1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-06-20 20:41:20')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-06-19 19:41:20')),
         ];
     }
 }

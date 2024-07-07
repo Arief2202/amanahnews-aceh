@@ -27,6 +27,7 @@ function resetView(){
     }
     $posts = PostVideo::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
     foreach($posts as $post){
+        $post->timestamps = false;
         $now = Carbon::now();
         
         $stats->totalViews += (int) $post->view_daily;
@@ -78,10 +79,49 @@ function getVideoCode($link){
     return $code;
 }
 
+function paginate($collection, $perpage){
+    $arr = 0;
+    $outputs = [];
+    $page = request('page') ? request('page') : 1;
+    $totalPage = ($collection->count()/$perpage > (int)($collection->count()/$perpage)) ? ((int)($collection->count()/$perpage)) + 1 : ((int) ($collection->count()/$perpage));
+    foreach($collection as $col){
+        if($arr >= $perpage*$page-$perpage) $outputs[] = $col;
+        $arr++;
+        if($arr >= $perpage*$page) break;
+    }
+    $collections = [
+        'currentPage' => $page,
+        'item_per_page' => $perpage,
+        'total_item' => $collection->count(),
+        'total_page' => $totalPage,
+        'lastPage' => $totalPage,
+        'items' => $outputs
+    ];
+    return $collections;
+}
+
 class PostVideoController extends Controller
 {
     public function berita(){
         resetView();
+        $search = [];
+        if(request('search')){
+            $posts =  PostVideo::latest()->where('title', 'like', '%'.request('search').'%')->orwhere('content', 'like', '%'.request('search').'%')->get();
+            $posts2 = postcontent::latest()->where('content', 'like', '%'.request('search').'%')->orwhere('source', 'like', '%'.request('search').'%');
+            $posts2 = $posts2->where('post_type', 'video')->with(['video'])->get();
+            $search = [];
+            $arr = 0;
+            foreach($posts as $post){
+                $search[$arr++] = $post;
+            }
+            foreach($posts2 as $post){
+                if($posts->where('id', $post->post->id)->count() == 0){
+                    $search[$arr++] = $post->post;
+                }
+            }
+            $search = collect($search);
+            $search = paginate($search, 5);
+        }
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('show', 1)->get(),
@@ -89,6 +129,7 @@ class PostVideoController extends Controller
             'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => PostVideo::where('show', 1)->paginate(9),
+            'search' => $search,
             'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
     }
@@ -146,7 +187,8 @@ class PostVideoController extends Controller
                 'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'video')->get(),
                 'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->where('post_type', 'video')->get(),
                 'post_id' => $post->id,
-                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first(),
+                'others' => PostVideo::where('show', 1)->where('id', '!=', $post->id)->paginate(9),
             ]);
         }
         return redirect('berita');
@@ -314,6 +356,7 @@ class PostVideoController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
+        $post->timestamps = false;
         $post->show=1;
         $post->save();
         if($request->source == 'detail') return redirect(route('member.video.detail', ['id' => $post->id]));
@@ -324,6 +367,7 @@ class PostVideoController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         $post = PostVideo::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.video'));
+        $post->timestamps = false;
         $post->show=0;
         $post->save();
         if($request->source == 'detail') return redirect(route('member.video.detail', ['id' => $post->id]));

@@ -27,8 +27,18 @@
             <div class="row">
               <div class="col" style="text-align: center;">            
                 <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
-                <p data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
-                <p data-aos="fade-up" data-aos-delay="200"><a href="/login" class="btn btn-primary-orange p-3 mt-3" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
+                <p class="pe-2 ps-2" data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang diberdayakan oleh Badan Intelijen Negara Republik Indonesia</p>
+                <div class="row pt-3">
+                  <div class="col">
+                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
+                  </div>
+                  <div class="col">
+                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
+                  </div>
+                  <div class="col">
+                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Video</a></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +112,7 @@
               <p>
                 Dalam misinya, amanah akan terus mengembangkan dan memberdayakan masyarakat muda Aceh sebagai gerakan untuk membantu meningkatkan stabilitas ekonomi di sekitar Aceh melalui anak muda. Ayo bergabung bersama kami
               </p>
-              <a href="#" class="read-more"><span>Selengkapnya</span><i class="bi bi-arrow-right"></i></a>
+              <a href="{{route('tentang-kami')}}" class="read-more"><span>Selengkapnya</span><i class="bi bi-arrow-right"></i></a>
             </div>
             
             <div class="col-lg-7 order-1 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">

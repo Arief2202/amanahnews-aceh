@@ -5,7 +5,7 @@
 @endsection
 
 @section('script')
-@if($carousel_items->count() == 0)
+@if($carousel_items->count() == 0 || strlen(request('search')) > 0)
 <script src="/landing/assets/js/navbarDisScroll.js"></script>
 @else
 <script src="/landing/assets/js/navbarScroll.js"></script>
@@ -21,6 +21,13 @@
       </div>
     </section>
     <!-- Hero Section -->
+    @if(strlen(request('search')) > 0)
+    <section class="d-block" style="margin: 0px; padding: 0px; width:100%;">
+      <div style="height: 100px">
+
+      </div>
+    </section>
+    @else
     <section class="d-none d-xl-block" style="margin: 0px; padding: 0px; width:100%;">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" >
@@ -68,28 +75,34 @@
             </div>
           </div>
     </section>
-
+    @endif
     <section class="section" style="">
       <div class="container">
         <div class=" d-flex justify-content-center w-100">
+          <form action="" method="get">
           <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Cari Berita yang ingin anda baca" style="width: 50vw; border-width: 2px 2px;">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Cari Berita yang ingin anda baca" name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
+              </div>
+              <div class="col">
+                <button class="btn btn-primary-orange">Search</button>
+              </div>
             </div>
-            <div class="col">
-              <button class="btn btn-primary-orange">Search</button>
-            </div>
-          </div>
+          </form>
         </div>
 
         <div class="row">
           <div class="col">
-            @if(isset($selected_category))
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Category {{$selected_category->name}} dari AMANAH</h3>
-            @elseif(isset($selected_tag))
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag {{$selected_tag->name}} dari AMANAH</h3>
+            @if(strlen(request('search')) > 0)
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Pencarian "{{Str::limit(request('search'), 50)}}"<h3>
             @else
-            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH</h3>
+              @if(isset($selected_category))
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Category {{$selected_category->name}} dari AMANAH</h3>
+              @elseif(isset($selected_tag))
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag {{$selected_tag->name}} dari AMANAH</h3>
+              @else
+              <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Terbaru dari AMANAH</h3>
+              @endif
             @endif
           </div>
           <div class="col d-flex justify-content-end align-items-end mb-2">
@@ -108,7 +121,9 @@
         <div style="margin:0px;padding:0px; border:none; border-top:2px solid #000000;margin-bottom:20px"></div>
         <div class="row p-3">
           <div class="col-xl-8 ps-2 pe-2">
-              @foreach($newest as $a=>$new)
+
+              @if(strval(request('search')) > 0)
+                @foreach($search['items'] as $a=>$new)
                 <?php
                   $content = Str::limit($new->content, 370);
                   $content = str_replace("<div>","",$content);
@@ -123,11 +138,93 @@
                     <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                    <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Artikel ></a>
+                    <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
                     <hr>
                   </a>
                 </div>
-              @endforeach
+                @endforeach
+                @if($search['total_item'] > 0)
+                
+                <div class="d-flex justify-content-center">
+
+                  <nav aria-label="...">
+                    <?php $per5 = (int)($search['currentPage']/3);?>
+                      <ul class="pagination">
+                        <li class="page-item @if($search['currentPage'] <= 1) disabled @endif">
+                          <a href="{{route('berita', ['page'=>$search['currentPage']-1])}}&search={{request('search')}}" class="page-link">Prev</a>
+                        </li>
+                        
+                      @if($search['lastPage'] > 3)
+                          @if($search['currentPage'] < 3)
+                            @for($a=1; $a<=3; $a++)
+                                @if($a == $search['currentPage'])
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3+4])}}&search={{request('search')}}">{{$per5*3+4}}</a></li>
+                            
+                          @elseif($search['currentPage'] > $search['lastPage']-3)                      
+                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3-4])}}&search={{request('search')}}">{{$per5*3-4}}</a></li>
+                            @for($a=$search['lastPage']-3; $a<=$search['lastPage']; $a++)
+                                @if($a == $search['currentPage'])
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                          @else                 
+                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3-1])}}&search={{request('search')}}">{{$per5*3-1}}</a></li>
+                            @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
+                                @if($a == $search['currentPage'])
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                @endif
+                            @endfor
+                            <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$per5*3+3])}}&search={{request('search')}}">{{$per5*3+3}}</a></li>
+                          @endif
+                        @else
+                          @for($a=1; $a<=$search['lastPage']; $a++)
+                                  @if($a == $search['currentPage'])
+                                      <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
+                                  @else
+                                      <li class="page-item"><a class="page-link" href="{{route('berita', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                  @endif
+                          @endfor
+                        @endif
+                        <li class="page-item @if($search['currentPage'] >= $search['lastPage'] ) disabled @endif">
+                          <a class="page-link" href="{{route('berita', ['page'=>$search['currentPage']+1])}}&search={{request('search')}}">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+              </div>
+              @else
+              <p>Data Pencarian tidak ditemukan</p>
+              @endif
+              @else
+                @foreach($newest as $a=>$new)
+                  <?php
+                    $content = Str::limit($new->content, 370);
+                    $content = str_replace("<div>","",$content);
+                    $content = str_replace("</div>","",$content);
+                  ?>
+                  <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
+                    <a href="{{route('berita.detail', ['slug' => $new->slug])}}">
+                      <div class="d-flex justify-content-between">
+                        <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
+                        <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
+                      </div>
+                      <img src="/uploads/post/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                      <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
+                      <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
+                      <a href="/berita/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                      <hr>
+                    </a>
+                  </div>
+                @endforeach
+              @endif
           </div>
           <div class="col-xl-4 p-2">
             @if($iklan)
@@ -157,7 +254,7 @@
                   </div>
                   <img src="/uploads/post/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
-                  <a href="/berita/detail/{{$trending->slug}}">Baca Artikel ></a>
+                  <a href="/berita/detail/{{$trending->slug}}">Baca Berita ></a>
                   <hr>
                 </a>
               </div>
@@ -167,15 +264,17 @@
       </div>
     </section>
     
+    @if(strval(request('search')) > 0)
+    @else
     <section class="section" style="padding-top:0px;">
       <div class="container">        
         <div class="container section-title" data-aos="fade-up">
           @if(isset($selected_category))
-          <h2>Artikel {{$selected_category->name}} Lainnya</h2>
+          <h2>Berita {{$selected_category->name}} Lainnya</h2>
           @elseif(isset($selected_tag))
-          <h2>Artikel {{$selected_tag->name}} Lainnya</h2>
+          <h2>Berita {{$selected_tag->name}} Lainnya</h2>
           @else
-          <h2>Artikel Lainnya</h2>
+          <h2>Berita Lainnya</h2>
           @endif
           {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
         </div>
@@ -186,7 +285,7 @@
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
                 <img src="/uploads/post/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
-                <a href="mb-5">Baca Artikel ></a>
+                <a href="mb-5">Baca Berita ></a>
               </div>
             </a>
           </div>
@@ -239,4 +338,5 @@
         </div>
       </div>
     </section>
+    @endif
 @endsection

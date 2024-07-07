@@ -29,6 +29,7 @@ function resetView(){
     }
     $posts = Post::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
     foreach($posts as $post){
+        $post->timestamps = false;
         $now = Carbon::now();
         
         $stats->totalViews += (int) $post->view_daily;
@@ -54,6 +55,27 @@ function resetView(){
     }
 }
 
+function paginate($collection, $perpage){
+    $arr = 0;
+    $outputs = [];
+    $page = request('page') ? request('page') : 1;
+    $totalPage = ($collection->count()/$perpage > (int)($collection->count()/$perpage)) ? ((int)($collection->count()/$perpage)) + 1 : ((int) ($collection->count()/$perpage));
+    foreach($collection as $col){
+        if($arr >= $perpage*$page-$perpage) $outputs[] = $col;
+        $arr++;
+        if($arr >= $perpage*$page) break;
+    }
+    $collections = [
+        'currentPage' => $page,
+        'item_per_page' => $perpage,
+        'total_item' => $collection->count(),
+        'total_page' => $totalPage,
+        'lastPage' => $totalPage,
+        'items' => $outputs
+    ];
+    return $collections;
+}
+
 class PostController extends Controller
 {
     /**
@@ -73,6 +95,24 @@ class PostController extends Controller
     }
     public function berita(){
         resetView();
+        $search = [];
+        if(request('search')){
+            $posts =  Post::latest()->where('title', 'like', '%'.request('search').'%')->orwhere('content', 'like', '%'.request('search').'%')->get();
+            $posts2 = postcontent::latest()->where('content', 'like', '%'.request('search').'%')->orwhere('source', 'like', '%'.request('search').'%');
+            $posts2 = $posts2->where('post_type', 'text')->with(['post'])->get();
+            $search = [];
+            $arr = 0;
+            foreach($posts as $post){
+                $search[$arr++] = $post;
+            }
+            foreach($posts2 as $post){
+                if($posts->where('id', $post->post->id)->count() == 0){
+                    $search[$arr++] = $post->post;
+                }
+            }
+            $search = collect($search);
+            $search = paginate($search, 5);
+        }
         return view('landing.berita', [
             'categories' => category::all(),
             'carousel_items' => Post::where('show', 1)->limit(10)->get(),
@@ -80,6 +120,7 @@ class PostController extends Controller
             'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => Post::where('show', 1)->paginate(9),
+            'search' => $search,
             'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
         ]);
     }
@@ -133,7 +174,8 @@ class PostController extends Controller
             return view('landing.detail-berita', [
                 'post' => $post,
                 'hots' => Post::with(['contents'])->orderBy('view_weekly', 'DESC')->paginate(5),
-                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
+                'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first(),
+                'others' => Post::where('show', 1)->where('id', '!=', $post->id)->paginate(9),
             ]);
         }
         return redirect('berita');
@@ -296,6 +338,7 @@ class PostController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
+        $post->timestamps = false;
         $post->show=1;
         $post->save();
         if($request->source == 'detail') return redirect(route('member.berita.detail', ['id' => $post->id]));
@@ -306,6 +349,7 @@ class PostController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if($post->user_id != Auth::user()->id) return redirect(route('member.berita'));
+        $post->timestamps = false;
         $post->show=0;
         $post->save();
         if($request->source == 'detail') return redirect(route('member.berita.detail', ['id' => $post->id]));

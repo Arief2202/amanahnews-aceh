@@ -11,4 +11,10 @@ class postcontent extends Model
     protected $guarded = [
         'id',
     ];
+    public function post(){
+        return $this->belongsTo(Post::class);
+    }
+    public function video(){
+        return $this->belongsTo(PostVideo::class);
+    }
 }

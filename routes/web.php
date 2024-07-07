@@ -18,6 +18,10 @@ Route::post('/hubungiKami', function (Request $request) {
     return redirect('mailto:amanahaceh24@gmail.com?subject=Amanahnews%20Contact%20Us%0A'.$request->name.'%0A'.$request->email.'%0A%0A'.$request->subject.'&body='.$request->message);
 })->name('hubungiKami');
 
+Route::get('/tentang-kami', function () {
+    return view('landing.tentang-kami');
+})->name('tentang-kami');
+
 Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
     Route::get('/acara/get', 'acaraGet')->name('acara.get');    

@@ -140,8 +140,18 @@ class ECatalogController extends Controller
 
     public function eCatalog()
     {
+        $ecatalogs = ECatalog::latest();
+        if(request('search')){
+            $ecatalogs =  ECatalog::where('title', 'like', '%'.request('search').'%')
+                                            ->orwhere('price', 'like', '%'.request('search').'%')
+                                            ->orwhere('owner', 'like', '%'.request('search').'%')
+                                            ->orwhere('description', 'like', '%'.request('search').'%')
+                                            ->orwhere('address', 'like', '%'.request('search').'%')
+                                            ;
+            
+        }
         return view('landing.e-catalog', [
-            'ecatalogs' => ECatalog::paginate(12),
+            'ecatalogs' => $ecatalogs->paginate(12),
         ]);
     }
     

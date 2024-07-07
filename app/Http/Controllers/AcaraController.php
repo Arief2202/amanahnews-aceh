@@ -189,9 +189,18 @@ class AcaraController extends Controller
             $acaras[$arr++] = $acara2; 
         }
         $today = collect($acaras);
+        
+        $acaras = Acara::latest();
+        if(request('search')){
+            $acaras =  Acara::where('title', 'like', '%'.request('search').'%')
+                                            ->orwhere('penyelenggara', 'like', '%'.request('search').'%')
+                                            ->orwhere('deskripsi', 'like', '%'.request('search').'%')
+                                            ;
+            
+        }
 
         return view('landing.acara', [
-            'acaras' => Acara::paginate(9),
+            'acaras' => $acaras->paginate(9),
             'today' => $today,
             'iklan' => Iklan::inRandomOrder()->where('type', 'panjang')->first()
         ]);

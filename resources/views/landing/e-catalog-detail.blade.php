@@ -17,6 +17,7 @@
                 <ol>
                 <li><a href="/e-catalog">E-Catalog</a></li>
                 <li><a href="/e-catalog">Detail</a></li>
+                <li class="current">{{$ecatalog->slug}}</li>
                 </ol>
             </div>
             </nav>

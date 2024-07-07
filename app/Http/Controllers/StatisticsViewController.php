@@ -22,6 +22,7 @@ function resetView(){
     }
     $posts = Post::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
     foreach($posts as $post){
+        $post->timestamps = false;
         $now = Carbon::now();
         
         $stats->totalViews += (int) $post->view_daily;
@@ -47,6 +48,7 @@ function resetView(){
     }
     $posts = PostVideo::where('last_reset_daily', '<', date('Y-m-d')." 00:00:00")->get();
     foreach($posts as $post){
+        $post->timestamps = false;
         $now = Carbon::now();
         
         $stats->totalViews += (int) $post->view_daily;
