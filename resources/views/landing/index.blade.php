@@ -16,24 +16,24 @@
         {{-- <div style="background-color:#00000057; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div> --}}
         <img src="/assets/img/bg.jpg" alt="" data-aos="fade-in" style="opacity: 15%;">
         <img src="/assets/img/bercak.png" alt="" data-aos="fade-in" style="opacity: 50%;">
-  
+
         <div class="heroImg">
-  
-          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in" style="object-fit:cover;">  
+
+          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in" style="object-fit:cover;">
         </div>
-  
+
         <div class="container divText" style="">
           <div class="d-flex justify-content-center">
             <div class="row">
-              <div class="col" style="text-align: center;">            
+              <div class="col" style="text-align: center;">
                 <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
                 <p class="pe-2 ps-2" data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang diberdayakan oleh Badan Intelijen Negara Republik Indonesia</p>
-                <div class="row pt-3">
+                <div class="pt-3 row">
                   <div class="col">
                     <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
                   </div>
                   <div class="col">
-                    <p><a href="/berita" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
+                    <p><a href="/berita" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Berita</a></p>
                   </div>
                   <div class="col">
                     <p><a href="/video" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Video</a></p>
@@ -43,26 +43,26 @@
             </div>
           </div>
         </div>
-        
+
       </section><!-- /Hero Section -->
-  
+
       <!-- Clients Section -->
       <section id="clients" class="clients section">
         <div class="container mt-3" data-aos="fade-up">
-  
-  
+
+
           <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" style="border-radius: 30px">
-  
+
               @foreach($carousel_items as $a=>$carousel_item)
               <a href="{{route('berita.detail', ['slug' => $carousel_item->slug])}}">
                 <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
                   <img src="/uploads/post/image/{{$carousel_item->banner}}" class="d-block w-100 img-carousel-home-small" alt="...">
-                  
-                  <div class="carousel-caption d-none d-md-block w-100 p-3 carousel-bg-caption">
+
+                  <div class="p-3 carousel-caption d-none d-md-block w-100 carousel-bg-caption">
                     <div style="position: absolute;left:0px;bottom:0px;">
-                        <div class="d-flex justify-content-start align-items-start text-start ps-5 pe-5 pb-4">
-                          <h1 style="color: #ffffff; font-weight:600;">{{$carousel_item->title}}</h1>  
+                        <div class="pb-4 d-flex justify-content-start align-items-start text-start ps-5 pe-5">
+                          <h1 style="color: #ffffff; font-weight:600;">{{$carousel_item->title}}</h1>
                         </div>
                     </div>
                   </div>
@@ -79,20 +79,20 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-          
+
           <div class="container" style="margin-top:80px; margin-bottom:60px;">
             <div class="d-flex justify-content-center justify-content-md-start">
 
               <h2 class="font-weight-light" style="font-weight: 700;">Berita Trending</h2>
             </div>
-            <div class="row mt-4">
+            <div class="mt-4 row">
               @foreach($trendings as $trending)
-              <div class="col-md-3 mb-3 d-flex justify-content-center">
+              <div class="mb-3 col-md-3 d-flex justify-content-center">
                 <a class="myCard" href="/berita/detail/{{$trending->slug}}">
                   <img src="/uploads/post/image/{{$trending->banner}}" alt="" style="object-fit:cover">
-  
+
                   <div class="card-title ps-3 pe-3">
-                    <h5 class="title mt-5">{{$trending->title}}</h5>
+                    <h5 class="mt-5 title">{{$trending->title}}</h5>
                     <p class="time">{{date('d M Y H:i:s', strtoTime($trending->updated_at ))}}</p>
                   </div>
                 </a>
@@ -100,16 +100,16 @@
               @endforeach
             </div>
         </div>
-  
+
       </section><!-- /Clients Section -->
-  
+
       <!-- About Section -->
       <section id="about" class="about section">
-  
+
         <div class="container" data-aos="fade-up" data-aos-delay="100">
           <div class="row align-items-xl-center gy-5">
-  
-            <div class="col-xl-5 order-2 order-lg-1 content">
+
+            <div class="order-2 col-xl-5 order-lg-1 content">
               <h3>About Us</h3>
               <h1>Mengapa Harus Ikut Amanah ?</h1>
               <p>
@@ -117,32 +117,32 @@
               </p>
               <a href="{{route('tentang-kami')}}" class="read-more"><span>Selengkapnya</span><i class="bi bi-arrow-right"></i></a>
             </div>
-            
-            <div class="col-lg-7 order-1 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
+
+            <div class="order-1 col-lg-7 order-lg-2 d-flex justify-content-end" data-aos="zoom-out" data-aos-delay="100">
                 <img src="assets/img/mengapa-amanah.png" alt="" class="stack-front">
             </div>
-  
+
           </div>
         </div>
-  
+
       </section><!-- /About Section -->
-  
+
       <!-- Services Section -->
       <section id="services" class="services section">
-  
+
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up" style="width:100vw;">
           <h2>Apa saja Layanan di Amanah?</h2>
           <p>Kami terus hadir untuk membantu masyarakat Aceh terutama kawula muda seluruh Aceh dalam menggerakkan perekonomian Daerah. </p>
         </div><!-- End Section Title -->
-  
+
         <div class="container">
-  
+
           <div class="row gy-4">
-  
+
             <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
               <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+                <div class="flex-shrink-0 icon"><i class="bi bi-briefcase"></i></div>
                 <div>
                   <h4 class="title"><a class="stretched-link">Pengembangan SDM</a></h4>
                   <p class="description">Program AMANAH berupaya mengembangkan beragam kekayaan sumber daya alam dan sumber daya manusia khususnya para pemuda yang ada di Aceh. Program AMANAH juga berupaya mengangkat ekonomi kreatif yang dapat berkembang di masyarakat yang terdiri dari 18 subsektor. </p>
@@ -150,10 +150,10 @@
               </div>
             </div>
             <!-- End Service Item -->
-  
+
             <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="200">
               <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+                <div class="flex-shrink-0 icon"><i class="bi bi-card-checklist"></i></div>
                 <div>
                   <h4 class="title"><a href="@if($newest->count() > 0) /berita/detail/{{$newest->first()->slug}} @endif" class="stretched-link">Berita Terkini</a></h4>
                   @if($newest->count() > 0)
@@ -162,51 +162,51 @@
                 </div>
               </div>
             </div><!-- End Service Item -->
-  
+
             <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="300">
               <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+                <div class="flex-shrink-0 icon"><i class="bi bi-bar-chart"></i></div>
                 <div>
                   <h4 class="title"><a class="stretched-link">Katalog Penjualan</a></h4>
                   {{-- <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p> --}}
                 </div>
               </div>
             </div><!-- End Service Item -->
-  
+
             <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="600">
               <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
+                <div class="flex-shrink-0 icon"><i class="bi bi-calendar4-week"></i></div>
                 <div>
                   <h4 class="title"><a class="stretched-link">Kalender Kegiatan</a></h4>
                   {{-- <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p> --}}
                 </div>
               </div>
             </div><!-- End Service Item -->
-  
+
           </div>
-  
+
         </div>
-  
+
       </section><!-- /Services Section -->
-  
-  
-  
+
+
+
       <!-- Testimonials Section -->
       <section id="testimonials" class="testimonials section">
-  
+
         <div class="container">
-  
+
           <div class="row align-items-center">
-  
+
             <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">
               <h3>Apa Kata Mereka?</h3>
               <p>
                 Dalam mengembangkan program, pemerintah telah berupaya untuk menjangkau lebih banyak pemuda untuk meningkatkan jangkauan program ini lebih luas dan berdampak positif agar mampu menopang perputaran ekonomi di daerah Aceh
               </p>
             </div>
-  
+
             <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
-  
+
               <div class="swiper">
                 <script type="application/json" class="swiper-config">
                   {
@@ -224,12 +224,12 @@
                   }
                 </script>
                 <div class="swiper-wrapper">
-  
+
                   @foreach($kata_merekas as $kataMereka)
                   <div class="swiper-slide">
                     <div class="testimonial-item">
                       <div class="d-flex">
-                        <img src="/uploads/kataMereka/{{$kataMereka->photo}}" class="testimonial-img flex-shrink-0" alt="">
+                        <img src="/uploads/kataMereka/{{$kataMereka->photo}}" class="flex-shrink-0 testimonial-img" alt="">
                         <div>
                           <h3>{{$kataMereka->name}}</h3>
                           <h4>{{$kataMereka->instance}}</h4>
@@ -246,26 +246,26 @@
                     </div>
                   </div><!-- End testimonial item -->
                   @endforeach
-  
+
                 </div>
                 <div class="swiper-pagination"></div>
               </div>
-  
+
             </div>
-  
+
           </div>
-  
+
         </div>
-  
+
       </section><!-- /Testimonials Section -->
-  
-  
+
+
       <!-- Faq Section -->
       <section id="faq" class="faq section">
-  
+
         <div class="container">
           <div class="row gy-4">
-  
+
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
               <div class="content px-xl-5">
                 <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
@@ -274,9 +274,9 @@
                 </p> --}}
               </div>
             </div>
-  
+
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-  
+
               <div class="faq-container">
                 @foreach($faqs as $key=>$faq)
                   <div class="faq-item @if($key==0)faq-active @endif">
@@ -288,15 +288,15 @@
                   </div><!-- End Faq item-->
                 @endforeach
               </div>
-  
+
             </div>
           </div>
-  
+
         </div>
-  
+
       </section><!-- /Faq Section -->
 
-      
+
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
@@ -373,7 +373,7 @@
                   <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
                 </div>
 
-                <div class="col-md-12 text-center">
+                <div class="text-center col-md-12">
                   <button type="submit">Send Message</button>
                 </div>
 
@@ -386,5 +386,5 @@
       </div>
 
     </section><!-- /Contact Section -->
-  
+
 @endsection
