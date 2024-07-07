@@ -30,7 +30,7 @@ Route::get('/artikel', function () {
 })->name('artikel');
 
 Route::get('/foto', function () {
-    return view('comingsoon');
+    return view('landing.detail-foto');
 })->name('foto');
 
 Route::controller(MitraController::class)->group(function () {
