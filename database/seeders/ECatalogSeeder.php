@@ -13,6 +13,6 @@ class ECatalogSeeder extends Seeder
      */
     public function run(): void
     {
-        ECatalog::factory(rand(100,1000))->create();
+        // ECatalog::factory(rand(100,1000))->create();
     }
 }

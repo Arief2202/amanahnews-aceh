@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('image_height')->nullable();
             $table->text('source')->nullable();
             $table->text('href')->nullable();
+            $table->text('description')->nullable();
             $table->integer('saved')->default(0);
             $table->timestamps();
         });
