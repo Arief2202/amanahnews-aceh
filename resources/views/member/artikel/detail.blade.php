@@ -324,7 +324,7 @@
 
             function addNewTag(){
               const input = document.getElementById("myInputTag");
-              fetch("{{route('member.artikel.newTag.add')}}?name="+input.value)
+              fetch("{{route('member.artikel.newTag.add')}}?type=artikel&name="+input.value)
               .then(response => response.json())
               .then(data => {
                 console.log(data);
@@ -342,7 +342,7 @@
                 showAll();
                 document.getElementById("myInputTag").value = null;
 
-                fetch("{{route('member.artikel.tag.add')}}?post_id={{$post_id}}&tagname_id="+id)
+                fetch("{{route('member.artikel.tag.add')}}?type=artikel&post_id={{$post_id}}&tagname_id="+id)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -365,7 +365,7 @@
             setInterval(updateTagValue, 1000);
 
             function updateTagValue(){                
-                fetch("{{route('member.artikel.tag.get')}}?post_id={{$post_id}}")
+                fetch("{{route('member.artikel.tag.get')}}?type=artikel&post_id={{$post_id}}")
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('tagsView').innerHTML = "<div class=\"col-auto\">Tags : </div>";

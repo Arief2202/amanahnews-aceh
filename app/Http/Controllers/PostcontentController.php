@@ -46,8 +46,19 @@ class PostcontentController extends Controller
             $postcontent->content = $request->content;
         }
         else if($postcontent->type == 'image'){
-            if($request->image){                
-                $destinationPath = 'uploads/post/image';
+            if($request->image){                                
+                if($postcontent->post_type == 'artikel'){
+                    $destinationPath = 'uploads/artikel/image';
+                }
+                if($postcontent->post_type == 'foto'){
+                    $destinationPath = 'uploads/foto/image';
+                }
+                if($postcontent->post_type == 'video'){
+                    $destinationPath = 'uploads/video/image';
+                }
+                else{
+                    $destinationPath = 'uploads/post/image';
+                }
                 $imageName = 'postcontent'.$postcontent->id.'.'.$request->image->extension();
                 $request->image->move(public_path($destinationPath), $imageName);
                 $postcontent->content = $imageName;
@@ -60,9 +71,28 @@ class PostcontentController extends Controller
         else if($postcontent->type == 'video'){
             $postcontent->content = getVideoCode($request->content);
             $postcontent->source = $request->source;
+        }        
+        else if($postcontent->type == 'foto'){
+            if($request->image){                
+                $destinationPath = 'uploads/foto/image';
+                $imageName = 'postcontent'.$postcontent->id.'.'.$request->image->extension();
+                $request->image->move(public_path($destinationPath), $imageName);
+                $postcontent->content = $imageName;
+            }
+            $postcontent->description = $request->description;
+            $postcontent->image_width = $request->image_width;
+            $postcontent->image_height = $request->image_height;
+            $postcontent->href = $request->href;
+            $postcontent->source = $request->source;
         }
         $postcontent->saved=1;
         $postcontent->save();
+        if($postcontent->post_type == 'artikel'){
+            return redirect(route('member.artikel.detail', ['id' => $postcontent->post_id]));
+        }
+        if($postcontent->post_type == 'foto'){
+            return redirect(route('member.foto.detail', ['id' => $postcontent->post_id]));
+        }
         if($postcontent->post_type == 'video'){
             return redirect(route('member.video.detail', ['id' => $postcontent->post_id]));
         }
@@ -75,6 +105,12 @@ class PostcontentController extends Controller
         $postcontent = postcontent::where('id', $request->postcontent_id)->first();
         $postcontent->saved=0;
         $postcontent->save();
+        if($postcontent->post_type == 'artikel'){
+            return redirect(route('member.artikel.detail', ['id' => $postcontent->post_id]));
+        }
+        if($postcontent->post_type == 'foto'){
+            return redirect(route('member.foto.detail', ['id' => $postcontent->post_id]));
+        }
         if($postcontent->post_type == 'video'){
             return redirect(route('member.video.detail', ['id' => $postcontent->post_id]));
         }
@@ -88,17 +124,34 @@ class PostcontentController extends Controller
         $postcontent = postcontent::where('id', $id)->first();
         $post_id = $postcontent->post_id;
         $post_type = $postcontent->post_type;
-        if($postcontent->type == 'image'){
-            $destinationPath = public_path().'\uploads\post\image';
+        if($postcontent->type == 'image'){                     
+            if($postcontent->post_type == 'artikel'){
+                $destinationPath = public_path().'\uploads\artikel\image';
+            }
+            if($postcontent->post_type == 'foto'){
+                $destinationPath = public_path().'\uploads\foto\image';
+            }
+            if($postcontent->post_type == 'video'){
+                $destinationPath = public_path().'\uploads\video\image';
+            }
+            else{
+                $destinationPath = public_path().'\uploads\post\image';
+            }
             $imageName = $destinationPath.'\\'.$postcontent->content;
             File::delete($imageName);
         }
         $postcontent->delete();
-        if($post_type == 'video'){
-            return redirect(route('member.video.detail', ['id' => $post_id]));
+        if($postcontent->post_type == 'artikel'){
+            return redirect(route('member.artikel.detail', ['id' => $postcontent->post_id]));
+        }
+        if($postcontent->post_type == 'foto'){
+            return redirect(route('member.foto.detail', ['id' => $postcontent->post_id]));
+        }
+        if($postcontent->post_type == 'video'){
+            return redirect(route('member.video.detail', ['id' => $postcontent->post_id]));
         }
         else{
-            return redirect(route('member.berita.detail', ['id' => $post_id]));
+            return redirect(route('member.berita.detail', ['id' => $postcontent->post_id]));
         }
     }
 }

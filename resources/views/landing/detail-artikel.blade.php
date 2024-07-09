@@ -94,7 +94,7 @@
                     <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$post->banner_source}}</p>
                     <div>
                       <?=$post->content ?>
-                      @foreach($post->contents->where('post_type', 'photo') as $content)
+                      @foreach($post->contents->where('post_type', 'artikel') as $content)
                         @if($content->type=='image')
                         <div class="row p-0 m-0">
                             {{-- <div class="col-xl-8" style=""> --}}
@@ -114,7 +114,7 @@
                       <div class="col-auto">
                           <h4>Tag</h4>
                       </div>
-                      @foreach($post->tags->where('post_type', 'photo') as $tag)
+                      @foreach($post->tags->where('post_type', 'artikel') as $tag)
                         <div class="col-auto p-0 m-0 me-2 mb-3">
                             <a href="/artikel/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
                         </div>

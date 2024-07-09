@@ -89,16 +89,17 @@ class StatisticsViewController extends Controller
         $totalArtikel = Artikel::where('show', '1')->get()->count();
         $totalFoto = Foto::where('show', '1')->get()->count();
         $totalUser = User::where('role', '0')->get()->count();
+
         $totalViews = 0;
         foreach(StatisticsView::all() as $stat){
             $totalViews += $stat->totalViews;
         }
-        foreach(Post::all() as $post){
-            $totalViews += $post->view_daily;
-        }
-        foreach(PostVideo::all() as $post){
-            $totalViews += $post->view_daily;
-        }
+        // foreach(Post::all() as $post){
+        //     $totalViews += $post->view_daily;
+        // }
+        // foreach(PostVideo::all() as $post){
+        //     $totalViews += $post->view_daily;
+        // }
         return view('dashboard', [
             'totalViews' => $totalViews,
             'totalBerita' => $totalBerita,

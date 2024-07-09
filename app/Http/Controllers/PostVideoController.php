@@ -163,19 +163,24 @@ class PostVideoController extends Controller
         resetView();
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
-            $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
-            $others = $tag->post->where('show', 1)->paginate(9);
+            $tag = tag::where('tagname_id', $tagname->id);
+
+            $tagOthers = $tag->with(['video' => function($q){
+                $q->where('show', '=', 1);
+            }]);
+            $others = $tagOthers->paginate(9);
             if(request('page') > 1){
-                $others = $tag->post->where('show', 1)->paginate(5);
+                $others = $tagOthers->paginate(5);
             }
-            return view('landing.video', [
+            
+            return view('landing.berita', [
                 'categories' => category::all(),
-                'carousel_items' => $tag->post->where('show', 1)->get(),
-                'newest' => $tag->post->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
-                'populars' => $tag->post->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
-                'trendings' => $tag->post->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'carousel_items' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(10)->get()->pluck('video'),
+                'newest' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('video'),
+                'populars' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('video'),
+                'trendings' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('video'),
                 'others' => $others,
-                'selected_tag' => $tag,
+                'selected_tag' => $tagname,
                 'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
@@ -395,7 +400,7 @@ class PostVideoController extends Controller
         $post = PostVideo::where('id', $request->post_id)->first();
         if(Auth::user()->id == $post->user_id){
             $postContent = postcontent::create([
-                'post_type' => $request->post_type,
+                'post_type' => 'video',
                 'post_id' => $request->post_id,
                 'type' => $request->type,
             ]);

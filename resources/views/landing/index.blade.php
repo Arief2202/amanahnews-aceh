@@ -36,7 +36,7 @@
                     <p><a href="/berita" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Berita</a></p>
                   </div>
                   <div class="col">
-                    <p><a href="/video" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Video</a></p>
+                    <p><a href="/foto" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
                   </div>
                 </div>
               </div>

@@ -56,7 +56,7 @@ class TagnameController extends Controller
             'post_id' => 'required',
             'tagname_id'=> 'required'
         ]);
-        $result['post_type'] = 'photo';
+        $result['post_type'] = $request->type;
         $result = tag::create($result);
         return response()->json([
             'id' => $result->id, 
@@ -66,7 +66,7 @@ class TagnameController extends Controller
     }
     public function getTag(Request $request){
         if(Auth::user()->role != '1') return redirect('/');
-        $tagname = tag::with(['tagname', 'post'])->where('post_id', $request->post_id)->where('post_type', 'photo')->get();
+        $tagname = tag::with(['tagname', 'post'])->where('post_id', $request->post_id)->where('post_type', $request->type)->get();
         return response()->json([
             'tags' => $tagname, 
         ]);
@@ -81,35 +81,35 @@ class TagnameController extends Controller
             'user' => Auth::user(), 
         ]);
     }
-    public function addTagVideo(Request $request){
-        if(Auth::user()->role != '1') return redirect('/');
-        $result = $request->validate([
-            'post_id' => 'required',
-            'tagname_id'=> 'required'
-        ]);
-        $result['post_type'] = 'video';
-        $result = tag::create($result);
-        return response()->json([
-            'id' => $result->id, 
-            'post_id' => $result->post_id, 
-            'tagname_id' => $result->tagname_id,
-        ]);
-    }
-    public function getTagVideo(Request $request){
-        if(Auth::user()->role != '1') return redirect('/');
-        $tagname = tag::with(['tagname', 'post'])->where('post_id', $request->post_id)->where('post_type', 'video')->get();
-        return response()->json([
-            'tags' => $tagname, 
-        ]);
-    }
-    public function deleteTagVideo(Request $request){
-        if(Auth::user()->role != '1') return redirect('/');
-        $tag = tag::with(['tagname', 'post'])->where('id', $request->id)->first();
-        if($tag->post->user_id == Auth::user()->id){
-            $tag->delete();
-        }
-        return response()->json([
-            'user' => Auth::user(), 
-        ]);
-    }
+    // public function addTagVideo(Request $request){
+    //     if(Auth::user()->role != '1') return redirect('/');
+    //     $result = $request->validate([
+    //         'post_id' => 'required',
+    //         'tagname_id'=> 'required'
+    //     ]);
+    //     $result['post_type'] = 'video';
+    //     $result = tag::create($result);
+    //     return response()->json([
+    //         'id' => $result->id, 
+    //         'post_id' => $result->post_id, 
+    //         'tagname_id' => $result->tagname_id,
+    //     ]);
+    // }
+    // public function getTagVideo(Request $request){
+    //     if(Auth::user()->role != '1') return redirect('/');
+    //     $tagname = tag::with(['tagname', 'post'])->where('post_id', $request->post_id)->where('post_type', 'video')->get();
+    //     return response()->json([
+    //         'tags' => $tagname, 
+    //     ]);
+    // }
+    // public function deleteTagVideo(Request $request){
+    //     if(Auth::user()->role != '1') return redirect('/');
+    //     $tag = tag::with(['tagname', 'post'])->where('id', $request->id)->first();
+    //     if($tag->post->user_id == Auth::user()->id){
+    //         $tag->delete();
+    //     }
+    //     return response()->json([
+    //         'user' => Auth::user(), 
+    //     ]);
+    // }
 }

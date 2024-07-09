@@ -15,6 +15,15 @@ class tag extends Model
     public function post(){
         return $this->belongsTo(Post::class, 'post_id', 'id');
     }
+    public function foto(){
+        return $this->belongsTo(Foto::class, 'post_id', 'id');
+    }
+    public function video(){
+        return $this->belongsTo(PostVideo::class, 'post_id', 'id');
+    }
+    public function artikel(){
+        return $this->belongsTo(Artikel::class, 'post_id', 'id');
+    }
     public function tagname(){
         return $this->belongsTo(tagname::class);
     }

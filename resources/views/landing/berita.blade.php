@@ -348,6 +348,9 @@
         </div>
         <div class="row">
           @foreach($others as $i=>$lainnya)
+          <?php 
+            if(isset($selected_tag)) $lainnya = $lainnya->post;
+          ?>
           <div class="col-xl-4 mb-3">
             <a href="{{route('berita.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">

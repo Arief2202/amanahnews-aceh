@@ -108,8 +108,7 @@
                                         <button type="submit" class="btn btn-success">Save</button>
                                     </div>
                                     <hr>
-                                    @if($pc->type=='image')
-
+                                    
                                         <div class="mb-3">
                                             <label for="image" class="form-label">Image</label>
                                             <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
@@ -146,19 +145,17 @@
                                             <input type="text" class="form-control" id="href" name="href" value="{{ $pc->href }}">
                                         </div>
 
-                                    @elseif($pc->type=='text')
-
                                         <div class="mb-3">
                                             <label for="title" class="form-label">Content</label>
-                                            <input id="x" type="hidden" name="content" class="@error('content') is-invalid @enderror" value="{{old('content', $pc->content)}}">
-                                            <trix-editor class="@error('content') is-invalid @enderror" input="x"></trix-editor>
-                                            @error('content')
+                                            <input id="x" type="hidden" name="description" class="@error('description') is-invalid @enderror" value="{{old('description', $pc->description)}}">
+                                            <trix-editor class="@error('description') is-invalid @enderror" input="x"></trix-editor>
+                                            @error('description')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                             @enderror
                                         </div>
-                                    @endif
+
                                 </form>
                             @else
                                 <form action="{{route('postcontent.edit')}}" method="POST"> @csrf
@@ -168,7 +165,6 @@
                                     </div>
                                 </form>
                                 <hr>
-                                @if($pc->type=='image')
 
                                 <div class="row p-0 m-0">
                                     {{-- <div class="col-xl-8" style=""> --}}
@@ -177,9 +173,7 @@
                                         @if($pc->href)</a>@endif
                                         <p class="mt-1" style="font-size:12px; color: color:rgba(255, 255, 255, 0.700)">{{$pc->source}}</p>
                                 </div>
-                                @elseif($pc->type=='text')
-                                    <?=$pc->content?>
-                                @endif
+                                <?=$pc->description?>
                             @endif
                         </div>
                     </div>
@@ -192,18 +186,12 @@
             <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="w-100">
-                        <button class="btn btn-success dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Add New Section
-                        </button>
-                        <ul class="dropdown-menu">
-                            <div class="w-100" id="dropDownItemAddNewSection">
-                                <form action="{{route('member.foto.newSection')}}" method="POST">@csrf
-                                    <input type="hidden" name="post_id" value="{{$post->id}}">
-                                    <li><button type="submit" name="type" value="image" class="dropdown-item">Image</button></li>
-                                    <li><button type="submit" name="type" value="text" class="dropdown-item">Text</button></li>
-                                </form>
-                            </div>
-                        </ul>
+                        <form action="{{route('member.foto.newSection')}}" method="POST">@csrf
+                            <input type="hidden" name="post_id" value="{{$post->id}}">
+                            <button type="submit" name="type" value="foto" class="btn btn-success w-100">
+                                Add New Section
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -324,7 +312,7 @@
 
             function addNewTag(){
               const input = document.getElementById("myInputTag");
-              fetch("{{route('member.foto.newTag.add')}}?name="+input.value)
+              fetch("{{route('member.foto.newTag.add')}}?type=foto&name="+input.value)
               .then(response => response.json())
               .then(data => {
                 console.log(data);
@@ -342,7 +330,7 @@
                 showAll();
                 document.getElementById("myInputTag").value = null;
 
-                fetch("{{route('member.foto.tag.add')}}?post_id={{$post_id}}&tagname_id="+id)
+                fetch("{{route('member.foto.tag.add')}}?type=foto&post_id={{$post_id}}&tagname_id="+id)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -365,7 +353,7 @@
             setInterval(updateTagValue, 1000);
 
             function updateTagValue(){                
-                fetch("{{route('member.foto.tag.get')}}?post_id={{$post_id}}")
+                fetch("{{route('member.foto.tag.get')}}?type=foto&post_id={{$post_id}}")
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('tagsView').innerHTML = "<div class=\"col-auto\">Tags : </div>";

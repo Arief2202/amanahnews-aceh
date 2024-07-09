@@ -99,7 +99,7 @@ class ArtikelController extends Controller
         if(request('search')){
             $posts =  Artikel::latest()->where('title', 'like', '%'.request('search').'%')->orwhere('content', 'like', '%'.request('search').'%')->get();
             $posts2 = postcontent::latest()->where('content', 'like', '%'.request('search').'%')->orwhere('source', 'like', '%'.request('search').'%');
-            $posts2 = $posts2->where('post_type', 'text')->with(['post'])->get();
+            $posts2 = $posts2->where('post_type', 'text')->with(['artikel'])->get();
             $search = [];
             $arr = 0;
             foreach($posts as $post){
@@ -154,21 +154,24 @@ class ArtikelController extends Controller
         resetView();
         $tagname = tagname::where('slug', $slug)->first();
         if($tagname){
-            $tag = tag::where('tagname_id', $tagname->id)->with(['post'])->get();
+            $tag = tag::where('tagname_id', $tagname->id);
 
-            $others = $tag->post->where('show', 1)->paginate(9);
+            $tagOthers = $tag->with(['artikel' => function($q){
+                $q->where('show', '=', 1);
+            }]);
+            $others = $tagOthers->paginate(9);
             if(request('page') > 1){
-                $others = $tag->post->where('show', 1)->paginate(5);
+                $others = $tagOthers->paginate(5);
             }
             
             return view('landing.artikel', [
                 'categories' => category::all(),
-                'carousel_items' => $tag->post->orderBy('id', 'DESC')->where('show', 1)->limit(10)->get(),
-                'newest' => $tag->post->orderBy('id', 'DESC')->limit(5)->get(),
-                'populars' => $tag->post->orderBy('view_monthly', 'DESC')->limit(5)->get(),
-                'trendings' => $tag->post->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'carousel_items' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(10)->get()->pluck('artikel'),
+                'newest' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('artikel'),
+                'populars' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
+                'trendings' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'others' => $others,
-                'selected_tag' => $tag,
+                'selected_tag' => $tagname,
                 'iklan' => Iklan::inRandomOrder()->where('type', 'persegi')->first()
             ]);
         }
@@ -221,7 +224,7 @@ class ArtikelController extends Controller
         return view('member.artikel.detail', [
             'post' => $post,
             'tags' => tagname::all(),
-            'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'photo')->get(),
+            'postcontents' => postcontent::where('post_id', $post->id)->where('post_type', 'artikel')->get(),
             'postTags' => tag::with(['tagname'])->where('post_id', $post->id)->where('post_type', 'photo')->get(),
             'post_id' => $id,
         ]);
@@ -380,6 +383,7 @@ class ArtikelController extends Controller
         if(Auth::user()->id == $post->user_id){
             $postContent = postcontent::create([
                 'post_id' => $request->post_id,
+                'post_type' => "artikel",
                 'type' => $request->type,
             ]);
         }

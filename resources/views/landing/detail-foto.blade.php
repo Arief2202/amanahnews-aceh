@@ -1,13 +1,13 @@
 <?php 
-  $post = [
-    'title' => fake()->sentence(8),
-    'slug' => fake()->slug(),
-    'category' => 'Teknologi',
-  ];
-  $post = (object)($post); 
-  $iklan = [];
-  $others = [];
-  $hots = [];
+  // $post = [
+  //   'title' => fake()->sentence(8),
+  //   'slug' => fake()->slug(),
+  //   'category' => 'Teknologi',
+  // ];
+  // $post = (object)($post); 
+  // $iklan = [];
+  // $others = [];
+  // $hots = [];
 ?>
 @extends('layouts.main')
 
@@ -17,13 +17,13 @@
 
 @section('style')
   <meta property="og:title" content="{{$post->title}}"/>
-  <meta property="og:image" content="https://amanahnews.id/uploads/post/image/prestasi.png"/>
+  <meta property="og:image" content="https://amanahnews.id/uploads/foto/image/{{$post->banner}}"/>
   {{-- <meta property="og:description" content="3 words describe your website"/> --}}
   <meta property="og:url" content="https://amanahnews.id"/>
   {{-- <meta property="og:image:width" content="500" />
   <meta property="og:image:height" content="500"/> --}}
   <meta property="og:type" content="article"/> 
-  <meta property="image_src" href="https://amanahnews.id/uploads/post/image/prestasi.png"/>
+  <meta property="image_src" href="https://amanahnews.id/uploads/foto/image/{{$post->banner}}"/>
 @endsection
 
 @section('script')
@@ -38,7 +38,7 @@
               <div class="container">
                 <ol>
                   <li><a href="/foto">foto</a></li>
-                  <li><a href="/foto/category/{{$post->category}}">{{$post->category}}</a></li>
+                  <li><a href="/foto/category/{{$post->category->name}}">{{$post->category->name}}</a></li>
                   <li class="current">{{$post->slug}}</li>
                 </ol>
               </div>
@@ -56,11 +56,11 @@
                     <div class="mb-3 row">
                         <div class="col-md-6 row mb-2">
                             <div class="col-auto">
-                                <img src="/uploads/user/user.png" alt="" style="width:70px; height:70px; border-radius:50px">
+                                <img src="/uploads/user/{{$post->user->photo}}" alt="" style="width:70px; height:70px; border-radius:50px">
                             </div>
                             <div class="col-6">
-                                <h5 class="mt-2" style="font-weight:600">{{fake()->sentence(3)}}</h5>
-                                <p class=" " style="font-weight:600; color:rgba(0, 0, 0, 0.486)">{{fake()->sentence(5)}}</p>
+                                <h5 class="mt-2" style="font-weight:600">{{$post->user->name}}</h5>
+                                <p class=" " style="font-weight:600; color:rgba(0, 0, 0, 0.486)">{{$post->user->instance}}</p>
                             </div>
                             <div>
                               <?php
@@ -81,7 +81,7 @@
                                   }
                                   
                               ?>
-                                <p>{{date('d M Y H:i')}} WIB - Total Views {{$valPrint}}</p>
+                                <p>{{date('d M Y H:i', strtotime($post->updated_at))}} WIB - Total Views {{$post->view_total}}</p>
                             </div>
                         </div>
                         
@@ -107,19 +107,28 @@
                         }
                       </script>
                       <div class="swiper-wrapper">
-      
-                        @for($a = 0; $a < 4; $a++)
+
                         <div class="swiper-slide mb-3">
                           <div class="testimonial-item p-2">
-                              <img src="/uploads/post/image/prestasi.png" alt="" style="width:100%">
-                              <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">Photo Description</p>
+                              <img src="/uploads/foto/image/{{$post->banner}}" alt="" style="width:100%">
+                              <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$post->banner_source}}</p>
                               <div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime explicabo aliquam delectus vel corporis cumque amet natus odit dolore facere fuga nostrum inventore, veritatis distinctio modi. Odio velit, incidunt eligendi expedita recusandae possimus rem veritatis? Provident ipsa consequuntur repellat, repudiandae ad mollitia alias sit esse iure incidunt, officia explicabo aut!</p>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum provident consectetur quaerat accusantium. Quaerat, nobis quo. Perspiciatis ratione aperiam eos porro facilis cum numquam praesentium.</p>
+                                <?=$post->content?>
                               </div>
                           </div>
                         </div><!-- End testimonial item -->
-                        @endfor
+      
+                        @foreach($post->contents->where('post_type', 'foto') as $postc)
+                        <div class="swiper-slide mb-3">
+                          <div class="testimonial-item p-2">
+                              @if($postc->href)<a href="{{$postc->href}}">@endif
+                              <img src="/uploads/foto/image/{{$postc->content}}" alt="" style="max-width:{{$postc->image_width}}px; max-height:{{$postc->image_height}}px;">
+                              @if($postc->href)</a>@endif
+                              <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$postc->source}}</p>
+                              <?=$postc->description?>
+                          </div>
+                        </div><!-- End testimonial item -->
+                        @endforeach
       
                       </div>
                       <div class="swiper-pagination"></div>
@@ -129,11 +138,11 @@
                       <div class="col-auto">
                           <h4>Tag</h4>
                       </div>
-                      {{-- @foreach($post->tags->where('post_type', 'photo') as $tag)
+                      @foreach($post->tags->where('post_type', 'foto') as $tag)
                         <div class="col-auto p-0 m-0 me-2 mb-3">
                             <a href="/foto/tag/{{$tag->tagname->slug}}" class="btn btn-primary-orange">{{$tag->tagname->name}}</a>
                         </div>
-                      @endforeach --}}
+                      @endforeach
                     </div>    
                     <div class="mt-3" style="border-bottom:2px solid #000000;">
 
