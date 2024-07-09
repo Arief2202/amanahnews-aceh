@@ -50,7 +50,7 @@
         <!-- <img src="assets/img/logo.png" alt=""> -->
         {{-- <h1 class="sitename">Append</h1><span>.</span> --}}
       </a>
-      
+
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="/" class="@if('/'.Request::segment(1) == '/') active @endif">Beranda</a></li>
@@ -62,10 +62,10 @@
           <li><a href="/video" class="@if('/'.Request::segment(1) == '/video') active @endif">Video</a></li>
           <li><a href="/kemitraan" class="@if('/'.Request::segment(1) == '/kemitraan') active @endif">Kemitraan</a></li>
           @if(!isset(Auth::user()->id))
-          <li class="ps-2 pe-2 pb-3 signinout"><a href="/login" class="btn btn-primary-orange">Sign In</a></li>
+          <li class="pb-3 ps-2 pe-2 signinout"><a href="/login" class="btn btn-primary-orange">Sign In</a></li>
           <li class="ps-2 pe-2 signinout"><a href="/register" class="btn btn-outline-secondary">Sign Up</a></li>
           @else
-          <li class="ps-2 pe-2 pb-3 signinout"><a href="/dashboard" class="btn btn-primary-orange">Dashboard</a></li>
+          <li class="pb-3 ps-2 pe-2 signinout"><a href="/dashboard" class="btn btn-primary-orange">Dashboard</a></li>
           <li class="ps-2 pe-2 signinout">
             <form method="post" action="{{ route('logout') }}">@csrf
               <button type="submit" class="btn btn-outline-secondary">Logout</button>
@@ -98,18 +98,18 @@
     <section>
       <div class="container" data-aos="fade-left" data-aos-delay="100">
 
-        <div class="card row m-2 p-2 d-flex justify-content-center align-items-center" style="height: 250px; background-color:var(--main-color);">
+        <div class="p-2 m-2 card row d-flex justify-content-center align-items-center" style="height: 250px; background-color:var(--main-color);">
           {{-- <img src="/assets/img/bintik.png" alt="" style="width: 120px; position: absolute;left:150px;"> --}}
-            <div class="col-xl-12 mb-1 d-flex justify-content-center text-center">
+            <div class="mb-1 text-center col-xl-12 d-flex justify-content-center">
               <h1 style="font-weight: 600; color:white">Mari Berdiskusi Bersama Kami</h1>
             </div>
             <div class="col-xl-12 w-100 d-flex justify-content-center">
               <form action="" style="width:70%">
                 <div class="row d-flex justify-content-center">
-                  <div class="col-md-8 mt-3 d-flex justify-content-center">
+                  <div class="mt-3 col-md-8 d-flex justify-content-center">
                     <input type="text" class="form-control" placeholder="Masukkan pesan anda disini" id="formhubungikamiwa" onkeyup="updatehref()">
                   </div>
-                  <div class="col-md-4 mt-3 d-flex justify-content-center">
+                  <div class="mt-3 col-md-4 d-flex justify-content-center">
                     <a class="btn btn-primary-orange" id="hubungikamiwa" target="_blank">Hubungi Kami</a>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
           </a>
           <h5>Aneuk Muda Aceh Unggul & Hebat</h5>
           <p>Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
-          <div class="social-links d-flex mt-4">
+          <div class="mt-4 social-links d-flex">
             <a href="https://youtube.com/@amanah_aceh?si=LzsxoIgxmEjcxH11"><i class="bi bi-youtube"></i></a>
             <a href="https://www.tiktok.com/@amanah_aceh?_t=8nO8tX2fR4s&_r=1"><i class="bi bi-tiktok"></i></a>
             <a href="https://www.instagram.com/amanah_aceh?igsh=MTIyd3B6OHkyemMyZQ=="><i class="bi bi-instagram"></i></a>
@@ -140,17 +140,23 @@
         </div>
 
         <div class="col-lg-4 col-md-12 footer-links">
-          <h4>Useful Links</h4>
+            <div>
+                <h4>Useful Links</h4>
           <ul>
             <li><a href="{{route('home')}}">Beranda</a></li>
             <li><a href="{{route('berita')}}">Berita</a></li>
+            <li><a href="{{route('artikel')}}">Artikel</a></li>
             <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
             <li><a href="{{route('acara')}}">Acara</a></li>
             <li><a href="{{route('video')}}">Video</a></li>
+            <li><a href="{{route('foto')}}">Foto</a></li>
+            <li><a href="{{route('kemitraan')}}">Kemitraan</a></li>
           </ul>
+            </div>
+
         </div>
 
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+        <div class="text-center col-lg-3 col-md-12 footer-contact text-md-start">
           <h4>Contact Us</h4>
           <p>Sekretariat AMANAH (Aneuk Muda Aceh Unggul Hebat)</p>
           <p>Jl. Prof. A. Majid Ibrahim II, Kp. Baru, Kec. Baiturrahman, Kota Banda Aceh, Aceh 23116</p>
@@ -161,7 +167,7 @@
 
       </div>
     </div>
-    <div class="container copyright text-center mt-4">
+    <div class="container mt-4 text-center copyright">
       <p>© <span>Copyright</span> <strong class="sitename">D72SpecialTeam</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
