@@ -240,7 +240,7 @@ class FotoController extends Controller
             'slug' => 'required|unique:posts|max:255',
             'content' => 'required'
         ]);
-        $destinationPath = 'uploads/post/image';
+        $destinationPath = 'uploads/foto/image';
         $imageName = $request->slug.'.'.$request->image->extension();
         $request->image->move(public_path($destinationPath), $imageName);
         $post = Foto::create([
@@ -301,7 +301,7 @@ class FotoController extends Controller
             $imageName = $destinationPath.'\\'.$post->banner;
             File::delete($imageName);
 
-            $destinationPath = 'uploads/post/image';
+            $destinationPath = 'uploads/foto/image';
             $imageName = $request->slug.'.'.$request->image->extension();
             $request->image->move(public_path($destinationPath), $imageName);
             $post->banner =  $imageName;
