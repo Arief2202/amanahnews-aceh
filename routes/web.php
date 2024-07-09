@@ -249,6 +249,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/berita/category/slug/check', 'checkSlug')->name('member.berita.category.slug.check');
         
         Route::get('/member/berita/category/newCategory', 'newCategory')->name('member.berita.newCategory.add');
+        Route::get('/member/artikel/category/newCategory', 'newCategory')->name('member.artikel.newCategory.add');
+        Route::get('/member/foto/category/newCategory', 'newCategory')->name('member.foto.newCategory.add');
     });
     Route::controller(TagnameController::class)->group(function () {
         Route::get('/member/berita/tag', 'read')->name('member.berita.tag');
