@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\StatisticsView;
+use App\Models\User;
+use App\Models\Foto;
+use App\Models\Artikel;
 use App\Models\Acara;
 use App\Models\Post;
 use App\Models\PostVideo;
@@ -83,6 +86,9 @@ class StatisticsViewController extends Controller
         $totalCatalog = ECatalog::all()->count();
         $totalAcara = Acara::all()->count();
         $totalVideo = PostVideo::where('show', '1')->get()->count();
+        $totalArtikel = Artikel::where('show', '1')->get()->count();
+        $totalFoto = Foto::where('show', '1')->get()->count();
+        $totalUser = User::where('role', '0')->get()->count();
         $totalViews = 0;
         foreach(StatisticsView::all() as $stat){
             $totalViews += $stat->totalViews;
@@ -99,6 +105,9 @@ class StatisticsViewController extends Controller
             'totalCatalog' => $totalCatalog,
             'totalAcara' => $totalAcara,
             'totalVideo' => $totalVideo,
+            'totalUser' => $totalUser,
+            'totalArtikel' => $totalArtikel,
+            'totalFoto' => $totalFoto,
         ]);
     }
     public function statisticsGet(Request $request)

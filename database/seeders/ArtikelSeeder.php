@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artikel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class ArtikelSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // Artikel::factory(rand(100,1000))->create();
     }
 }

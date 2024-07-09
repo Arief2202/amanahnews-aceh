@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         
-        User::factory()->create([
-            'name' => 'Arief',
-            'email' => 'arief.d2202@gmail.com',
-            'photo' => 'user.png',
-            'instance' => 'Politeknik Elektronika Negeri Surabaya',
-            'password' => Hash::make('password'),
-            'role' => '1'
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Arief',
+        //     'email' => 'arief.d2202@gmail.com',
+        //     'photo' => 'user.png',
+        //     'instance' => 'Politeknik Elektronika Negeri Surabaya',
+        //     'password' => Hash::make('password'),
+        //     'role' => '1'
+        // ]);
         User::factory()->create([
             'name' => 'Admin',
             'photo' => 'user.png',
@@ -61,5 +61,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatisticsViewSeeder::class);
         $this->call(IklanSeeder::class);
         $this->call(MitraSeeder::class);
+        $this->call(ArtikelSeeder::class);
+        $this->call(FotoSeeder::class);
     }
 }

@@ -25,13 +25,13 @@ Route::get('/tentang-kami', function () {
     return view('landing.tentang-kami');
 })->name('tentang-kami');
 
-Route::get('/artikel', function () {
-    return view('comingsoon');
-})->name('artikel');
+// Route::get('/artikel', function () {
+//     return view('comingsoon');
+// })->name('artikel');
 
-Route::get('/foto', function () {
-    return view('landing.detail-foto');
-})->name('foto');
+// Route::get('/foto', function () {
+//     return view('landing.detail-foto');
+// })->name('foto');
 
 Route::controller(MitraController::class)->group(function () {
     Route::get('/kemitraan', 'kemitraan')->name('kemitraan');
@@ -46,6 +46,34 @@ Route::controller(ECatalogController::class)->group(function () {
     Route::get('/e-catalog/get', 'eCatalogGet')->name('e-catalog.get');    
 });
 
+Route::controller(ArtikelController::class)->group(function () {
+    Route::get('/artikel', 'artikel')->name('artikel');
+    Route::get('/artikel/detail/{slug}', 'artikelDetail')->name('artikel.detail');
+    Route::get('/artikel/category/{slug}', 'artikelCategory')->name('artikel.category');
+    Route::get('/artikel/tag/{slug}', 'artikelTag')->name('artikel.tag');
+    Route::get('/artikel/tag', function(){return redirect(route('artikel'));});
+    Route::get('/artikel/category', function(){return redirect(route('artikel'));});
+    
+    Route::get('/', 'home')->name('home');
+
+    Route::get('/artikel/detail', function () {
+        return view('landing.detail-artikel');
+    });
+});
+Route::controller(FotoController::class)->group(function () {
+    Route::get('/foto', 'foto')->name('foto');
+    Route::get('/foto/detail/{slug}', 'fotoDetail')->name('foto.detail');
+    Route::get('/foto/category/{slug}', 'fotoCategory')->name('foto.category');
+    Route::get('/foto/tag/{slug}', 'fotoTag')->name('foto.tag');
+    Route::get('/foto/tag', function(){return redirect(route('foto'));});
+    Route::get('/foto/category', function(){return redirect(route('foto'));});
+    
+    Route::get('/', 'home')->name('home');
+
+    Route::get('/foto/detail', function () {
+        return view('landing.detail-foto');
+    });
+});
 Route::controller(PostController::class)->group(function () {
     Route::get('/berita', 'berita')->name('berita');
     Route::get('/berita/detail/{slug}', 'beritaDetail')->name('berita.detail');
@@ -237,6 +265,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/video/tag/delete', 'deleteTag')->name('member.video.tag.delete');
         Route::get('/member/video/tag/add', 'addTag')->name('member.video.tag.add');
         Route::get('/member/video/tag/get', 'getTag')->name('member.video.tag.get');
+        
+        Route::get('/member/artikel/tag/newTag', 'newTag')->name('member.artikel.newTag.add');
+        Route::get('/member/artikel/tag/delete', 'deleteTag')->name('member.artikel.tag.delete');
+        Route::get('/member/artikel/tag/add', 'addTag')->name('member.artikel.tag.add');
+        Route::get('/member/artikel/tag/get', 'getTag')->name('member.artikel.tag.get');
+        
+        Route::get('/member/foto/tag/newTag', 'newTag')->name('member.foto.newTag.add');
+        Route::get('/member/foto/tag/delete', 'deleteTag')->name('member.foto.tag.delete');
+        Route::get('/member/foto/tag/add', 'addTag')->name('member.foto.tag.add');
+        Route::get('/member/foto/tag/get', 'getTag')->name('member.foto.tag.get');
     });
     Route::controller(StatisticsViewController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');

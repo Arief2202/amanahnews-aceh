@@ -40,7 +40,7 @@
               ?>
               <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
                 <div style="background-color:#000000; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div>
-                <img src="/uploads/foto/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
+                <img src="/uploads/artikel/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
                 
                 <div class="carousel-caption d-none d-md-block h-100 p-3" style="width: 1000px">
                   <div style="position: absolute; left:50px; top:50%; transform:translateY(-50%); height:100% color:white;">
@@ -49,7 +49,7 @@
                     <div style="color:white;margin:0px;padding:0px;font-size:16px;text-align:left; margin-bottom: 50px;"><?=$content?></div>
                       
                     <div class="d-flex justfiy-content-start align-items-start mt-4">
-                      <a href="{{route('foto.detail', ['slug' => $carousel_item->slug])}}" style="color:white;font-weight:600;font-size:20px;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Lihat Selengkapnya ></a>
+                      <a href="{{route('artikel.detail', ['slug' => $carousel_item->slug])}}" style="color:white;font-weight:600;font-size:20px;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Lihat Selengkapnya ></a>
                     </div>
                     <div class="row" style="position:absolute">
                       <div class="col">
@@ -111,7 +111,7 @@
               </button>
               <ul class="dropdown-menu">
                 @foreach($categories as $category)
-                <li><a class="dropdown-item" href="{{route('foto.category', ['slug'=>$category->slug])}}">{{$category->name}}</a></li>
+                <li><a class="dropdown-item" href="{{route('artikel.category', ['slug'=>$category->slug])}}">{{$category->name}}</a></li>
                 @endforeach
               </ul>
             </div>
@@ -129,15 +129,15 @@
                   $content = str_replace("</div>","",$content);
                 ?>
                 <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
-                  <a href="{{route('foto.detail', ['slug' => $new->slug])}}">
+                  <a href="{{route('artikel.detail', ['slug' => $new->slug])}}">
                     <div class="d-flex justify-content-between">
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                       <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                     </div>
-                    <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                    <img src="/uploads/artikel/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                    <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                    <a href="/artikel/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
                     <hr>
                   </a>
                 </div>
@@ -150,7 +150,7 @@
                     <?php $per5 = (int)($search['currentPage']/3);?>
                       <ul class="pagination">
                         <li class="page-item @if($search['currentPage'] <= 1) disabled @endif">
-                          <a href="{{route('foto', ['page'=>$search['currentPage']-1])}}&search={{request('search')}}" class="page-link">Prev</a>
+                          <a href="{{route('artikel', ['page'=>$search['currentPage']-1])}}&search={{request('search')}}" class="page-link">Prev</a>
                         </li>
                         
                       @if($search['lastPage'] > 3)
@@ -159,42 +159,42 @@
                                 @if($a == $search['currentPage'])
                                     <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                                 @else
-                                    <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
                                 @endif
                             @endfor
-                            <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3+4])}}&search={{request('search')}}">{{$per5*3+4}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$per5*3+4])}}&search={{request('search')}}">{{$per5*3+4}}</a></li>
                             
                           @elseif($search['currentPage'] > $search['lastPage']-3)                      
-                            <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3-4])}}&search={{request('search')}}">{{$per5*3-4}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$per5*3-4])}}&search={{request('search')}}">{{$per5*3-4}}</a></li>
                             @for($a=$search['lastPage']-3; $a<=$search['lastPage']; $a++)
                                 @if($a == $search['currentPage'])
                                     <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                                 @else
-                                    <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
                                 @endif
                             @endfor
                           @else                 
-                            <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3-1])}}&search={{request('search')}}">{{$per5*3-1}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$per5*3-1])}}&search={{request('search')}}">{{$per5*3-1}}</a></li>
                             @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                                 @if($a == $search['currentPage'])
                                     <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                                 @else
-                                    <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
                                 @endif
                             @endfor
-                            <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3+3])}}&search={{request('search')}}">{{$per5*3+3}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$per5*3+3])}}&search={{request('search')}}">{{$per5*3+3}}</a></li>
                           @endif
                         @else
                           @for($a=1; $a<=$search['lastPage']; $a++)
                                   @if($a == $search['currentPage'])
                                       <li class="page-item active" aria-current="page"><span class="page-link">{{$a}}</span></li>
                                   @else
-                                      <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
+                                      <li class="page-item"><a class="page-link" href="{{route('artikel', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
                                   @endif
                           @endfor
                         @endif
                         <li class="page-item @if($search['currentPage'] >= $search['lastPage'] ) disabled @endif">
-                          <a class="page-link" href="{{route('foto', ['page'=>$search['currentPage']+1])}}&search={{request('search')}}">Next</a>
+                          <a class="page-link" href="{{route('artikel', ['page'=>$search['currentPage']+1])}}&search={{request('search')}}">Next</a>
                         </li>
                       </ul>
                     </nav>
@@ -212,15 +212,15 @@
                       $content = str_replace("</div>","",$content);
                     ?>
                     <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
-                      <a href="{{route('foto.detail', ['slug' => $new->slug])}}">
+                      <a href="{{route('artikel.detail', ['slug' => $new->slug])}}">
                         <div class="d-flex justify-content-between">
                           <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                           <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                         </div>
-                        <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                        <img src="/uploads/artikel/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                         <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                         <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <a href="/artikel/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
                         <hr>
                       </a>
                     </div>
@@ -278,15 +278,15 @@
                       $content = str_replace("</div>","",$content);
                     ?>
                     <div class="mb-3 w-100" data-aos="fade-up" data-aos-delay="50">
-                      <a href="{{route('foto.detail', ['slug' => $new->slug])}}">
+                      <a href="{{route('artikel.detail', ['slug' => $new->slug])}}">
                         <div class="d-flex justify-content-between">
                           <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{$new->category->name}}</p>
                           <p style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($new->updated_at))}}</p>
                         </div>
-                        <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
+                        <img src="/uploads/artikel/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                         <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                         <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <a href="/artikel/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
                         <hr>
                       </a>
                     </div>
@@ -315,14 +315,14 @@
             <hr>
             @foreach($trendings as $i=>$trending)
               <div class="mb-3 w-100" data-aos="fade-left" data-aos-delay="100">
-                <a href="{{route('foto.detail', ['slug' => $trending->slug])}}">
+                <a href="{{route('artikel.detail', ['slug' => $trending->slug])}}">
                   <div class="d-flex justify-content-between">
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{$trending->category->name}}</p>
                     <p style="color:#92929D;margin:0px;padding:0px;font-size:12px;text-align:left; margin-bottom: 5px;">{{date('d M Y', strtoTime($trending->updated_at))}}</p>
                   </div>
-                  <img src="/uploads/foto/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%">
+                  <img src="/uploads/artikel/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
-                  <a href="/foto/detail/{{$trending->slug}}">Baca Berita ></a>
+                  <a href="/artikel/detail/{{$trending->slug}}">Baca Berita ></a>
                   <hr>
                 </a>
               </div>
@@ -349,9 +349,9 @@
         <div class="row">
           @foreach($others as $i=>$lainnya)
           <div class="col-xl-4 mb-3">
-            <a href="{{route('foto.detail', ['slug' => $lainnya->slug])}}">
+            <a href="{{route('artikel.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
-                <img src="/uploads/foto/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
+                <img src="/uploads/artikel/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
                 <a href="mb-5">Baca Berita ></a>
               </div>

@@ -37,7 +37,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="row">
-                <div class="col-lg mt-3">
+                <div class="col-lg-3 mt-3">
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">
@@ -70,17 +70,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-3">
+
+
+                <div class="col-lg-3 mt-3">
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">
-                                <i class='bx bx-detail' style="font-size: 50px;"></i>
+                                <i class='bx bx-user' style="font-size: 50px;"></i>
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Berita</h5>
+                                    <h5 style="font-size: 14px;">Total User</h5>
                                     <?php
-                                        $val = $totalBerita;
+                                        $val = $totalUser;
                                         $divider = "";
                                         $valPrint = "";
                                         if($val > 1000000000){
@@ -103,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-3">
+                <div class="col-lg-3 mt-3">
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">
@@ -136,7 +138,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-3">
+
+                <div class="col-lg-3 mt-3">
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">
@@ -169,7 +172,107 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-3">
+                
+                <div class="col-lg-3 mt-3">
+                    <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
+                        <div class="row">
+                            <div class="col-5 m-auto d-flex justify-content-center">
+                                <i class='bx bx-news' style="font-size: 50px;"></i>
+                            </div>
+                            <div class="col-7 p-2">
+                                <div class="div mt-3">
+                                    <h5 style="font-size: 14px;">Berita</h5>
+                                    <?php
+                                        $val = $totalBerita;
+                                        $divider = "";
+                                        $valPrint = "";
+                                        if($val > 1000000000){
+                                            $valPrint = number_format((float)($val/1000000000), 2, '.', '')." M";
+                                        }
+                                        else if($val > 1000000){
+                                            $valPrint = number_format((float)($val/1000000), 2, '.', '')." Jt";
+                                        }
+                                        else if($val > 1000){
+                                            $valPrint = number_format((float)($val/1000), 2, '.', '')." Rb";
+                                        }
+                                        else{
+                                            $valPrint = $val;
+                                        }
+                                        
+                                    ?>
+                                    <p style="color:#2CAFFE; font-weight:700; font-size:18px;">{{$valPrint}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-3">
+                    <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
+                        <div class="row">
+                            <div class="col-5 m-auto d-flex justify-content-center">
+                                <i class='bx bx-detail' style="font-size: 50px;"></i>
+                            </div>
+                            <div class="col-7 p-2">
+                                <div class="div mt-3">
+                                    <h5 style="font-size: 14px;">Artikel</h5>
+                                    <?php
+                                        $val = $totalArtikel;
+                                        $divider = "";
+                                        $valPrint = "";
+                                        if($val > 1000000000){
+                                            $valPrint = number_format((float)($val/1000000000), 2, '.', '')." M";
+                                        }
+                                        else if($val > 1000000){
+                                            $valPrint = number_format((float)($val/1000000), 2, '.', '')." Jt";
+                                        }
+                                        else if($val > 1000){
+                                            $valPrint = number_format((float)($val/1000), 2, '.', '')." Rb";
+                                        }
+                                        else{
+                                            $valPrint = $val;
+                                        }
+                                        
+                                    ?>
+                                    <p style="color:#2CAFFE; font-weight:700; font-size:18px;">{{$valPrint}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-3">
+                    <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
+                        <div class="row">
+                            <div class="col-5 m-auto d-flex justify-content-center">
+                                <i class='bx bx-image-alt' style="font-size: 50px;"></i>
+                            </div>
+                            <div class="col-7 p-2">
+                                <div class="div mt-3">
+                                    <h5 style="font-size: 14px;">Foto</h5>
+                                    <?php
+                                        $val = $totalFoto;
+                                        $divider = "";
+                                        $valPrint = "";
+                                        if($val > 1000000000){
+                                            $valPrint = number_format((float)($val/1000000000), 2, '.', '')." M";
+                                        }
+                                        else if($val > 1000000){
+                                            $valPrint = number_format((float)($val/1000000), 2, '.', '')." Jt";
+                                        }
+                                        else if($val > 1000){
+                                            $valPrint = number_format((float)($val/1000), 2, '.', '')." Rb";
+                                        }
+                                        else{
+                                            $valPrint = $val;
+                                        }
+                                        
+                                    ?>
+                                    <p style="color:#2CAFFE; font-weight:700; font-size:18px;">{{$valPrint}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-3">
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">

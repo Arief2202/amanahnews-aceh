@@ -19,7 +19,7 @@ class StatisticsViewSeeder extends Seeder
         //     for($b=1; $b<=cal_days_in_month(CAL_GREGORIAN, $a, 2024);$b++)
         //     StatisticsView::insert([
         //         'date' => '2024-'.$a.'-'.$b.' 00:00:00',
-        //         'totalViews' => rand(1000, 2000),
+        //         'totalViews' => rand(10000, 30000),
         //     ]);
         // }
     }
