@@ -122,7 +122,7 @@
 
   </main>
 
-  <footer id="footer" class="footer position-relative">
+  <footer id="footer" class="footer position-relative" >
 
     <div class="container footer-top">
       <div class="row gy-4">
@@ -131,7 +131,7 @@
             <span class="sitename">Amanah</span>
           </a>
           <h5>Aneuk Muda Aceh Unggul & Hebat</h5>
-          <p>Sebuah program pemberdayaan generasi muda Aceh yang digagas oleh Badan Intelijen Negara Republik Indonesia</p>
+          <p>Sebuah program pemberdayaan generasi muda Aceh yang diberdayakan oleh Badan Intelijen Negara Republik Indonesia</p>
           <div class="mt-4 social-links d-flex">
             <a href="https://youtube.com/@amanah_aceh?si=LzsxoIgxmEjcxH11"><i class="bi bi-youtube"></i></a>
             <a href="https://www.tiktok.com/@amanah_aceh?_t=8nO8tX2fR4s&_r=1"><i class="bi bi-tiktok"></i></a>
@@ -142,25 +142,23 @@
         <div class="col-lg-4 col-md-12 footer-links">
             <div>
                 <h4>Useful Links</h4>
-          <ul>
-            <li><a href="{{route('home')}}">Beranda</a></li>
-            <li><a href="{{route('berita')}}">Berita</a></li>
-            <li><a href="{{route('artikel')}}">Artikel</a></li>
-            <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
-            <li><a href="{{route('acara')}}">Acara</a></li>
-            <li><a href="{{route('video')}}">Video</a></li>
-            <li><a href="{{route('foto')}}">Foto</a></li>
-            <li><a href="{{route('kemitraan')}}">Kemitraan</a></li>
-          </ul>
+                <ul>
+                    <li><a href="{{route('home')}}">Beranda</a></li>
+                    <li><a href="{{route('berita')}}">Berita</a></li>
+                    <li><a href="{{route('artikel')}}">Artikel</a></li>
+                    <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
+                    <li><a href="{{route('acara')}}">Acara</a></li>
+                    <li><a href="{{route('video')}}">Video</a></li>
+                    <li><a href="{{route('foto')}}">Foto</a></li>
+                    <li><a href="{{route('kemitraan')}}">Kemitraan</a></li>
+                </ul>
             </div>
-
         </div>
 
-        <div class="text-center col-lg-3 col-md-12 footer-contact text-md-start">
+        <div class="text-center col-lg-3 col-md-12 footer-links text-md-start">
           <h4>Contact Us</h4>
           <p>Sekretariat AMANAH (Aneuk Muda Aceh Unggul Hebat)</p>
           <p>Jl. Prof. A. Majid Ibrahim II, Kp. Baru, Kec. Baiturrahman, Kota Banda Aceh, Aceh 23116</p>
-          {{-- <p>United States</p> --}}
           <p class="mt-4"><strong>Phone:</strong> <span>+62 823-1193-8885</span></p>
           <p><strong>Email:</strong> <span>amanahaceh24@gmail.com</span></p>
         </div>
@@ -168,7 +166,7 @@
       </div>
     </div>
     <div class="container mt-4 text-center copyright">
-      <p>© <span>Copyright</span> <strong class="sitename">D72SpecialTeam</strong> <span>All Rights Reserved</span></p>
+      <p>2024 © <span>Copyright</span> <strong class="sitename">Amanah</strong> <span>Made with 💙 in Aceh | All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->

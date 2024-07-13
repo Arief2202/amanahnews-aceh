@@ -23,26 +23,26 @@
         </div>
 
         <div class="container divText" style="">
-          <div class="d-flex justify-content-center">
-            <div class="row">
-              <div class="col" style="text-align: center;">
-                <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
-                <p class="pe-2 ps-2" data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang diberdayakan oleh Badan Intelijen Negara Republik Indonesia</p>
-                <div class="pt-3 row">
-                  <div class="col">
-                    <p><a href="/login" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Ayo Bergabung</a></p>
-                  </div>
-                  <div class="col">
-                    <p><a href="/berita" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Berita</a></p>
-                  </div>
-                  <div class="col">
-                    <p><a href="/foto" class="btn btn-primary-orange" style="width:200px; font-size:100%; border-radius:50px;">Foto</a></p>
+            <div class="d-flex justify-content-center">
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <h2 data-aos="fade-up" data-aos-delay="100">Aneuk Muda Aceh Unggul & Hebat</h2>
+                  <p class="pe-2 ps-2" data-aos="fade-up" data-aos-delay="200">Sebuah program pemberdayaan generasi muda Aceh yang diberdayakan oleh Badan Intelijen Negara Republik Indonesia</p>
+                  <div class="pt-3 row">
+                    <div class="col">
+                      <p><a href="/login" class="btn btn-primary-orange" style="width:320px; font-size:100%; border-radius:10px;">Ayo Bergabung</a></p>
+                    </div>
+                    <div class="col">
+                      <p><a href="/berita" class="btn btn-primary-orange" style="width:320px; font-size:100%; border-radius:10px;">Berita</a></p>
+                    </div>
+                    <div class="col">
+                      <p><a href="/foto" class="btn btn-primary-orange" style="width:320px; font-size:100%; border-radius:10px;">Foto</a></p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
       </section><!-- /Hero Section -->
 
