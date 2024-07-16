@@ -206,9 +206,9 @@
           <div class="mb-3 col-xl-4">
             <a href="{{route('foto.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
-                <img src="/uploads/post/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
+                <img src="/uploads/foto/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
-                <a href="mb-5">Baca Artikel ></a>
+                <a href="mb-5">Lihat Foto ></a>
               </div>
             </a>
           </div>
