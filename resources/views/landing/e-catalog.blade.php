@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col">
                             <input type="text" class="form-control"
-                                placeholder="Cari Produk yang ingin anda inginkan disini" name="search"
+                                placeholder="Cari Produk yang anda inginkan..." name="search"
                                 value="{{ request('search') }}" style="width: 50vw; border-width: 2px 2px;">
                         </div>
                         <div class="col">
@@ -51,9 +51,9 @@
     <section class="section" style="">
         <div class="container">
             <div class="">
-                <div class="row p-3">
+                <div class="p-3 row">
                     @foreach ($ecatalogs as $ecatalog)
-                        <div class="col-md-3 p-2">
+                        <div class="p-2 col-md-3">
                             <a href="{{ route('e-catalog.detail', ['slug' => $ecatalog->slug]) }}">
                                 <div class="shadow" style="border-radius: 15px">
                                     <img src="/uploads/e-catalog/image/{{ $ecatalog->photo }}" alt=""

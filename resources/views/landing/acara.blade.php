@@ -23,7 +23,7 @@
 @section('main')
     <section style="top: 0px; padding:0px; margin:0px;">
         <div class="container-top" style="">
-            
+
             <div class="bg-container-top"></div>
             {{-- <img src="/assets/img/dimsum.png" alt="" style="position: absolute; width:100%; height:500px; z-index: 1; top:0px; opacity:7%;"> --}}
             <div class="topBar">
@@ -34,12 +34,12 @@
     </section>
     @if(request('search'))
     @else
-    <section class="ftco-section mb-0 pb-0">
+    <section class="pb-0 mb-0 ftco-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
                     <div class="calendar-section">
-        
+
                         <div class="calendar calendar-first" id="calendar_first">
                         <div class="calendar_header">
                             <button class="switch-month switch-left">
@@ -53,14 +53,14 @@
                         <div class="calendar_weekdays"></div>
                         <div class="calendar_content"></div>
                         </div>
-        
-                        
+
+
                     </div>
                 </div>
 
-                <div class="col-md-5 mb-3">
-                    <div class="shadow p-2" style="border-radius: 15px">
-                    <div class="h3 ps-3 pe-3 pt-3">Acara Hari Ini ({{$today->count()}})</div>
+                <div class="mb-3 col-md-5">
+                    <div class="p-2 shadow" style="border-radius: 15px">
+                    <div class="pt-3 h3 ps-3 pe-3">Acara Hari Ini ({{$today->count()}})</div>
                     <hr>
                     <?php $count = 0; ?>
                     @foreach($today as $i=>$acara)
@@ -74,7 +74,7 @@
                         }
                         ?>
 
-                        <div class="mb-3 p-2">
+                        <div class="p-2 mb-3">
                             <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                                 {{-- <div class="shadow" style="border-radius: 15px"> --}}
                                 <div class="row">
@@ -107,7 +107,7 @@
         </div>
     </section>
         @if($iklan)
-        <section class="section">        
+        <section class="section">
             <div class="container">
                 <form action="{{route('iklan.click')}}" method="POST">@csrf
                 <input type="hidden" name="id" value="{{$iklan->id}}">
@@ -129,11 +129,11 @@
               {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
             </div><!-- End Section Title -->
             @endif
-            <div class=" d-flex justify-content-center w-100 mb-3">
+            <div class="mb-3 d-flex justify-content-center w-100">
                 <form action="" method="get">
                   <div class="row">
                     <div class="col">
-                      <input type="text" class="form-control" placeholder="Cari Acara yang ingin anda inginkan disini" name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
+                      <input type="text" class="form-control" placeholder="Cari Acara yang anda inginkan..." name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
                     </div>
                     <div class="col">
                       <button class="btn btn-primary-orange">Cari Disini</button>
@@ -143,14 +143,14 @@
               </div>
 
             <div class="">
-                <div class="row p-3">
+                <div class="p-3 row">
                 @foreach($acaras as $acara)
                     <?php
                     $content = Str::limit($acara->deskripsi, 75);
                     $content = str_replace("<div>","",$content);
                     $content = str_replace("</div>","",$content);
                     ?>
-                    <div class="col-md-4 p-2">
+                    <div class="p-2 col-md-4">
                         <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                             <div class="shadow" style="border-radius: 15px">
                                 <img src="/uploads/acara/image/{{$acara->poster}}" alt="" style="width: 100%;">
@@ -167,7 +167,7 @@
                 <div class="d-flex justify-content-center">
 
                     <nav aria-label="...">
-                        
+
                         <?php $per5 = (int)($acaras->currentPage()/3);?>
                         <ul class="pagination">
                           <li class="page-item @if($acaras->currentPage() <= 1) disabled @endif">
@@ -183,8 +183,8 @@
                                     @endif
                                 @endfor
                                 <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3+4])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3+4}}</a></li>
-                                
-                            @elseif($acaras->currentPage() > $acaras->lastPage()-3)                      
+
+                            @elseif($acaras->currentPage() > $acaras->lastPage()-3)
                                 <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-4])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3-4}}</a></li>
                                 @for($a=$acaras->lastPage()-3; $a<=$acaras->lastPage(); $a++)
                                     @if($a == $acaras->currentPage())
@@ -193,7 +193,7 @@
                                         <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$a])}}@if(request('search'))&search={{request('search')}} @endif">{{$a}}</a></li>
                                     @endif
                                 @endfor
-                            @else                 
+                            @else
                                 <li class="page-item"><a class="page-link" href="{{route('acara', ['page'=>$per5*3-1])}}@if(request('search'))&search={{request('search')}} @endif">{{$per5*3-1}}</a></li>
                                 @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                                     @if($a == $acaras->currentPage())
@@ -247,7 +247,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-body">
-                    
+
                     @foreach($today as $acara)
                     <?php
                         $content = Str::limit($acara->deskripsi, 50);
@@ -255,7 +255,7 @@
                         $content = str_replace("</div>","",$content);
                         ?>
 
-                        <div class="mb-3 p-2">
+                        <div class="p-2 mb-3">
                             <a href="{{route('acara.detail', ['id' => $acara->slug])}}">
                                 <div class="row">
                                     <div class="col-md">
@@ -271,7 +271,7 @@
                             </a>
                         </div>
                         <hr>
-{{--                         
+{{--
                     <a href="/acara/detail/sed-ut-neque-molestiae-impedit-ratione">
                         <div class="alert alert-primary" role="alert">
                             <h5 style="font-weight:600">Possimus nihil occaecati cumque ut nihil.</h5>
@@ -283,7 +283,7 @@
                                     <p>Voluptates voluptas rerum sit.</p>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mt-2">
+                            <div class="mt-2 d-flex justify-content-between">
                                 <div class="pt-2">
                                     <p>11 Apr 2024 - 30 Jul 2024</p>
                                 </div>

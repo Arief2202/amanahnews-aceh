@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<title>Amanah News - Berita</title>
+<title>Amanah News - Foto</title>
 @endsection
 
 @section('script')
@@ -14,7 +14,7 @@
 @endsection
 
 @section('main')
-  
+
     <section class="d-block d-xl-none" style="margin: 0px; padding: 0px; width:100%;">
       <div style="height: 100px">
 
@@ -31,7 +31,7 @@
     <section class="d-none d-xl-block" style="margin: 0px; padding: 0px; width:100%;">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" >
-  
+
               @foreach($carousel_items as $a=>$carousel_item)
               <?php
                 $content = Str::limit($carousel_item->content, 370);
@@ -41,14 +41,14 @@
               <div class="carousel-item @if($a==0) active @endif" data-bs-interval="3000">
                 <div style="background-color:#000000; width:100%; height:100%;position: absolute; z-index: 0; top:0px;"></div>
                 <img src="/uploads/foto/image/{{$carousel_item->banner}}" class="d-block w-100" alt="..." style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
-                
-                <div class="carousel-caption d-none d-md-block h-100 p-3" style="width: 1000px">
+
+                <div class="p-3 carousel-caption d-none d-md-block h-100" style="width: 1000px">
                   <div style="position: absolute; left:50px; top:50%; transform:translateY(-50%); height:100% color:white;">
                     <h5 style="color:white;font-weight:600;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Peuhaba Aceh Gayo...</h5>
                     <h1 style="color:white;font-weight:800;font-size:56px; margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">{{$carousel_item->title}}</h1>
                     <div style="color:white;margin:0px;padding:0px;font-size:16px;text-align:left; margin-bottom: 50px;"><?=$content?></div>
-                      
-                    <div class="d-flex justfiy-content-start align-items-start mt-4">
+
+                    <div class="mt-4 d-flex justfiy-content-start align-items-start">
                       <a href="{{route('foto.detail', ['slug' => $carousel_item->slug])}}" style="color:white;font-weight:600;font-size:20px;margin:0px;padding:0px;text-align:left; margin-bottom: 50px;">Lihat Selengkapnya ></a>
                     </div>
                     <div class="row" style="position:absolute">
@@ -82,7 +82,7 @@
           <form action="" method="get">
           <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Cari Berita yang ingin anda baca" name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
+                <input type="text" class="form-control" placeholder="Cari Foto yang ingin anda lihat" name="search" value="{{request('search')}}" style="width: 50vw; border-width: 2px 2px;">
               </div>
               <div class="col">
                 <button class="btn btn-primary-orange">Search</button>
@@ -104,7 +104,7 @@
               @endif
             @endif
           </div>
-          <div class="col d-flex justify-content-end align-items-end mb-2">
+          <div class="mb-2 col d-flex justify-content-end align-items-end">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Category
@@ -118,7 +118,7 @@
           </div>
         </div>
         <div style="margin:0px;padding:0px; border:none; border-top:2px solid #000000;margin-bottom:20px"></div>
-        <div class="row p-3">
+        <div class="p-3 row">
           <div class="col-xl-8 ps-2 pe-2">
 
               @if(strval(request('search')) > 0)
@@ -137,13 +137,13 @@
                     <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                     <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                    <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                    <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Lihat Foto ></a>
                     <hr>
                   </a>
                 </div>
                 @endforeach
                 @if($search['total_item'] > 0)
-                
+
                 <div class="d-flex justify-content-center">
 
                   <nav aria-label="...">
@@ -152,7 +152,7 @@
                         <li class="page-item @if($search['currentPage'] <= 1) disabled @endif">
                           <a href="{{route('foto', ['page'=>$search['currentPage']-1])}}&search={{request('search')}}" class="page-link">Prev</a>
                         </li>
-                        
+
                       @if($search['lastPage'] > 3)
                           @if($search['currentPage'] < 3)
                             @for($a=1; $a<=3; $a++)
@@ -163,8 +163,8 @@
                                 @endif
                             @endfor
                             <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3+4])}}&search={{request('search')}}">{{$per5*3+4}}</a></li>
-                            
-                          @elseif($search['currentPage'] > $search['lastPage']-3)                      
+
+                          @elseif($search['currentPage'] > $search['lastPage']-3)
                             <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3-4])}}&search={{request('search')}}">{{$per5*3-4}}</a></li>
                             @for($a=$search['lastPage']-3; $a<=$search['lastPage']; $a++)
                                 @if($a == $search['currentPage'])
@@ -173,7 +173,7 @@
                                     <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$a])}}&search={{request('search')}}">{{$a}}</a></li>
                                 @endif
                             @endfor
-                          @else                 
+                          @else
                             <li class="page-item"><a class="page-link" href="{{route('foto', ['page'=>$per5*3-1])}}&search={{request('search')}}">{{$per5*3-1}}</a></li>
                             @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                                 @if($a == $search['currentPage'])
@@ -220,7 +220,7 @@
                         <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                         <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                         <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Lihat Foto ></a>
                         <hr>
                       </a>
                     </div>
@@ -228,7 +228,7 @@
                   <div class="d-flex justify-content-center">
 
                     <nav aria-label="...">
-                        
+
                         <?php $per5 = (int)($others->currentPage()/3);?>
                         <ul class="pagination">
                           <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
@@ -243,8 +243,8 @@
                                 @endif
                             @endfor
                             <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+4}}">{{$per5*3+4}}</a></li>
-                            
-                          @elseif($others->currentPage() > $others->lastPage()-3)                      
+
+                          @elseif($others->currentPage() > $others->lastPage()-3)
                             <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-4}}">{{$per5*3-4}}</a></li>
                             @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
                                 @if($a == $others->currentPage())
@@ -253,7 +253,7 @@
                                     <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
                                 @endif
                             @endfor
-                          @else                 
+                          @else
                             <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-1}}">{{$per5*3-1}}</a></li>
                             @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                                 @if($a == $others->currentPage())
@@ -286,7 +286,7 @@
                         <img src="/uploads/foto/image/{{$new->banner}}" alt="" style="max-height:350px;width: 100%">
                         <h3 class="mt-3" style="font-weight:700;">{{$new->title}}</h3>
                         <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?></p>
-                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca Berita ></a>
+                        <a href="/foto/detail/{{$new->slug}}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Lihat Foto ></a>
                         <hr>
                       </a>
                     </div>
@@ -294,7 +294,7 @@
                 @endif
               @endif
           </div>
-          <div class="col-xl-4 p-2">
+          <div class="p-2 col-xl-4">
             @if($iklan)
             <div class="mb-5">
               <form action="{{route('iklan.click')}}" method="POST">@csrf
@@ -322,7 +322,7 @@
                   </div>
                   <img src="/uploads/foto/image/{{$trending->banner}}" alt="" style="max-height:300px;width: 100%">
                   <h4 class="mt-3 mb-4" style="font-weight:600;">{{$trending->title}}</h4>
-                  <a href="/foto/detail/{{$trending->slug}}">Baca Berita ></a>
+                  <a href="/foto/detail/{{$trending->slug}}">Lihat Foto ></a>
                   <hr>
                 </a>
               </div>
@@ -331,32 +331,32 @@
         </div>
       </div>
     </section>
-    
+
     @if(strval(request('search')) > 0 || request('page') > 1)
     @else
     <section class="section" style="padding-top:0px;">
-      <div class="container">        
+      <div class="container">
         <div class="container section-title" data-aos="fade-up">
           @if(isset($selected_category))
-          <h2>Berita {{$selected_category->name}} Lainnya</h2>
+          <h2>Foto {{$selected_category->name}} Lainnya</h2>
           @elseif(isset($selected_tag))
-          <h2>Berita {{$selected_tag->name}} Lainnya</h2>
+          <h2>Foto {{$selected_tag->name}} Lainnya</h2>
           @else
-          <h2>Berita Lainnya</h2>
+          <h2>Foto Lainnya</h2>
           @endif
           {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
         </div>
         <div class="row">
           @foreach($others as $i=>$lainnya)
-          <?php 
+          <?php
             if(isset($selected_tag)) $lainnya = $lainnya->foto;
           ?>
-          <div class="col-xl-4 mb-3">
+          <div class="mb-3 col-xl-4">
             <a href="{{route('foto.detail', ['slug' => $lainnya->slug])}}">
               <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{($i%3)*100}}">
                 <img src="/uploads/foto/image/{{$lainnya->banner}}" alt="" style="max-height:300px;width: 100%">
                 <h4 class="mt-3 mb-4" style="font-weight:600;">{{$lainnya->title}}</h4>
-                <a href="mb-5">Baca Berita ></a>
+                <a href="mb-5">Lihat Foto ></a>
               </div>
             </a>
           </div>
@@ -364,7 +364,7 @@
           <div class="d-flex justify-content-center">
 
             <nav aria-label="...">
-                
+
                 <?php $per5 = (int)($others->currentPage()/3);?>
                 <ul class="pagination">
                   <li class="page-item @if($others->currentPage() <= 1) disabled @endif">
@@ -379,8 +379,8 @@
                         @endif
                     @endfor
                     <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3+4}}">{{$per5*3+4}}</a></li>
-                    
-                  @elseif($others->currentPage() > $others->lastPage()-3)                      
+
+                  @elseif($others->currentPage() > $others->lastPage()-3)
                     <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-4}}">{{$per5*3-4}}</a></li>
                     @for($a=$others->lastPage()-3; $a<=$others->lastPage(); $a++)
                         @if($a == $others->currentPage())
@@ -389,7 +389,7 @@
                             <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$a}}">{{$a}}</a></li>
                         @endif
                     @endfor
-                  @else                 
+                  @else
                     <li class="page-item"><a class="page-link" href="{{request()->getPathInfo()}}?page={{$per5*3-1}}">{{$per5*3-1}}</a></li>
                     @for($a = ($per5 * 3); $a < ($per5 * 3 + 3); $a++)
                         @if($a == $others->currentPage())
