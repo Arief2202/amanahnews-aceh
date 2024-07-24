@@ -127,7 +127,7 @@
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="/" class="logo d-flex align-items-center">
             <span class="sitename">Amanah</span>
           </a>
           <h5>Aneuk Muda Aceh Unggul & Hebat</h5>
@@ -143,16 +143,24 @@
         <div class="col-lg-4 col-md-12 footer-links">
             <div>
                 <h4>Useful Links</h4>
-                <ul>
-                    <li><a href="{{route('home')}}">Beranda</a></li>
-                    <li><a href="{{route('berita')}}">Berita</a></li>
-                    <li><a href="{{route('artikel')}}">Artikel</a></li>
-                    <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
-                    <li><a href="{{route('acara')}}">Acara</a></li>
-                    <li><a href="{{route('video')}}">Video</a></li>
-                    <li><a href="{{route('foto')}}">Foto</a></li>
-                    <li><a href="{{route('kemitraan')}}">Kemitraan</a></li>
-                </ul>
+                <div class="row">
+                  <div class="col">
+                    <ul>
+                        <li><a href="{{route('home')}}">Beranda</a></li>
+                        <li><a href="{{route('berita')}}">Berita</a></li>
+                        <li><a href="{{route('artikel')}}">Artikel</a></li>
+                        <li><a href="{{route('e-catalog')}}">E-Catalog</a></li>
+                    </ul>
+                  </div>
+                  <div class="col">
+                    <ul>
+                        <li><a href="{{route('acara')}}">Acara</a></li>
+                        <li><a href="{{route('video')}}">Video</a></li>
+                        <li><a href="{{route('foto')}}">Foto</a></li>
+                        <li><a href="{{route('kemitraan')}}">Kemitraan</a></li>
+                    </ul>
+                  </div>
+                </div>
             </div>
         </div>
 
