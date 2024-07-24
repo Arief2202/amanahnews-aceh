@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Iklan') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {{ __('List Iklan') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="d-flex justify-content-end mb-3">
+                    <div class="mb-3 d-flex justify-content-end">
                         <div class="row">
-                            <div class="col-md-auto d-flex justify-content-center mb-3">
+                            <div class="mb-3 col-md-auto d-flex justify-content-center">
                                 <a href="{{route('member.iklan.create')}}" class="btn btn-primary">Tambahkan Iklan Baru</a>
                             </div>
                         </div>

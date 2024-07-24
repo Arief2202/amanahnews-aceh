@@ -136,6 +136,7 @@
             <a href="https://youtube.com/@amanah_aceh?si=LzsxoIgxmEjcxH11"><i class="bi bi-youtube"></i></a>
             <a href="https://www.tiktok.com/@amanah_aceh?_t=8nO8tX2fR4s&_r=1"><i class="bi bi-tiktok"></i></a>
             <a href="https://www.instagram.com/amanah_aceh?igsh=MTIyd3B6OHkyemMyZQ=="><i class="bi bi-instagram"></i></a>
+            <a href="https://linktr.ee/amanah_aceh"><i class="bi bi-link-45deg"></i></a>
           </div>
         </div>
 

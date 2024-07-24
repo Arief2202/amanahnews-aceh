@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update Berita') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {{ __('Update Artikel') }}
         </h2>
         <style>
           trix-toolbar [data-trix-attribute='quote'],
@@ -15,8 +15,8 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{route('member.artikel.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
                         <input type="hidden" name="id" id="id" value="{{old('id', $post->id)}}">
@@ -31,9 +31,9 @@
                               </button>
                               <ul class="dropdown-menu" id="myDropdown">
                                 <div class="pe-2 ps-2">
-                                  <input type="text" class="form-control mb-3" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                                  <button class="btn btn-secondary w-100 mb-3" id="btnNew" style="display: none;" type="button" onclick="addNewCategory()">Add New Category</button>
-                                </div> 
+                                  <input type="text" class="mb-3 form-control" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                  <button class="mb-3 btn btn-secondary w-100" id="btnNew" style="display: none;" type="button" onclick="addNewCategory()">Add New Category</button>
+                                </div>
                                 <div style="overflow-y: scroll; height: 150px;" id="dropDownItem">
                                   @foreach($categories as $i=>$category)
                                   <li><a class="dropdown-item" onclick="select('{{ $category->name }}', '{{ $category->id }}')">{{ $category->name }}</a></li>
@@ -41,14 +41,14 @@
                                 </div>
                               </ul>
                             </div>
-                            
+
                             <input type="hidden" name="category" id="category" value="{{ old('category', $post->category->name) }}" class="@error('category') is-invalid @enderror">
                             @error('category')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                             @enderror
-  
+
                           </div>
 
                           <div class="mb-3">
@@ -79,11 +79,11 @@
                               </div>
                             @enderror
                         </div>
-                        <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">                            
+                        <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">
                             <label for="image" class="form-label">Photo Preview</label>
                             <img for="image" src="/uploads/artikel/image/{{$post->banner}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="image_source" class="form-label">Image Source / description</label>
                             <input type="text" class="form-control @error('image_source') is-invalid @enderror" id="image_source" name="image_source" value="{{ old('image_source', $post->banner_source) }}">
@@ -103,7 +103,7 @@
                               </div>
                             @enderror
                         </div>
-                        
+
                         <div class="d-flex justify-content-between">
                           <a href="{{route('member.artikel.delete', ['id'=>$post->id])}}" type="button" class="btn btn-danger me-3">Delete Berita</a>
 
@@ -120,7 +120,7 @@
 
     <x-slot name="script">
         <script type="text/javascript">
-            
+
             function previewImage(){
                 const image = document.querySelector("#image");
                 const imgPreview = document.querySelector('.img-preview');
@@ -133,7 +133,7 @@
                     imgPreview.src = oFREvent.target.result;
                 }
             }
-            
+
             function filterFunction() {
               const input = document.getElementById("myInput");
               const filter = input.value.toUpperCase();
@@ -149,7 +149,7 @@
                   a[i].style.display = "none";
                 }
               }
-              
+
               const btnNew = document.getElementById('btnNew');
               if(count == 0){
                 btnNew.style.display = ""

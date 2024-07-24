@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambahkan Acara Baru') }}
+            {{ __('Update Acara') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -11,7 +11,7 @@
                     <form action="{{route('member.acara.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
                         <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', Auth::user()->id)}}">
                         <input type="hidden" name="id" id="id" value="{{old('id', $acara->id)}}">
-                        
+
                         <div class="mb-3">
                           <label for="image" class="form-label">Poster</label>
                           <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
@@ -21,7 +21,7 @@
                             </div>
                           @enderror
                         </div>
-                        <div class="mb-5 img-preview-div" style="">                            
+                        <div class="mb-5 img-preview-div" style="">
                             <label for="image" class="form-label">Photo Preview</label>
                             <img for="image" src="/uploads/acara/image/{{$acara->poster}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
@@ -44,7 +44,7 @@
                               </div>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="penyelenggara" class="form-label">Penyelenggara</label>
                             <input type="text" class="form-control @error('penyelenggara') is-invalid @enderror" id="penyelenggara" name="penyelenggara" value="{{ old('penyelenggara', $acara->penyelenggara) }}">
@@ -189,7 +189,7 @@
                                       {{ $message }}
                                   </div>
                                 @enderror
-                            </div>                            
+                            </div>
                           </div>
                           <div class="col-md">
                             <div class="mb-3">
@@ -230,7 +230,7 @@
                               </div>
                             @enderror
                         </div>
-                        
+
                         <div class="d-flex justify-content-between">
                           <a href="{{route('member.acara.delete', ['id' => $acara->id])}}" type="button" class="btn btn-danger me-3">Delete</a>
                           <div>
@@ -246,7 +246,7 @@
 
     <x-slot name="script">
         <script type="text/javascript">
-            
+
             function previewImage(){
                 const image = document.querySelector("#image");
                 const imgPreview = document.querySelector('.img-preview');
@@ -259,7 +259,7 @@
                     imgPreview.src = oFREvent.target.result;
                 }
             }
-            
+
             function filterFunction() {
               const input = document.getElementById("myInput");
               const filter = input.value.toUpperCase();
@@ -275,7 +275,7 @@
                   a[i].style.display = "none";
                 }
               }
-              
+
               const btnNew = document.getElementById('btnNew');
               if(count == 0){
                 btnNew.style.display = ""

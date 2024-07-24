@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Post Video Detail') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {{ __('Detail Video') }}
         </h2>
     </x-slot>
 
     <div class="pt-3">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    
-                    <div class="row mb-4">
+
+                    <div class="mb-4 row">
                         <div class="col-auto">
                             <div class="input-group">
                                 <span class="input-group-text">Publish Status</span>
@@ -29,7 +29,7 @@
                             <a href="{{route('member.video.update', ['id' => $post->id])}}" class="btn btn-warning">Edit Post</a>
                         </div>
                     </div>
-                    <div class="row mb-4">
+                    <div class="mb-4 row">
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-text">View Total</span>
@@ -59,18 +59,18 @@
                     <div class="mt-3">
                         Link Post : <a href="{{route('video.detail', ['slug' => $post->slug])}}">{{route('video.detail', ['slug' => $post->slug])}}</a>
                     </div>
-                    <div class="ps-3">                
+                    <div class="ps-3">
                         <div class="mt-3 mb-2">
                             <h1 style="font-weight:600">{{$post->title}}</h1>
                         </div>
                         <div class="mb-3">
-                            <div class="row mb-2">
+                            <div class="mb-2 row">
                                 <div class="col-auto">
                                     <button class="mt-3 btn btn-secondary" style="width:70px; height:70px; border-radius:50px"></button>
                                 </div>
                                 <div class="col">
                                     <h5 class="mt-3" style="font-weight:600">{{$post->user->name}}</h5>
-                                    <p class=" " style="font-weight:600; color:rgba(255, 255, 255, 0.700)">{{$post->user->instance}}</p>
+                                    <p class="" style="font-weight:600; color:rgba(255, 255, 255, 0.700)">{{$post->user->instance}}</p>
                                 </div>
                             </div>
                             <div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-0 m-0">
+                    <div class="p-0 m-0 row">
                         {{-- <div class="col-xl-8" style=""> --}}
                             <div class="row">
                                 <div class="col">
@@ -103,10 +103,10 @@
         </div>
     </div>
     @foreach($postcontents as $pc)
-    
+
         <div class="pt-2">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="w-100">
                             @if($pc->saved == 0)
@@ -128,10 +128,10 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <div class="mb-5 img-preview-div" style="@if($pc->content == null) display:none;@endif">                            
+                                        <div class="mb-5 img-preview-div" style="@if($pc->content == null) display:none;@endif">
                                             <label for="image" class="form-label">Photo Preview</label>
                                             <img for="image" src="/uploads/post/image/{{$pc->content}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
-                                        </div>                                        
+                                        </div>
                                         <div class="row">
                                             <div class="col-md">
                                                 <div class="mb-3">
@@ -154,7 +154,7 @@
                                             <label for="image_source" class="form-label">Image Link / href (optional)</label>
                                             <input type="text" class="form-control" id="href" name="href" value="{{ $pc->href }}">
                                         </div>
-                                    
+
                                     @elseif($pc->type=='video')
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Video Link (Youtube Link / Youtube Share)</label>
@@ -188,7 +188,7 @@
                                 <hr>
                                 @if($pc->type=='image')
 
-                                <div class="row p-0 m-0">
+                                <div class="p-0 m-0 row">
                                     {{-- <div class="col-xl-8" style=""> --}}
                                         @if($pc->href)<a href="{{$pc->href}}">@endif
                                         <img src="/uploads/post/image/{{$pc->content}}" alt="" style="max-width:{{$pc->image_width}}px; max-height:{{$pc->image_height}}px;">
@@ -214,8 +214,8 @@
         </div>
     @endforeach
     <div class="pt-2" id="newSectionView">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="w-100">
                         <button class="btn btn-success dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -238,18 +238,18 @@
         </div>
     </div>
     <div class="pt-2 pb-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="d-flex justify-content-end">
                         <div>
-                            <button class="btn btn-danger dropdown-toggle me-3 mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="mb-2 btn btn-danger dropdown-toggle me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Delete Tags
                             </button>
                             <ul class="dropdown-menu" id="myDropdownTagDelete">
                                 <div class="pe-2 ps-2">
-                                <input type="text" class="form-control mb-3" placeholder="Search.." id="myInputTagDelete" onkeyup="filterFunctionDeleteTag()">
-                                </div> 
+                                <input type="text" class="mb-3 form-control" placeholder="Search.." id="myInputTagDelete" onkeyup="filterFunctionDeleteTag()">
+                                </div>
                                 <div style="overflow-y: scroll; height: 150px;" id="dropDownItemDelete">
                                 @foreach($postTags as $i=>$tag)
                                 <li><a class="dropdown-item" onclick="deleteTag('{{ $tag->id }}')">{{ $tag->tagname->name }}</a></li>
@@ -264,9 +264,9 @@
                             </button>
                             <ul class="dropdown-menu" id="myDropdownTag">
                                 <div class="pe-2 ps-2">
-                                <input type="text" class="form-control mb-3" placeholder="Search.." id="myInputTag" onkeyup="filterFunctionTag()">
-                                <button class="btn btn-secondary w-100 mb-3" id="btnNewTag" style="display: none;" type="button" onclick="addNewTag()">Add New Tag</button>
-                                </div> 
+                                <input type="text" class="mb-3 form-control" placeholder="Search.." id="myInputTag" onkeyup="filterFunctionTag()">
+                                <button class="mb-3 btn btn-secondary w-100" id="btnNewTag" style="display: none;" type="button" onclick="addNewTag()">Add New Tag</button>
+                                </div>
                                 <div style="overflow-y: scroll; height: 150px;" id="dropDownItem">
                                 @foreach($tags as $i=>$tag)
                                 <li><a class="dropdown-item" onclick="selectTag('{{ $tag->name }}', '{{ $tag->id }}')">{{ $tag->name }}</a></li>
@@ -277,10 +277,10 @@
                     </div>
                     <div class="row" id="tagsView">
                         <div class="col-auto">
-                            Tags : 
+                            Tags :
                         </div>
                         @foreach($postTags as $postTag)
-                            <div class="col-auto m-0 p-0 me-2 mb-2">
+                            <div class="col-auto p-0 m-0 mb-2 me-2">
                                 <button class="btn btn-secondary disabled">{{$postTag->tagname->name}}</button>
                             </div>
                         @endforeach
@@ -289,15 +289,15 @@
             </div>
         </div>
     </div>
-    
-    
+
+
     <x-slot name="script">
-        <script type="text/javascript">     
+        <script type="text/javascript">
             $( document ).ready(function() {
                 @if($postcontents->where('saved', '0')->count() > 0)
-                    document.getElementById( 'newSectionView' ).scrollIntoView(); 
+                    document.getElementById( 'newSectionView' ).scrollIntoView();
                 @endif
-            });       
+            });
             function filterFunctionTag() {
               const input = document.getElementById("myInputTag");
               const filter = input.value.toUpperCase();
@@ -315,7 +315,7 @@
                 }
                 if(txtValue.toUpperCase() == filter.toUpperCase()) found = true;
               }
-              
+
               const btnNew = document.getElementById('btnNewTag');
               if(count == 0 || !found){
                 btnNew.style.display = ""
@@ -323,7 +323,7 @@
               else {
                 btnNew.style.display = "none"
               }
-            }          
+            }
             function filterFunctionDeleteTag() {
               const input = document.getElementById("myInputTagDelete");
               const filter = input.value.toUpperCase();
@@ -341,7 +341,7 @@
               }
             }
 
-            function showAll(){                
+            function showAll(){
               const div = document.getElementById("myDropdownTag");
               const a = div.getElementsByTagName("li");
               var count = 0;
@@ -392,7 +392,7 @@
 
             setInterval(updateTagValue, 1000);
 
-            function updateTagValue(){                
+            function updateTagValue(){
                 fetch("{{route('member.video.tag.get')}}?type=video&post_id={{$post_id}}")
                 .then(response => response.json())
                 .then(data => {
@@ -404,7 +404,7 @@
                     }
                 });
             }
-            
+
             function previewImage(){
                 const image = document.querySelector("#image");
                 const imgPreview = document.querySelector('.img-preview');

@@ -1,18 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambahkan E-Catalog Baru') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {{ __('Update E-Catalog') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-dark2 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm bg-dark2 dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{route('member.e-catalog.update.post')}}" method="POST" enctype="multipart/form-data">@csrf
                         <input type="hidden" name="user_id" id="user_id" value="{{old('user_id', Auth::user()->id)}}">
                         <input type="hidden" name="id" id="id" value="{{old('id', $ecatalog->id)}}">
-                        
+
                         <div class="mb-3">
                           <label for="image" class="form-label">Image</label>
                           <input class="form-control @error('image') is-invalid @enderror" type="file" accept="image/*" id="image" name="image" onchange="previewImage()">
@@ -22,7 +22,7 @@
                             </div>
                           @enderror
                         </div>
-                        <div class="mb-5 img-preview-div">                            
+                        <div class="mb-5 img-preview-div">
                             <label for="image" class="form-label">Photo Preview</label>
                             <img for="image" src="/uploads/e-catalog/image/{{$ecatalog->photo}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
-                            <div class="input-group mb-3">
+                            <div class="mb-3 input-group">
                               <span class="input-group-text" id="basic-addon1">Rp. </span>
                               <input type="number" class="form-control" placeholder="10000" id="price" name="price" value="{{ old('price', $ecatalog->price) }}">
                             </div>
@@ -102,7 +102,7 @@
                               </div>
                             @enderror
                         </div>
-                        
+
                         <div class="d-flex justify-content-between">
                           <a href="{{route('member.e-catalog.delete', ['id'=>$ecatalog->id])}}" class="btn btn-danger">Delete</a>
                           <div>
@@ -118,7 +118,7 @@
 
     <x-slot name="script">
         <script type="text/javascript">
-            
+
             function previewImage(){
                 const image = document.querySelector("#image");
                 const imgPreview = document.querySelector('.img-preview');
@@ -131,7 +131,7 @@
                     imgPreview.src = oFREvent.target.result;
                 }
             }
-            
+
             function filterFunction() {
               const input = document.getElementById("myInput");
               const filter = input.value.toUpperCase();
@@ -147,7 +147,7 @@
                   a[i].style.display = "none";
                 }
               }
-              
+
               const btnNew = document.getElementById('btnNew');
               if(count == 0){
                 btnNew.style.display = ""

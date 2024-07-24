@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update video Video') }}
+            {{ __('Update Video') }}
         </h2>
         <style>
           trix-toolbar [data-trix-attribute='quote'],
@@ -33,7 +33,7 @@
                                 <div class="pe-2 ps-2">
                                   <input type="text" class="form-control mb-3" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                                   <button class="btn btn-secondary w-100 mb-3" id="btnNew" style="display: none;" type="button" onclick="addNewCategory()">Add New Category</button>
-                                </div> 
+                                </div>
                                 <div style="overflow-y: scroll; height: 150px;" id="dropDownItem">
                                   @foreach($categories as $i=>$category)
                                   <li><a class="dropdown-item" onclick="select('{{ $category->name }}', '{{ $category->id }}')">{{ $category->name }}</a></li>
@@ -41,14 +41,14 @@
                                 </div>
                               </ul>
                             </div>
-                            
+
                             <input type="hidden" name="category" id="category" value="{{ old('category', $post->category->name) }}" class="@error('category') is-invalid @enderror">
                             @error('category')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                             @enderror
-  
+
                           </div>
 
                           <div class="mb-3">
@@ -79,11 +79,11 @@
                               </div>
                             @enderror
                         </div>
-                        <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">                            
+                        <div class="mb-5 img-preview-div" style="@if(!$post->banner)display:none;@endif">
                             <label for="image" class="form-label">Photo Preview</label>
                             <img for="image" src="/uploads/video/image/{{$post->banner}}" alt="" class="img-preview img-fluid" style="display:hidden; max-width:200px; max-height:150px;">
                         </div>
-                        
+
                         <div class="mb-3 mt-4">
                           <label for="video" class="form-label">Video Link (Youtube Link)</label>
                           <input type="text" class="form-control @error('video') is-invalid @enderror" id="video" name="video" value="{{ old('video', 'https://youtube.com/watch?v='.$post->video) }}">
@@ -112,7 +112,7 @@
                               </div>
                             @enderror
                         </div>
-                        
+
                         <div class="d-flex justify-content-between">
                           <a href="{{route('member.video.delete', ['id'=>$post->id])}}" type="button" class="btn btn-danger me-3">Delete video</a>
 
@@ -129,7 +129,7 @@
 
     <x-slot name="script">
         <script type="text/javascript">
-            
+
             function previewImage(){
                 const image = document.querySelector("#image");
                 const imgPreview = document.querySelector('.img-preview');
@@ -142,7 +142,7 @@
                     imgPreview.src = oFREvent.target.result;
                 }
             }
-            
+
             function filterFunction() {
               const input = document.getElementById("myInput");
               const filter = input.value.toUpperCase();
@@ -158,7 +158,7 @@
                   a[i].style.display = "none";
                 }
               }
-              
+
               const btnNew = document.getElementById('btnNew');
               if(count == 0){
                 btnNew.style.display = ""

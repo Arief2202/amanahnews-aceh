@@ -143,11 +143,12 @@
                     </form>
                   </div>
                   @endif
-                    <h4 style="font-weight: 600;">Sedang Hangat</h4>
+                    <h4 style="font-weight: 600;">Trending</h4>
                     <hr>
                     @foreach($hots as $a=>$hot)
                       <div class="w-100" data-aos="fade-left" data-aos-delay="100">
                         <a href="/artikel/detail/{{$hot->slug}}">
+                            <img src="/uploads/post/image/{{$hot->banner}}" alt="" style="max-height:300px;width: 100%">
                             <h5 class="p-0 m-0" style="font-weight:700; font-size:16px;">{{$hot->title}}</h5>
                             <div class="p-0 m-0 mt-2 row">
                                 <div class="col-auto p-0 m-0">
