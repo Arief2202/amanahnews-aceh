@@ -534,11 +534,6 @@ h6 {
 --------------------------------------------------------------*/
 
 .footer {
-    /* --background-color: color-mix(
-        in srgb,
-        var(--default-color),
-        transparent 96%
-    ); */
     color: var(--nav-color);
     background-color: var(--main-color);
     font-size: 14px;
@@ -583,7 +578,6 @@ h6 {
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.9);
     font-size: 16px;
-    /* color: color-mix(in srgb, var(--default-color), transparent 50%); */
     margin-right: 10px;
     transition: 0.3s;
 }
