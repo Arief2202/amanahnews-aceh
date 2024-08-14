@@ -123,7 +123,12 @@ class PostVideoController extends Controller
             $search = paginate($search, 5);
         }
         $showedFirst5 = PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get();
-        $others = PostVideo::where('show', 1)->where('id', '!=', $showedFirst5->id)->orderBy('id', 'DESC')->paginate(9);
+        $ids = "[";
+        foreach($showedFirst5 as $sf5){
+            $ids .= $sf5->id.",";
+        }
+        $ids .= "]";
+        $others = PostVideo::where('show', 1)->where('id', '!=', $ids)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
             $others = PostVideo::where('show', 1)->paginate(5);
         }
