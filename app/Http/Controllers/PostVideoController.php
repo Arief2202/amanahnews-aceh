@@ -128,7 +128,7 @@ class PostVideoController extends Controller
         }
         return view('landing.video', [
             'categories' => category::all(),
-            'carousel_items' => PostVideo::where('show', 1)->get(),
+            'carousel_items' => PostVideo::where('show', 1)->orderBy('view_weekly', 'ASC')->limit(5)->get(),
             'newest' => PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => PostVideo::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -149,7 +149,7 @@ class PostVideoController extends Controller
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('category_id', $category->id)->where('show', 1)->get(),
-            'newest' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'newest' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
             'populars' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -175,8 +175,8 @@ class PostVideoController extends Controller
             
             return view('landing.berita', [
                 'categories' => category::all(),
-                'carousel_items' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(10)->get()->pluck('video'),
-                'newest' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('video'),
+                'carousel_items' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('video'),
+                'newest' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('video'),
                 'populars' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('video'),
                 'trendings' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('video'),
                 'others' => $others,

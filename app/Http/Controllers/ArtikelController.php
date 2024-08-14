@@ -119,8 +119,8 @@ class ArtikelController extends Controller
         }
         return view('landing.artikel', [
             'categories' => category::all(),
-            'carousel_items' => Artikel::where('show', 1)->limit(10)->get(),
-            'newest' => Artikel::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'carousel_items' => Artikel::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+            'newest' => Artikel::where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
             'populars' => Artikel::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Artikel::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -139,8 +139,8 @@ class ArtikelController extends Controller
             
             return view('landing.artikel', [
                 'categories' => category::all(),
-                'carousel_items' => Artikel::where('category_id', $category->id)->where('show', 1)->limit(10)->get(),
-                'newest' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+                'carousel_items' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'newest' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
                 'populars' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $others,
@@ -166,8 +166,8 @@ class ArtikelController extends Controller
             
             return view('landing.artikel', [
                 'categories' => category::all(),
-                'carousel_items' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(10)->get()->pluck('artikel'),
-                'newest' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('artikel'),
+                'carousel_items' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(10)->get()->pluck('artikel'),
+                'newest' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('artikel'),
                 'populars' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'trendings' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'others' => $others,

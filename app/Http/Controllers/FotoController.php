@@ -119,8 +119,8 @@ class FotoController extends Controller
         }
         return view('landing.foto', [
             'categories' => category::all(),
-            'carousel_items' => Foto::where('show', 1)->limit(10)->get(),
-            'newest' => Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+            'carousel_items' => Foto::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+            'newest' => Foto::where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
             'populars' => Foto::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Foto::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -139,8 +139,8 @@ class FotoController extends Controller
             
             return view('landing.foto', [
                 'categories' => category::all(),
-                'carousel_items' => Foto::where('category_id', $category->id)->where('show', 1)->limit(10)->get(),
-                'newest' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
+                'carousel_items' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
+                'newest' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
                 'populars' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $others,
@@ -166,8 +166,8 @@ class FotoController extends Controller
             
             return view('landing.foto', [
                 'categories' => category::all(),
-                'carousel_items' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(10)->get()->pluck('foto'),
-                'newest' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('foto'),
+                'carousel_items' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('foto'),
+                'newest' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('foto'),
                 'populars' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('foto'),
                 'trendings' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('foto'),
                 'others' => $others,
