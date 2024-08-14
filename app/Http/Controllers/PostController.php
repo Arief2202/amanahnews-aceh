@@ -113,14 +113,14 @@ class PostController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        $others = Post::where('show', 1)->paginate(9);
+        $others = Post::where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = Post::where('show', 1)->paginate(5);
+            $others = Post::where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
         return view('landing.berita', [
             'categories' => category::all(),
             'carousel_items' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'newest' => Post::where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+            'newest' => Post::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => Post::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Post::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -132,15 +132,15 @@ class PostController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            $others = Post::where('category_id', $category->id)->where('show', 1)->paginate(9);
+            $others = Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = Post::where('category_id', $category->id)->where('show', 1)->paginate(5);
+                $others = Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.berita', [
                 'categories' => category::all(),
                 'carousel_items' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'newest' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+                'newest' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $others,
@@ -159,15 +159,15 @@ class PostController extends Controller
             $tagOthers = $tag->with(['post' => function($q){
                 $q->where('show', '=', 1);
             }]);
-            $others = $tagOthers->paginate(9);
+            $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = $tagOthers->paginate(5);
+                $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.berita', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('post'),
-                'newest' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('post'),
+                'newest' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('post'),
                 'populars' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('post'),
                 'trendings' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('post'),
                 'others' => $others,

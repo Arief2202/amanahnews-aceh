@@ -113,14 +113,14 @@ class ArtikelController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        $others = Artikel::where('show', 1)->paginate(9);
+        $others = Artikel::where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = Artikel::where('show', 1)->paginate(5);
+            $others = Artikel::where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
         return view('landing.artikel', [
             'categories' => category::all(),
             'carousel_items' => Artikel::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'newest' => Artikel::where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+            'newest' => Artikel::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => Artikel::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Artikel::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -132,15 +132,15 @@ class ArtikelController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            $others = Artikel::where('category_id', $category->id)->where('show', 1)->paginate(9);
+            $others = Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = Artikel::where('category_id', $category->id)->where('show', 1)->paginate(5);
+                $others = Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.artikel', [
                 'categories' => category::all(),
                 'carousel_items' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'newest' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+                'newest' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $others,
@@ -159,15 +159,15 @@ class ArtikelController extends Controller
             $tagOthers = $tag->with(['artikel' => function($q){
                 $q->where('show', '=', 1);
             }]);
-            $others = $tagOthers->paginate(9);
+            $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = $tagOthers->paginate(5);
+                $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.artikel', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(10)->get()->pluck('artikel'),
-                'newest' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('artikel'),
+                'newest' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'populars' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'trendings' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('artikel'),
                 'others' => $others,

@@ -113,14 +113,14 @@ class FotoController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        $others = Foto::where('show', 1)->paginate(9);
+        $others = Foto::where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = Foto::where('show', 1)->paginate(5);
+            $others = Foto::where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
         return view('landing.foto', [
             'categories' => category::all(),
             'carousel_items' => Foto::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-            'newest' => Foto::where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+            'newest' => Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
             'populars' => Foto::where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
             'trendings' => Foto::where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
             'others' => $others,
@@ -132,15 +132,15 @@ class FotoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            $others = Foto::where('category_id', $category->id)->where('show', 1)->paginate(9);
+            $others = Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = Foto::where('category_id', $category->id)->where('show', 1)->paginate(5);
+                $others = Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.foto', [
                 'categories' => category::all(),
                 'carousel_items' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
-                'newest' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'ASC')->limit(5)->get(),
+                'newest' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->limit(5)->get(),
                 'populars' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_monthly', 'DESC')->limit(5)->get(),
                 'trendings' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
                 'others' => $others,
@@ -159,15 +159,15 @@ class FotoController extends Controller
             $tagOthers = $tag->with(['foto' => function($q){
                 $q->where('show', '=', 1);
             }]);
-            $others = $tagOthers->paginate(9);
+            $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = $tagOthers->paginate(5);
+                $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.foto', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('foto'),
-                'newest' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('id', 'ASC');}])->limit(5)->get()->pluck('foto'),
+                'newest' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('id', 'DESC');}])->limit(5)->get()->pluck('foto'),
                 'populars' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_monthly', 'DESC');}])->limit(5)->get()->pluck('foto'),
                 'trendings' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('foto'),
                 'others' => $others,

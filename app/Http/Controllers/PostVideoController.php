@@ -122,7 +122,7 @@ class PostVideoController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        $others = PostVideo::where('show', 1)->paginate(9);
+        $others = PostVideo::where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
             $others = PostVideo::where('show', 1)->paginate(5);
         }
@@ -141,9 +141,9 @@ class PostVideoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-        $others = PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(9);
+        $others = PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = PostVideo::where('category_id', $category->id)->where('show', 1)->paginate(5);
+            $others = PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
             
         return view('landing.video', [
@@ -168,9 +168,9 @@ class PostVideoController extends Controller
             $tagOthers = $tag->with(['video' => function($q){
                 $q->where('show', '=', 1);
             }]);
-            $others = $tagOthers->paginate(9);
+            $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = $tagOthers->paginate(5);
+                $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.berita', [
