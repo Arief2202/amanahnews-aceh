@@ -113,9 +113,11 @@ class FotoController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        $others = Foto::where('show', 1)->orderBy('id', 'DESC')->paginate(9);
+        
+        $showedFirst5 = Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
+        $others = Foto::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = Foto::where('show', 1)->orderBy('id', 'DESC')->paginate(5);
+            $others = Foto::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(5);
         }
         return view('landing.foto', [
             'categories' => category::all(),
@@ -132,9 +134,11 @@ class FotoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            $others = Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
+            
+            $showedFirst5 = Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
+            $others = Foto::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
-                $others = Foto::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
+                $others = Foto::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
             
             return view('landing.foto', [
@@ -159,6 +163,7 @@ class FotoController extends Controller
             $tagOthers = $tag->with(['foto' => function($q){
                 $q->where('show', '=', 1);
             }]);
+            
             $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
                 $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);

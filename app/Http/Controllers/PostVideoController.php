@@ -127,7 +127,7 @@ class PostVideoController extends Controller
         $others = PostVideo::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(9);
 
         if(request('page') > 1){
-            $others = PostVideo::where('show', 1)->paginate(5);
+            $others = PostVideo::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(5);
         }
         return view('landing.video', [
             'categories' => category::all(),
@@ -144,9 +144,11 @@ class PostVideoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-        $others = PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
+            
+        $showedFirst5 = PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
+        $others = PostVideo::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
-            $others = PostVideo::where('category_id', $category->id)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
+            $others = PostVideo::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
             
         return view('landing.video', [
