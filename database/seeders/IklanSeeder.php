@@ -15,6 +15,6 @@ class IklanSeeder extends Seeder
      */
     public function run()
     {
-        // Iklan::factory(rand(10,100))->create();
+        Iklan::factory(rand(10,100))->create();
     }
 }

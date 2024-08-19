@@ -15,6 +15,6 @@ class ArtikelSeeder extends Seeder
      */
     public function run()
     {
-        // Artikel::factory(rand(100,1000))->create();
+        Artikel::factory(rand(100,1000))->create();
     }
 }

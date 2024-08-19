@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <table id="myTable" class="display nowrap">
+                    <table id="myTable" class="display nowrap" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>id</th>

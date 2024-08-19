@@ -94,6 +94,13 @@ class StatisticsViewController extends Controller
         foreach(StatisticsView::all() as $stat){
             $totalViews += $stat->totalViews;
         }
+        
+        $totalToday = 0;
+        foreach(Post::all() as $p) $totalToday += $p->view_daily;
+        foreach(Artikel::all() as $p) $totalToday += $p->view_daily;
+        foreach(PostVideo::all() as $p) $totalToday += $p->view_daily;
+        foreach(Foto::all() as $p) $totalToday += $p->view_daily;
+
         // foreach(Post::all() as $post){
         //     $totalViews += $post->view_daily;
         // }
@@ -109,6 +116,7 @@ class StatisticsViewController extends Controller
             'totalUser' => $totalUser,
             'totalArtikel' => $totalArtikel,
             'totalFoto' => $totalFoto,
+            'totalToday' => $totalToday,
         ]);
     }
     public function statisticsGet(Request $request)

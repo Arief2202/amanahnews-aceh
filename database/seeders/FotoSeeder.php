@@ -15,6 +15,6 @@ class FotoSeeder extends Seeder
      */
     public function run()
     {
-        // Foto::factory(rand(100,1000))->create();
+        Foto::factory(rand(100,1000))->create();
     }
 }

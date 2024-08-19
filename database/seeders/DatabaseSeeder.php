@@ -49,19 +49,20 @@ class DatabaseSeeder extends Seeder
         ]);
 
         
+        // $this->call(AcaraSeeder::class);
+        // $this->call(ECatalogSeeder::class);
+        // $this->call(PostSeeder::class);
+        // $this->call(PostVideoSeeder::class);
+        // $this->call(StatisticsViewSeeder::class);
+        // $this->call(IklanSeeder::class);
+        // $this->call(MitraSeeder::class);
+        // $this->call(ArtikelSeeder::class);
+        // $this->call(FotoSeeder::class);
+
         $this->call(CategorySeeder::class);
-        $this->call(ECatalogSeeder::class);
-        $this->call(PostSeeder::class);
-        $this->call(PostVideoSeeder::class);
         $this->call(TagnameSeeder::class);
         $this->call(TagSeeder::class);
-        $this->call(AcaraSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(ApaKataMerekaSeeder::class);
-        $this->call(StatisticsViewSeeder::class);
-        $this->call(IklanSeeder::class);
-        $this->call(MitraSeeder::class);
-        $this->call(ArtikelSeeder::class);
-        $this->call(FotoSeeder::class);
     }
 }

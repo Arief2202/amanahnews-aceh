@@ -76,23 +76,23 @@
                     <div class="bg-dark2 dark:bg-gray-800 mx-xl-0 mx-4" style="border-radius: 15px">
                         <div class="row">
                             <div class="col-5 m-auto d-flex justify-content-center">
-                                <i class='bx bx-user' style="font-size: 50px;"></i>
+                                <i class='bx bx-stats' style="font-size: 50px;"></i>
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Total User</h5>
+                                    <h5 style="font-size: 14px;">Total Daily Views</h5>
                                     <?php
-                                        $val = $totalUser;
+                                        $val = $totalToday;
                                         $divider = "";
                                         $valPrint = "";
                                         if($val > 1000000000){
-                                            $valPrint = number_format((float)($val/1000000000), 2, '.', '')." M";
+                                            $valPrint = number_format((float)($val/1000000000), 2, ',', '')." M";
                                         }
                                         else if($val > 1000000){
-                                            $valPrint = number_format((float)($val/1000000), 2, '.', '')." Jt";
+                                            $valPrint = number_format((float)($val/1000000), 2, ',', '')." Jt";
                                         }
                                         else if($val > 1000){
-                                            $valPrint = number_format((float)($val/1000), 2, '.', '')." Rb";
+                                            $valPrint = number_format((float)($val/1000), 2, ',', '')." Rb";
                                         }
                                         else{
                                             $valPrint = $val;
@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Catalog</h5>
+                                    <h5 style="font-size: 14px;">Total Catalog</h5>
                                     <?php
                                         $val = $totalCatalog;
                                         $divider = "";
@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Acara</h5>
+                                    <h5 style="font-size: 14px;">Total Acara</h5>
                                     <?php
                                         $val = $totalAcara;
                                         $divider = "";
@@ -181,7 +181,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Berita</h5>
+                                    <h5 style="font-size: 14px;">Total Berita</h5>
                                     <?php
                                         $val = $totalBerita;
                                         $divider = "";
@@ -214,7 +214,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Artikel</h5>
+                                    <h5 style="font-size: 14px;">Total Artikel</h5>
                                     <?php
                                         $val = $totalArtikel;
                                         $divider = "";
@@ -247,7 +247,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Foto</h5>
+                                    <h5 style="font-size: 14px;">Total Foto</h5>
                                     <?php
                                         $val = $totalFoto;
                                         $divider = "";
@@ -280,7 +280,7 @@
                             </div>
                             <div class="col-7 p-2">
                                 <div class="div mt-3">
-                                    <h5 style="font-size: 14px;">Video</h5>
+                                    <h5 style="font-size: 14px;">Total Video</h5>
                                     <?php
                                         $val = $totalVideo;
                                         $divider = "";

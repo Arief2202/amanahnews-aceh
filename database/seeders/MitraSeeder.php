@@ -15,6 +15,6 @@ class MitraSeeder extends Seeder
      */
     public function run()
     {
-        // Mitra::factory(7)->create();
+        Mitra::factory(7)->create();
     }
 }
