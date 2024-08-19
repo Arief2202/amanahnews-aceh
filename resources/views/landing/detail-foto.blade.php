@@ -122,7 +122,7 @@
                         <div class="mb-3 swiper-slide">
                           <div class="p-2 testimonial-item">
                               @if($postc->href)<a href="{{$postc->href}}">@endif
-                              <img src="/uploads/foto/image/{{$postc->content}}" alt="" style="max-width:{{$postc->image_width}}px; max-height:{{$postc->image_height}}px;">
+                              <img src="/uploads/foto/image/{{$postc->content}}" alt="" style="@if($postc->image_width) max-width:{{$postc->image_width}}px;@else width:100%;@endif @if($postc->image_height) max-height:{{$postc->image_height}}px;@endif">
                               @if($postc->href)</a>@endif
                               <p class="mt-2" style="font-size:12px; color:rgba(0, 0, 0, 0.4)">{{$postc->source}}</p>
                               <?=$postc->description?>
