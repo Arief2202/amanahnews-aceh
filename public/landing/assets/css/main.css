@@ -1306,7 +1306,7 @@ section,
 .services {
     position: relative;
     padding: 40px 0;
-    --background-color: #dfe6da;
+    --background-color: #36b8b8;
 }
 
 .services::before {
@@ -2035,7 +2035,7 @@ section,
 .testimonials {
     position: relative;
     padding: 40px 0;
-    --background-color: #f9e7d3;
+    --background-color: #ff6961;
 }
 
 .testimonials::before {
@@ -2231,7 +2231,7 @@ section,
 .contact {
     position: relative;
     padding: 40px 0;
-    --background-color: #dfe6da;
+    --background-color: #dfcc27;
 }
 
 .contact::before {
@@ -2255,7 +2255,8 @@ section,
 }
 
 .contact .info-item {
-    background: color-mix(in srgb, var(--default-color), transparent 96%);
+    //background: color-mix(in srgb, var(--default-color), transparent 96%);
+    background: #36b8b8;
     padding: 30px;
 }
 
@@ -2279,7 +2280,8 @@ section,
 }
 
 .contact .php-email-form2 {
-    background: color-mix(in srgb, var(--default-color), transparent 96%);
+    //background: color-mix(in srgb, var(--default-color), transparent 96%);
+    background: #ff6961;
     padding: 30px;
     height: 100%;
 }

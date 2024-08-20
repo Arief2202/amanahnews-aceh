@@ -19,7 +19,7 @@
 
         <div class="heroImg">
 
-          <img src="/assets/img/amanah-dropshadow.png" alt="" data-aos="fade-in" style="object-fit:cover;">
+          <img src="/assets/img/amanah-dropshadow-new.png" alt="" data-aos="fade-in" style="object-fit:cover;">
         </div>
 
         <div class="container divText" style="">
@@ -325,7 +325,10 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
                   <h3>Call Us</h3>
-                  <p>+62 823-1193-8885</p>
+                  <p>Tetap Terhubung Bersama Kami melalui:<p>
+                  <p><b>+62 823-1193-8885</b></p>
+                  <br>
+                  <br>
                   {{-- <p>+1 6678 254445 41</p> --}}
                 </div>
               </div><!-- End Info Item -->
@@ -334,6 +337,7 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Email Us</h3>
+                  <p>Kirimkan Pesan Anda melalui</p>
                   <p>amanahaceh24@gmail.com</p>
                   {{-- <p>contact@example.com</p> --}}
                 </div>
@@ -343,7 +347,7 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="500">
                   <i class="bi bi-clock"></i>
                   <h3>Open Hours</h3>
-                  <p>Monday - Saturday</p>
+                  <p>Senin - Minggu</p>
                   <p>9:00 - 22:00</p>
                 </div>
               </div><!-- End Info Item -->
@@ -355,6 +359,7 @@
           <div class="col-lg-6">
             <form action="/hubungiKami" method="post" class="php-email-form2" data-aos="fade-up" data-aos-delay="200">@csrf
               <div class="row gy-4">
+                <h2><strong>Kirimkan Kami Pesan</strong></h2>
 
                 <div class="col-md-6">
                   <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
