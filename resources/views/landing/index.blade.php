@@ -50,7 +50,6 @@
       <section id="clients" class="clients section">
         <div class="container mt-3" data-aos="fade-up">
 
-
           <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" style="border-radius: 30px">
 
