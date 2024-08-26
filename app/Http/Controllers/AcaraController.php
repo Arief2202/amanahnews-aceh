@@ -27,7 +27,7 @@ class AcaraController extends Controller
         if(Auth::user()->role != '1') return redirect('/');
         $validated = $request->validate([
             'user_id' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'title' => 'required',
             'slug' => 'required|unique:acaras|max:255',
             'penyelenggara' => 'required',

@@ -255,7 +255,7 @@ class PostVideoController extends Controller
             'user_id' => 'required',
             'category_id' => 'required',
             'category' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'video' => 'required',
             'video_source' => 'required',
             'title' => 'required',

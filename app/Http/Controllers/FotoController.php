@@ -14,7 +14,7 @@ use App\Models\tag;
 use App\Models\faq;
 use App\Models\Iklan;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 function resetView(){
@@ -31,7 +31,7 @@ function resetView(){
     foreach($posts as $post){
         $post->timestamps = false;
         $now = Carbon::now();
-        
+
         $stats->totalViews += (int) $post->view_daily;
         $post->view_daily = 0;
         $post->last_reset_daily = $now;
@@ -113,7 +113,7 @@ class FotoController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        
+
         $showedFirst5 = Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
         $others = Foto::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
@@ -134,13 +134,13 @@ class FotoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            
+
             $showedFirst5 = Foto::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
             $others = Foto::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
                 $others = Foto::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.foto', [
                 'categories' => category::all(),
                 'carousel_items' => Foto::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -163,12 +163,12 @@ class FotoController extends Controller
             $tagOthers = $tag->with(['foto' => function($q){
                 $q->where('show', '=', 1);
             }]);
-            
+
             $others = $tagOthers->orderBy('id', 'DESC')->paginate(9);
             if(request('page') > 1){
                 $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.foto', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['foto' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('foto'),
@@ -242,7 +242,7 @@ class FotoController extends Controller
             'user_id' => 'required',
             'category_id' => 'required',
             'category' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'image_source' => 'required',
             'title' => 'required',
             'slug' => 'required|unique:posts|max:255',
@@ -264,7 +264,7 @@ class FotoController extends Controller
         ]);
         return redirect(route('member.foto.detail', ['id' => $post->id]));
     }
-    
+
     public function updateView($id)
     {
         resetView();
@@ -330,7 +330,7 @@ class FotoController extends Controller
 
     public function delete($id)
     {
-        resetView();        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Foto::where('id', $id)->first();
         if(Auth::user()->id != $post->user_id) return redirect(route('member.foto'));

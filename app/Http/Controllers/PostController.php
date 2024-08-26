@@ -14,7 +14,7 @@ use App\Models\tag;
 use App\Models\faq;
 use App\Models\Iklan;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 function resetView(){
@@ -31,7 +31,7 @@ function resetView(){
     foreach($posts as $post){
         $post->timestamps = false;
         $now = Carbon::now();
-        
+
         $stats->totalViews += (int) $post->view_daily;
         $post->view_daily = 0;
         $post->last_reset_daily = $now;
@@ -138,7 +138,7 @@ class PostController extends Controller
             if(request('page') > 1){
                 $others = Post::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.berita', [
                 'categories' => category::all(),
                 'carousel_items' => Post::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -165,7 +165,7 @@ class PostController extends Controller
             if(request('page') > 1){
                 $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.berita', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['post' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('post'),
@@ -239,7 +239,7 @@ class PostController extends Controller
             'user_id' => 'required',
             'category_id' => 'required',
             'category' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'image_source' => 'required',
             'title' => 'required',
             'slug' => 'required|unique:posts|max:255',
@@ -261,7 +261,7 @@ class PostController extends Controller
         ]);
         return redirect(route('member.berita.detail', ['id' => $post->id]));
     }
-    
+
     public function updateView($id)
     {
         resetView();
@@ -327,7 +327,7 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        resetView();        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Post::where('id', $id)->first();
         if(Auth::user()->id != $post->user_id) return redirect(route('member.berita'));

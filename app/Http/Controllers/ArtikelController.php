@@ -240,7 +240,7 @@ class ArtikelController extends Controller
             'user_id' => 'required',
             'category_id' => 'required',
             'category' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'image_source' => 'required',
             'title' => 'required',
             'slug' => 'required|unique:posts|max:255',
