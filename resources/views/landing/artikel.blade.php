@@ -63,9 +63,8 @@
                             <div
                                 style="background-color:#000000; width:100%; height:100%;position: absolute; z-index: 0; top:0px;">
                             </div>
-                            <img src="/uploads/artikel/image/{{ $carousel_item->banner }}" class="d-block w-100"
-                                alt="..."
-                                style="height: 100vh; background-size:cover; opacity:30%;z-index:1; overflow:hidden;">
+                            <img src="/uploads/artikel/image/{{ $carousel_item->banner }}" class="d-block w-100" alt="..."
+                                style="height: 100vh; object-fit: cover; opacity: 0.3; z-index: 1;">
 
                             <div class="p-3 carousel-caption d-none d-md-block h-100" style="width: 1000px">
                                 <div
@@ -111,6 +110,41 @@
                 </div>
             </div>
         </section>
+
+        <section class="d-block d-xl-none"
+            style="margin: 0px; padding: 0px; width:100%; height: 300px; display: flex; justify-content: center; align-items: center;">
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" style="width: 100%;">
+                <div class="carousel-inner">
+                    @foreach ($carousel_items as $a => $carousel_item)
+                        <a href="{{ route('artikel.detail', ['slug' => $carousel_item->slug]) }}">
+                            <div class="carousel-item @if ($a == 0) active @endif"
+                                data-bs-interval="3000">
+                                <!-- Image with lower opacity -->
+                                <img src="/uploads/artikel/image/{{ $carousel_item->banner }}"
+                                    class="d-block w-100 img-carousel-home-small" alt="..."
+                                    style="height: 300px; object-fit: cover;">
+
+                                <!-- Dark overlay -->
+                                <div
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
+                                </div>
+
+                                <!-- Keep the text fully opaque and centered -->
+                                <div class="carousel-caption w-100 h-100 d-flex justify-content-center align-items-center"
+                                    style="position: absolute; top: 0; left: 0; z-index: 2;">
+                                    <div style="text-align: center; width: 100%;">
+                                        <h1
+                                            style="color: #ffffff; font-weight:600; font-size: 4vw; max-width: 90%; margin: 0 auto;">
+                                            {{ $carousel_item->title }}
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
     @endif
     <section class="section" style="">
         <div class="container">
@@ -132,26 +166,26 @@
                     @if (strlen(request('search')) > 0)
                         <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Pencarian
                             "{{ Str::limit(request('search'), 50) }}"<h3>
-                    @else
-                        @if (isset($selected_category))
-                            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">
-                                Category {{ $selected_category->name }} dari AMANAH @if (request('page') > 1)
-                                    (Page {{ request('page') }})
+                            @else
+                                @if (isset($selected_category))
+                                    <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">
+                                        Category {{ $selected_category->name }} dari AMANAH @if (request('page') > 1)
+                                            (Page {{ request('page') }})
+                                        @endif
+                                    </h3>
+                                @elseif(isset($selected_tag))
+                                    <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag
+                                        {{ $selected_tag->name }} dari AMANAH @if (request('page') > 1)
+                                            (Page {{ request('page') }})
+                                        @endif
+                                    </h3>
+                                @else
+                                    <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">
+                                        Terbaru dari AMANAH @if (request('page') > 1)
+                                            (Page {{ request('page') }})
+                                        @endif
+                                    </h3>
                                 @endif
-                            </h3>
-                        @elseif(isset($selected_tag))
-                            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">Tag
-                                {{ $selected_tag->name }} dari AMANAH @if (request('page') > 1)
-                                    (Page {{ request('page') }})
-                                @endif
-                            </h3>
-                        @else
-                            <h3 class="mt-5" style="font-weight:500;margin:0px;padding:0px;text-align:left;">
-                                Terbaru dari AMANAH @if (request('page') > 1)
-                                    (Page {{ request('page') }})
-                                @endif
-                            </h3>
-                        @endif
                     @endif
                 </div>
                 <div class="mb-2 col d-flex justify-content-end align-items-end">
@@ -194,7 +228,8 @@
                                     <img src="/uploads/artikel/image/{{ $new->banner }}" alt=""
                                         style="max-height:350px;width: 100%">
                                     <h3 class="mt-3" style="font-weight:700;">{{ $new->title }}</h3>
-                                    <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?>
+                                    <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;">
+                                        <?= $content ?>
                                     </p>
                                     <a
                                         href="/artikel/detail/{{ $new->slug }}"style=" color:#000000;font-size:16px;font-weight:600;text-align:left;">Baca
@@ -476,14 +511,17 @@
                         ?>
                         <div class="mb-3 col-xl-4">
                             <a href="{{ route('artikel.detail', ['slug' => $lainnya->slug]) }}">
-                                <div class="" style="width:100%;" data-aos="flip-left" data-aos-delay="{{ ($i % 3) * 100 }}">
+                                <div class="" style="width:100%;" data-aos="flip-left"
+                                    data-aos-delay="{{ ($i % 3) * 100 }}">
                                     <!-- Aspect ratio container -->
-                                    <div style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden;">
+                                    <div
+                                        style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden;">
                                         <img src="/uploads/artikel/image/{{ $lainnya->banner }}" alt=""
                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <h4 class="mt-3 mb-4" style="font-weight:600;">{{ $lainnya->title }}</h4>
-                                    <a href="{{ route('artikel.detail', ['slug' => $lainnya->slug]) }}">Baca Artikel ></a>
+                                    <a href="{{ route('artikel.detail', ['slug' => $lainnya->slug]) }}">Baca Artikel
+                                        ></a>
                                 </div>
                             </a>
                         </div>

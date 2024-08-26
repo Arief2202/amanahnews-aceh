@@ -177,7 +177,8 @@
                         ?>
                         <div class="p-2 col-md-4">
                             <a href="{{ route('acara.detail', ['id' => $acara->slug]) }}">
-                                <div class="shadow" style="border-radius: 15px; height: 100%; display: flex; flex-direction: column;">
+                                <div class="shadow"
+                                    style="border-radius: 15px; height: 100%; display: flex; flex-direction: column;">
                                     <!-- 1:1 aspect ratio container -->
                                     <div style="position: relative; width: 100%; padding-bottom: 100%; overflow: hidden;">
                                         <img src="/uploads/acara/image/{{ $acara->poster }}" alt=""
@@ -186,7 +187,8 @@
                                     <div class="p-3 d-flex flex-column justify-content-between" style="flex-grow: 1;">
                                         <h4 style="font-weight:600;">{{ $acara->title }}</h4>
                                         <p style="color:rgb(121, 121, 121);">{{ $content }}</p>
-                                        <button class="btn btn-primary-orange mt-auto" style="width:100%; border-radius:10px">Read More</button>
+                                        <button class="mt-auto btn btn-primary-orange"
+                                            style="width:100%; border-radius:10px">Read More</button>
                                     </div>
                                 </div>
                             </a>
