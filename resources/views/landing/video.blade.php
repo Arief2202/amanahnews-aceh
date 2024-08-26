@@ -181,7 +181,7 @@
                                             style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">
                                             {{ date('d M Y', strtoTime($new->updated_at)) }}</p>
                                     </div>
-                                    <img src="/uploads/post/image/{{ $new->banner }}" alt=""
+                                    <img src="/uploads/video/image/{{ $new->banner }}" alt=""
                                         style="max-height:350px;width: 100%">
                                     <h3 class="mt-3" style="font-weight:700;">{{ $new->title }}</h3>
                                     <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;"><?= $content ?>
@@ -291,7 +291,7 @@
                                                 style="color:#92929D;margin:0px;padding:0px;font-size:14px;text-align:left; margin-bottom: 5px;">
                                                 {{ date('d M Y', strtoTime($new->updated_at)) }}</p>
                                         </div>
-                                        <img src="/uploads/post/image/{{ $new->banner }}" alt=""
+                                        <img src="/uploads/video/image/{{ $new->banner }}" alt=""
                                             style="max-height:350px;width: 100%">
                                         <h3 class="mt-3" style="font-weight:700;">{{ $new->title }}</h3>
                                         <p class="mt-3" style="color:#92929D;font-size:16px;text-align:left;">

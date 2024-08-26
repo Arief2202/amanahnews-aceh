@@ -12,7 +12,7 @@ use App\Models\tagname;
 use App\Models\PostVideo;
 use App\Models\tag;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 function resetView(){
@@ -29,7 +29,7 @@ function resetView(){
     foreach($posts as $post){
         $post->timestamps = false;
         $now = Carbon::now();
-        
+
         $stats->totalViews += (int) $post->view_daily;
         $post->view_daily = 0;
         $post->last_reset_daily = $now;
@@ -144,13 +144,13 @@ class PostVideoController extends Controller
         resetView();
         $category = Category::where('slug', $slug)->first();
         if($category){
-            
+
         $showedFirst5 = PostVideo::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
         $others = PostVideo::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
             $others = PostVideo::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
         }
-            
+
         return view('landing.video', [
             'categories' => category::all(),
             'carousel_items' => PostVideo::where('category_id', $category->id)->where('show', 1)->get(),
@@ -177,7 +177,7 @@ class PostVideoController extends Controller
             if(request('page') > 1){
                 $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.berita', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['video' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(5)->get()->pluck('video'),
@@ -255,7 +255,7 @@ class PostVideoController extends Controller
             'user_id' => 'required',
             'category_id' => 'required',
             'category' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'video' => 'required',
             'video_source' => 'required',
             'title' => 'required',
@@ -279,7 +279,7 @@ class PostVideoController extends Controller
         ]);
         return redirect(route('member.video.detail', ['id' => $post->id]));
     }
-    
+
     public function updateView($id)
     {
         resetView();
@@ -412,5 +412,5 @@ class PostVideoController extends Controller
         }
         return redirect(route('member.video.detail', ['id' => $post->id]));
     }
-    
+
 }
