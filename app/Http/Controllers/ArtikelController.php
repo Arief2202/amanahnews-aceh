@@ -14,7 +14,7 @@ use App\Models\tag;
 use App\Models\faq;
 use App\Models\Iklan;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 function resetView(){
@@ -31,7 +31,7 @@ function resetView(){
     foreach($posts as $post){
         $post->timestamps = false;
         $now = Carbon::now();
-        
+
         $stats->totalViews += (int) $post->view_daily;
         $post->view_daily = 0;
         $post->last_reset_daily = $now;
@@ -113,7 +113,7 @@ class ArtikelController extends Controller
             $search = collect($search);
             $search = paginate($search, 5);
         }
-        
+
         $showedFirst5 = Artikel::where('show', 1)->orderBy('id', 'DESC')->limit(5)->pluck('id')->toArray();
         $others = Artikel::where('show', 1)->whereNotIn('id', $showedFirst5)->orderBy('id', 'DESC')->paginate(9);
         if(request('page') > 1){
@@ -139,7 +139,7 @@ class ArtikelController extends Controller
             if(request('page') > 1){
                 $others = Artikel::where('category_id', $category->id)->whereNotIn('id', $showedFirst5)->where('show', 1)->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.artikel', [
                 'categories' => category::all(),
                 'carousel_items' => Artikel::where('category_id', $category->id)->where('show', 1)->orderBy('view_weekly', 'DESC')->limit(5)->get(),
@@ -166,7 +166,7 @@ class ArtikelController extends Controller
             if(request('page') > 1){
                 $others = $tagOthers->orderBy('id', 'DESC')->paginate(5);
             }
-            
+
             return view('landing.artikel', [
                 'categories' => category::all(),
                 'carousel_items' => $tag->with(['artikel' => function($q){$q->where('show', '=', 1)->orderBy('view_weekly', 'DESC');}])->limit(10)->get()->pluck('artikel'),
@@ -262,7 +262,7 @@ class ArtikelController extends Controller
         ]);
         return redirect(route('member.artikel.detail', ['id' => $post->id]));
     }
-    
+
     public function updateView($id)
     {
         resetView();
@@ -328,7 +328,7 @@ class ArtikelController extends Controller
 
     public function delete($id)
     {
-        resetView();        
+        resetView();
         if(Auth::user()->role != '1') return redirect('/');
         $post = Artikel::where('id', $id)->first();
         if(Auth::user()->id != $post->user_id) return redirect(route('member.artikel'));

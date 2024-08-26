@@ -9,7 +9,7 @@ use App\Models\Iklan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 
 class AcaraController extends Controller
 {
@@ -40,7 +40,7 @@ class AcaraController extends Controller
             'sosial_media' => 'required',
             'peta' => 'required',
         ]);
-        
+
         $destinationPath = 'uploads/acara/image';
         $imageName = $request->slug.'.'.$request->image->extension();
         $request->image->move(public_path($destinationPath), $imageName);
@@ -81,7 +81,7 @@ class AcaraController extends Controller
             'iklan' => Iklan::inRandomOrder()->where('type', 'panjang')->first()
         ]);
     }
-    
+
     public function updateView($id)
     {
         if(Auth::user()->role != '1') return redirect('/');
@@ -107,7 +107,7 @@ class AcaraController extends Controller
                     'hubungi_kami' => 'required',
                     'sosial_media' => 'required',
                     'peta' => 'required',
-                ]);    
+                ]);
             }
             else {
                 $validated = $request->validate([
@@ -123,9 +123,9 @@ class AcaraController extends Controller
                     'hubungi_kami' => 'required',
                     'sosial_media' => 'required',
                     'peta' => 'required',
-                ]);        
+                ]);
             }
-            
+
             if($request->image){
                 $destinationPath = public_path().'\uploads\acara\image';
                 $imageName = $destinationPath.'\\'.$acara->photo;
@@ -137,7 +137,7 @@ class AcaraController extends Controller
                 $acara->poster = $imageName;
             }
 
-            
+
             $acara->user_id = $request->user_id;
             $acara->title = $request->title;
             $acara->slug = $request->slug;
@@ -177,26 +177,26 @@ class AcaraController extends Controller
 
     public function acara()
     {
-        
+
         $acaras1 = Acara::where('start_acara_date', '<=' , date('Y-m-d')." 00:00:00")->where('end_acara_date', '>=' ,date('Y-m-d')." 00:00:00")->get();
         $acaras2 = Acara::where('start_acara_date', '=' , date('Y-m-d')." 00:00:00")->where('end_acara_date', '=' , null)->get();
         $acaras = [];
         $arr = 0;
         foreach($acaras1 as $acara1){
-            $acaras[$arr++] = $acara1; 
+            $acaras[$arr++] = $acara1;
         }
         foreach($acaras2 as $acara2){
-            $acaras[$arr++] = $acara2; 
+            $acaras[$arr++] = $acara2;
         }
         $today = collect($acaras);
-        
+
         $acaras = Acara::latest();
         if(request('search')){
             $acaras =  Acara::where('title', 'like', '%'.request('search').'%')
                                             ->orwhere('penyelenggara', 'like', '%'.request('search').'%')
                                             ->orwhere('deskripsi', 'like', '%'.request('search').'%')
                                             ;
-            
+
         }
 
         return view('landing.acara', [
@@ -225,7 +225,7 @@ class AcaraController extends Controller
     {
         if($request->eventCount){
             $eventCounts = [];
-            for($a=0; $a<32; $a++){        
+            for($a=0; $a<32; $a++){
                 if($request->date){
                     $acaras1 = Acara::where('start_acara_date', '<=' , $request->date."-".($a+1)." 00:00:00")->where('end_acara_date', '>=' ,$request->date."-".($a+1)." 00:00:00")->get();
                     $acaras2 = Acara::where('start_acara_date', '=' , $request->date."-".($a+1)." 00:00:00")->where('end_acara_date', '=' , null)->get();
@@ -238,10 +238,10 @@ class AcaraController extends Controller
                 $acaras = [];
                 $arr = 0;
                 foreach($acaras1 as $acara1){
-                    $acaras[$arr++] = $acara1; 
+                    $acaras[$arr++] = $acara1;
                 }
                 foreach($acaras2 as $acara2){
-                    $acaras[$arr++] = $acara2; 
+                    $acaras[$arr++] = $acara2;
                 }
                 $acaras = collect($acaras);
 
@@ -249,17 +249,17 @@ class AcaraController extends Controller
             }
             return response()->json(['date' => $request->date, 'eventCount' => $eventCounts]);
         }
-        
+
         $acaras1 = Acara::where('start_acara_date', '<=' , $request->date." 00:00:00")->where('end_acara_date', '>=' ,$request->date." 00:00:00")->get();
         $acaras2 = Acara::where('start_acara_date', '=' , $request->date." 00:00:00")->where('end_acara_date', '=' , null)->get();
-        
+
         $acaras = [];
         $arr = 0;
         foreach($acaras1 as $acara1){
-            $acaras[$arr++] = $acara1; 
+            $acaras[$arr++] = $acara1;
         }
         foreach($acaras2 as $acara2){
-            $acaras[$arr++] = $acara2; 
+            $acaras[$arr++] = $acara2;
         }
         $acaras = collect($acaras);
         // dd($acaras);

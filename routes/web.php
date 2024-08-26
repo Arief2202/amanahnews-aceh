@@ -39,11 +39,11 @@ Route::controller(MitraController::class)->group(function () {
 
 Route::controller(AcaraController::class)->group(function () {
     Route::get('/acara', 'acara')->name('acara');
-    Route::get('/acara/get', 'acaraGet')->name('acara.get');    
+    Route::get('/acara/get', 'acaraGet')->name('acara.get');
 });
 Route::controller(ECatalogController::class)->group(function () {
     Route::get('/e-catalog', 'eCatalog')->name('e-catalog');
-    Route::get('/e-catalog/get', 'eCatalogGet')->name('e-catalog.get');    
+    Route::get('/e-catalog/get', 'eCatalogGet')->name('e-catalog.get');
 });
 
 Route::controller(ArtikelController::class)->group(function () {
@@ -53,7 +53,7 @@ Route::controller(ArtikelController::class)->group(function () {
     Route::get('/artikel/tag/{slug}', 'artikelTag')->name('artikel.tag');
     Route::get('/artikel/tag', function(){return redirect(route('artikel'));});
     Route::get('/artikel/category', function(){return redirect(route('artikel'));});
-    
+
     Route::get('/', 'home')->name('home');
 
     Route::get('/artikel/detail', function () {
@@ -67,7 +67,7 @@ Route::controller(FotoController::class)->group(function () {
     Route::get('/foto/tag/{slug}', 'fotoTag')->name('foto.tag');
     Route::get('/foto/tag', function(){return redirect(route('foto'));});
     Route::get('/foto/category', function(){return redirect(route('foto'));});
-    
+
     Route::get('/', 'home')->name('home');
 
     Route::get('/foto/detail', function () {
@@ -81,7 +81,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/berita/tag/{slug}', 'beritaTag')->name('berita.tag');
     Route::get('/berita/tag', function(){return redirect(route('berita'));});
     Route::get('/berita/category', function(){return redirect(route('berita'));});
-    
+
     Route::get('/', 'home')->name('home');
 
     Route::get('/berita/detail', function () {
@@ -96,7 +96,7 @@ Route::controller(PostVideoController::class)->group(function () {
     Route::get('/video/tag/{slug}', 'beritaTag')->name('video.tag');
     Route::get('/video/tag', function(){return redirect(route('video'));});
     Route::get('/video/category', function(){return redirect(route('video'));});
-    
+
     Route::get('/video/detail', function () {
         return view('landing.detail-berita');
     });
@@ -111,7 +111,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/member/user/update', 'update')->name('member.user.update.post');
         Route::get('/member/user/delete/{id}', 'delete')->name('member.user.delete');
         Route::post('/member/user/update', 'update')->name('member.user.update.post');
-        
+
         Route::post('/member/user/changeRole', 'changeRole')->name('member.changeRole');
     });
 
@@ -122,7 +122,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/acara/update/{id}', 'updateView')->name('member.acara.update');
         Route::post('/member/acara/update', 'update')->name('member.acara.update.post');
         Route::get('/member/acara/delete/{id}', 'delete')->name('member.acara.delete');
-        
+
         Route::get('/acara/detail/{id}', 'acaraDetail')->name('acara.detail');
 
         Route::get('/member/acara/slug/check', 'checkSlug')->name('member.acara.slug.check');
@@ -135,8 +135,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/member/e-catalog/update', 'update')->name('member.e-catalog.update.post');
         Route::get('/member/e-catalog/delete/{id}', 'delete')->name('member.e-catalog.delete');
 
-        Route::get('/e-catalog/detail/{slug}', 'eCatalogDetail')->name('e-catalog.detail');    
-        
+        Route::get('/e-catalog/detail/{slug}', 'eCatalogDetail')->name('e-catalog.detail');
+
         Route::get('/member/e-catalog/slug/check', 'checkSlug')->name('member.e-catalog.slug.check');
         Route::get('/member/e-catalog/banner', 'changeBannerView')->name('member.e-catalog.banner');
         Route::post('/member/e-catalog/banner', 'changeBanner')->name('member.e-catalog.banner.post');
@@ -146,16 +146,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/video/create', 'createView')->name('member.video.create');
         Route::post('/member/video/create', 'create')->name('member.video.post');
         Route::get('/member/video/slug/check', 'checkSlug')->name('member.video.slug.check');
-        
+
         Route::get('/member/video', 'read')->name('member.video');
         Route::get('/member/video/create', 'createView')->name('member.video.create');
         Route::post('/member/video/create', 'create')->name('member.video.create.post');
-        
+
         Route::get('/member/video/update/{id}', 'updateView')->name('member.video.update');
         Route::post('/member/video/update', 'update')->name('member.video.update.post');
 
         Route::get('/member/video/delete/{id}', 'delete')->name('member.video.delete');
-        
+
         Route::get('/member/video/publish/{id}', 'publish')->name('member.video.publish');
         Route::get('/member/video/unpublish/{id}', 'unpublish')->name('member.video.unpublish');
 
@@ -183,12 +183,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/berita', 'read')->name('member.berita');
         Route::get('/member/berita/create', 'createView')->name('member.berita.create');
         Route::post('/member/berita/create', 'create')->name('member.berita.create.post');
-        
+
         Route::get('/member/berita/update/{id}', 'updateView')->name('member.berita.update');
         Route::post('/member/berita/update', 'update')->name('member.berita.update.post');
 
         Route::get('/member/berita/delete/{id}', 'delete')->name('member.berita.delete');
-        
+
         Route::get('/member/berita/publish/{id}', 'publish')->name('member.berita.publish');
         Route::get('/member/berita/unpublish/{id}', 'unpublish')->name('member.berita.unpublish');
 
@@ -204,12 +204,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/artikel', 'read')->name('member.artikel');
         Route::get('/member/artikel/create', 'createView')->name('member.artikel.create');
         Route::post('/member/artikel/create', 'create')->name('member.artikel.create.post');
-        
+
         Route::get('/member/artikel/update/{id}', 'updateView')->name('member.artikel.update');
         Route::post('/member/artikel/update', 'update')->name('member.artikel.update.post');
 
         Route::get('/member/artikel/delete/{id}', 'delete')->name('member.artikel.delete');
-        
+
         Route::get('/member/artikel/publish/{id}', 'publish')->name('member.artikel.publish');
         Route::get('/member/artikel/unpublish/{id}', 'unpublish')->name('member.artikel.unpublish');
 
@@ -225,12 +225,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/foto', 'read')->name('member.foto');
         Route::get('/member/foto/create', 'createView')->name('member.foto.create');
         Route::post('/member/foto/create', 'create')->name('member.foto.create.post');
-        
+
         Route::get('/member/foto/update/{id}', 'updateView')->name('member.foto.update');
         Route::post('/member/foto/update', 'update')->name('member.foto.update.post');
 
         Route::get('/member/foto/delete/{id}', 'delete')->name('member.foto.delete');
-        
+
         Route::get('/member/foto/publish/{id}', 'publish')->name('member.foto.publish');
         Route::get('/member/foto/unpublish/{id}', 'unpublish')->name('member.foto.unpublish');
 
@@ -247,7 +247,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/berita/category/create', 'createView')->name('member.berita.category.create');
         Route::post('/member/berita/category/create', 'create')->name('member.berita.category.post');
         Route::get('/member/berita/category/slug/check', 'checkSlug')->name('member.berita.category.slug.check');
-        
+
         Route::get('/member/berita/category/newCategory', 'newCategory')->name('member.berita.newCategory.add');
         Route::get('/member/artikel/category/newCategory', 'newCategory')->name('member.artikel.newCategory.add');
         Route::get('/member/foto/category/newCategory', 'newCategory')->name('member.foto.newCategory.add');
@@ -257,7 +257,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/berita/tag/create', 'createView')->name('member.berita.tag.create');
         Route::post('/member/berita/tag/create', 'create')->name('member.berita.tag.post');
         Route::get('/member/berita/tag/slug/check', 'checkSlug')->name('member.berita.tag.slug.check');
-        
+
         Route::get('/member/berita/tag/newTag', 'newTag')->name('member.berita.newTag.add');
         Route::get('/member/berita/tag/delete', 'deleteTag')->name('member.berita.tag.delete');
         Route::get('/member/berita/tag/add', 'addTag')->name('member.berita.tag.add');
@@ -267,12 +267,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/video/tag/delete', 'deleteTag')->name('member.video.tag.delete');
         Route::get('/member/video/tag/add', 'addTag')->name('member.video.tag.add');
         Route::get('/member/video/tag/get', 'getTag')->name('member.video.tag.get');
-        
+
         Route::get('/member/artikel/tag/newTag', 'newTag')->name('member.artikel.newTag.add');
         Route::get('/member/artikel/tag/delete', 'deleteTag')->name('member.artikel.tag.delete');
         Route::get('/member/artikel/tag/add', 'addTag')->name('member.artikel.tag.add');
         Route::get('/member/artikel/tag/get', 'getTag')->name('member.artikel.tag.get');
-        
+
         Route::get('/member/foto/tag/newTag', 'newTag')->name('member.foto.newTag.add');
         Route::get('/member/foto/tag/delete', 'deleteTag')->name('member.foto.tag.delete');
         Route::get('/member/foto/tag/add', 'addTag')->name('member.foto.tag.add');
@@ -294,7 +294,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/iklan/unpublish/{id}', 'unpublish')->name('member.iklan.unpublish');
         Route::post('/iklan/click', 'click')->name('iklan.click');
     });
-    
+
     Route::controller(MitraController::class)->group(function () {
         Route::get('/member/mitra/create', 'createView')->name('member.mitra.create');
         Route::post('/member/mitra/create', 'create')->name('member.mitra.create.post');

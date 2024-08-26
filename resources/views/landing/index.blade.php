@@ -182,7 +182,6 @@
               </div>
             </div><!-- End Service Item -->
 
-          </div>
 
         </div>
 
