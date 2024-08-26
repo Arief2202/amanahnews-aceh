@@ -478,7 +478,7 @@
                                     data-aos-delay="{{ ($i % 3) * 100 }}">
                                     <div class="col-12"
                                         style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden;">
-                                        <img src="/uploads/post/image/{{ $lainnya->banner }}" alt=""
+                                        <img src="/uploads/foto/image/{{ $lainnya->banner }}" alt=""
                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <h4 class="mt-3 mb-4" style="font-weight:600;">{{ $lainnya->title }}</h4>
